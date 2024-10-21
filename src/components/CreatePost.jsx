@@ -35,7 +35,7 @@ const CreatePost = ({ open, setOpen }) => {
     if (imagePreview) formData.append("image", file);
     try {
       setLoading(true);
-      const res = await axios.post('https://nexagram-back-8npx.vercel.app/api/v1/post/addpost', formData, {
+      const res = await axios.post('https://nexagram-back.onrender.com/api/v1/post/addpost', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },

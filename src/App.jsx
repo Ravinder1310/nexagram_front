@@ -60,7 +60,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      const socketio = io('https://nexagram-back-8npx.vercel.app', {
+      const socketio = io('https://nexagram-back.onrender.com', {
         query: {
           userId: user?._id
         },
