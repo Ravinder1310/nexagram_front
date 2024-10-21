@@ -27,7 +27,7 @@ const ChatPage = () => {
   const sendMessageHandler = async (receiverId) => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/v1/message/send/${receiverId}`,
+        `https://nexagram-back-8npx.vercel.app/api/v1/message/send/${receiverId}`,
         { textMessage },
         {
           headers: {
