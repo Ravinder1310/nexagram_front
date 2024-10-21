@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Heart, Home, LogOut, MessageCircle, PlusSquare, Search, TrendingUp } from 'lucide-react'
+import { Heart, Wallet , Home, LogOut,  BarChart2, MessageCircle, PlusSquare, Search, TrendingUp } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ const BottomNav = () => {
         {/* Packages Section */}
         <div className="flex flex-col items-center hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/plans`) }}>
            <div className="text-md text-center">
-            <Search className="m-auto"/>
+            <Wallet className="m-auto"/>
           </div>
         </div>
 
@@ -40,9 +40,9 @@ const BottomNav = () => {
         </div>
 
         {/* Recharge Section */}
-        <div className="flex flex-col items-center hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/") }}>
+        <div className="flex flex-col items-center hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/incomes") }}>
         <div className="text-md text-center">
-            <MessageCircle className="m-auto"/>
+            <TrendingUp className="m-auto"/>
         </div>
         </div>
 

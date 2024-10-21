@@ -27,7 +27,7 @@ const ChatPage = () => {
   const sendMessageHandler = async (receiverId) => {
     try {
       const res = await axios.post(
-        `https://nexagram-back.onrender.com/api/v1/message/send/${receiverId}`,
+        `http://localhost:3000/api/v1/message/send/${receiverId}`,
         { textMessage },
         {
           headers: {

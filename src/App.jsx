@@ -14,6 +14,7 @@ import { setOnlineUsers } from './redux/chatSlice'
 import { setLikeNotification } from './redux/rtnSlice'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import MlmDetails from './components/mlmDetails'
+import Incomes from './components/incomes'
 
 
 const browserRouter = createBrowserRouter([
@@ -38,6 +39,10 @@ const browserRouter = createBrowserRouter([
         element: <ProtectedRoutes> <MlmDetails /></ProtectedRoutes>
       },
       {
+        path: '/incomes/',
+        element: <ProtectedRoutes> <Incomes /></ProtectedRoutes>
+      },
+      {
         path: '/chat',
         element: <ProtectedRoutes><ChatPage /></ProtectedRoutes>
       },
@@ -60,7 +65,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      const socketio = io('https://nexagram-back.onrender.com', {
+      const socketio = io('http://localhost:3000', {
         query: {
           userId: user?._id
         },
