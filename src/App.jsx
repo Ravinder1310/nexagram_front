@@ -65,7 +65,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      const socketio = io('https://nexagram-back-1bnz.onrender.com', {
+      const socketio = io('https://nexagram-back-ghsm.onrender.com', {
         query: {
           userId: user?._id
         },
