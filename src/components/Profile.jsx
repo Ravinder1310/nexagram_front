@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import useGetUserProfile from '@/hooks/useGetUserProfile';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { setPosts, setSelectedPost } from '@/redux/postSlice'
 import { useSelector } from 'react-redux';
 import { Button } from './ui/button';
@@ -15,6 +15,7 @@ const Profile = () => {
   const userId = params.id;
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
+  const navigate = useNavigate()
 
   const { userProfile, user } = useSelector(store => store.auth);
 
