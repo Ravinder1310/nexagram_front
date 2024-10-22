@@ -184,7 +184,7 @@ const Post = ({ post }) => {
         observer.unobserve(videoElement);
       }
     };
-  }, []);
+  }, [userInteracted]);
 
   return (
     <div className="my-12 w-full max-w-sm mx-auto">
@@ -247,7 +247,10 @@ const Post = ({ post }) => {
             // controls
           />
           {/* Mute button */}
-          <button className="absolute bottom-2 right-2 bg-white rounded-full p-1 shadow-md" onClick={toggleMute}>
+          <button
+            className="absolute bottom-2 right-2 bg-white rounded-full p-1 shadow-md"
+            onClick={toggleMute}
+          >
             {isMuted ? (
               <span role="img" aria-label="Mute">
                 🔇
@@ -297,10 +300,18 @@ const Post = ({ post }) => {
           className="cursor-pointer hover:text-gray-600"
         />
       </div>
-      <span className="font-medium block mb-2 px-2">{postLike} likes</span>
-      <span className="cursor-pointer text-sm text-gray-400 px-2">
-        {post.views} views
-      </span>
+      <div className="flex justify-between pr-1">
+        <span className="font-medium block mb-0 px-2">{postLike} likes</span>
+        {
+          post.mediaType === "video" ? (
+<span className="cursor-pointer text-sm text-gray-400 px-2">
+          {post.views} views
+        </span>
+          ) : (<></>)
+        }
+        
+      </div>
+
       <p className="px-2">
         <span className="font-medium mr-2">{post.author?.username}</span>
         {post.caption}
