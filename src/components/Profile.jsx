@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import useGetUserProfile from '@/hooks/useGetUserProfile';
 import { Link, useParams } from 'react-router-dom';
+import { setPosts, setSelectedPost } from '@/redux/postSlice'
 import { useSelector } from 'react-redux';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { AtSign, Heart, MessageCircle } from 'lucide-react';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Profile = () => {
   const params = useParams();
@@ -23,10 +25,26 @@ const Profile = () => {
     setActiveTab(tab);
   }
 
+  const logoutHandler = async () => {
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/logout`, { withCredentials: true });
+        if (res.data.success) {
+            dispatch(setAuthUser(null));
+            dispatch(setSelectedPost(null));
+            dispatch(setPosts([]));
+            navigate("/login");
+            toast.success(res.data.message);
+        }
+    } catch (error) {
+        toast.error(error.response.data.message);
+    }
+}
+
   const displayedPost = activeTab === 'posts' ? userProfile?.posts : userProfile?.bookmarks;
 
   return (
     <div className='sm:flex w-[100%] sm:justify-center pt-20'>
+      <Toaster/>
       <div className='flex flex-col gap-6 p-2 px-4 mb-20'>
         <div className='flex justify-between items-center gap-4'>
           <div className=' w-20 pr-3'>
@@ -58,7 +76,7 @@ const Profile = () => {
                     <>
                       <Link to="/account/edit"><Button variant='secondary' className='hover:bg-gray-200 h-8'>Edit profile</Button></Link>
                       <Button variant='secondary' className='hover:bg-gray-200 h-8'>View archive</Button>
-                      <Button variant='secondary' className='hover:bg-gray-200 h-8'>🧰</Button>
+                      <Button variant='secondary' className='hover:bg-gray-200 h-8' onClick={logoutHandler}>Log out</Button>
                     </>
                   ) : (
                     isFollowing ? (
