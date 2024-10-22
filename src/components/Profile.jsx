@@ -3,10 +3,11 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import useGetUserProfile from '@/hooks/useGetUserProfile';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { setPosts, setSelectedPost } from '@/redux/postSlice'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { AtSign, Heart, MessageCircle } from 'lucide-react';
+import { setAuthUser } from '@/redux/authSlice'
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -15,6 +16,7 @@ const Profile = () => {
   const userId = params.id;
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
+  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const { userProfile, user } = useSelector(store => store.auth);
@@ -37,7 +39,9 @@ const Profile = () => {
             toast.success(res.data.message);
         }
     } catch (error) {
-        toast.error(error.response.data.message);
+      console.log(error);
+      
+        toast.error(error.response);
     }
 }
 
