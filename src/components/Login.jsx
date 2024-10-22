@@ -26,7 +26,7 @@ const Login = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const res = await axios.post('https://nexagram-back-1bnz.onrender.com/api/v1/user/login', input, {
+            const res = await axios.post('http://localhost:3000/api/v1/user/login', input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -34,6 +34,8 @@ const Login = () => {
             });
             if (res.data.success) {
                 dispatch(setAuthUser(res.data.user));
+                console.log("res ==========>",res.data);
+                
                 navigate("/");
                 toast.success(res.data.message);
                 setInput({

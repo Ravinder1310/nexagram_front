@@ -34,7 +34,7 @@ const CommentDialog = ({ open, setOpen }) => {
   const sendMessageHandler = async () => {
     try {
       const res = await axios.post(
-        `https://nexagram-back-1bnz.onrender.com/api/v1/post/${selectedPost?._id}/comment`,
+        `http://localhost:3000/api/v1/post/${selectedPost?._id}/comment`,
         { text },
         {
           headers: {

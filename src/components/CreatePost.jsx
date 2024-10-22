@@ -14,10 +14,10 @@ const CreatePost = ({ open, setOpen }) => {
   const imageRef = useRef();
   const [file, setFile] = useState("");
   const [caption, setCaption] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
+  const [mediaPreview, setMediaPreview] = useState(""); // renamed to mediaPreview
   const [loading, setLoading] = useState(false);
-  const {user} = useSelector(store=>store.auth);
-  const {posts} = useSelector(store=>store.post);
+  const { user } = useSelector(store => store.auth);
+  const { posts } = useSelector(store => store.post);
   const dispatch = useDispatch();
 
   const fileChangeHandler = async (e) => {
@@ -25,33 +25,35 @@ const CreatePost = ({ open, setOpen }) => {
     if (file) {
       setFile(file);
       const dataUrl = await readFileAsDataURL(file);
-      setImagePreview(dataUrl);
+      setMediaPreview(dataUrl); // updated to set media preview
     }
   }
 
   const createPostHandler = async (e) => {
     const formData = new FormData();
     formData.append("caption", caption);
-    if (imagePreview) formData.append("image", file);
+    if (file) formData.append("media", file); // Correctly appending the file as 'media'
+    
     try {
-      setLoading(true);
-      const res = await axios.post('https://nexagram-back-1bnz.onrender.com/api/v1/post/addpost', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        withCredentials: true
-      });
-      if (res.data.success) {
-        dispatch(setPosts([res.data.post, ...posts]));// [1] -> [1,2] -> total element = 2
-        toast.success(res.data.message);
-        setOpen(false);
-      }
+        setLoading(true);
+        const res = await axios.post('http://localhost:3000/api/v1/post/addpost', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            withCredentials: true,
+        });
+        if (res.data.success) {
+            dispatch(setPosts([res.data.post, ...posts]));
+            toast.success(res.data.message);
+            setOpen(false);
+        }
     } catch (error) {
-      toast.error(error.response.data.message);
+        toast.error(error.response.data.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  }
+}
+
 
   return (
     <Dialog open={open}>
@@ -69,16 +71,20 @@ const CreatePost = ({ open, setOpen }) => {
         </div>
         <Textarea value={caption} onChange={(e) => setCaption(e.target.value)} className="focus-visible:ring-transparent border-none" placeholder="Write a caption..." />
         {
-          imagePreview && (
+          mediaPreview && (
             <div className='w-full h-64 flex items-center justify-center'>
-              <img src={imagePreview} alt="preview_img" className='object-cover h-full w-full rounded-md' />
+              {file?.type.startsWith('video/') ? (
+                <video src={mediaPreview} controls className='object-cover h-full w-full rounded-md' />
+              ) : (
+                <img src={mediaPreview} alt="preview_img" className='object-cover h-full w-full rounded-md' />
+              )}
             </div>
           )
         }
-        <input ref={imageRef} type='file' className='hidden' onChange={fileChangeHandler} />
+        <input ref={imageRef} type='file' className='hidden' onChange={fileChangeHandler} accept="image/*,video/*" /> {/* accept images and videos */}
         <Button onClick={() => imageRef.current.click()} className='w-fit mx-auto bg-[#0095F6] hover:bg-[#258bcf] '>Select from computer</Button>
         {
-          imagePreview && (
+          mediaPreview && (
             loading ? (
               <Button>
                 <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -94,4 +100,4 @@ const CreatePost = ({ open, setOpen }) => {
   )
 }
 
-export default CreatePost
+export default CreatePost;

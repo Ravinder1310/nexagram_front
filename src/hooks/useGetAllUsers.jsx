@@ -9,7 +9,7 @@ const useGetAllUsers = () => {
     useEffect(() => {
         const fetchAllUsers = async () => {
             try {
-                const res = await axios.get("https://nexagram-back-1bnz.onrender.com/api/v1/user/all-users", { withCredentials: true });
+                const res = await axios.get("http://localhost:3000/api/v1/user/all-users", { withCredentials: true });
                 if (res.data.success) {
                     dispatch(setAllUsers(res.data.users));
                 }
