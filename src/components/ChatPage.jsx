@@ -11,7 +11,8 @@ import { Link } from "react-router-dom";
 import { setMessages } from "@/redux/chatSlice";
 import useGetAllUsers from "@/hooks/useGetAllUsers";
 import sendLogo from "./images/message2.png";
-import backLogo from "./images/back2.png";
+import backLogo from "./images/back4.png";
+import { FaArrowLeft } from "react-icons/fa";
 
 const ChatPage = () => {
   const [textMessage, setTextMessage] = useState("");
@@ -66,15 +67,26 @@ const ChatPage = () => {
       {showChat && selectedUser ? (
         <section className="flex-1 flex flex-col h-screen z-50 mb-40 sm:w-[100px] sm:ml-40">
           <div className="flex gap-3 items-center px-1 py-[10px] border-b border-gray-300 sticky top-0 bg-blue-500 z-10">
-            <img onClick={handleBackClick} src={backLogo} alt="error" className="w-7 rounded-[50%]" />
+            {/* <img onClick={handleBackClick} src={backLogo} alt="error" className="w-7 rounded-[50%]" /> */}
+            {/* <button
+      
+      className="flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md"
+    > */}
+            <div className="rounded-[50%] bg-blue-500 p-1 shadow-xl shadow-">
+              <FaArrowLeft onClick={handleBackClick} className="text-white" />
+            </div>
+            {/* <span>Back</span>
+    </button> */}
             <Link to={`/profile/${selectedUser?._id}`}>
-              <h1 className=" text-xl text-white">{selectedUser?.username}</h1>
+              <h1 className=" text-xl text-white font-mono">
+                {selectedUser?.username}
+              </h1>
             </Link>
           </div>
-          <div className="flex-1 overflow-y-auto bg-blue-500">
+          <div className="flex-1 overflow-y-auto bg-blue-200">
             <Messages selectedUser={selectedUser} />
           </div>
-          <div className="flex items-center py-4 px-1 bg-blue-500 relative">
+          <div className="flex items-center py-4 px-1 bg-blue-200 relative">
             <Input
               value={textMessage}
               onChange={(e) => setTextMessage(e.target.value)}
@@ -94,37 +106,41 @@ const ChatPage = () => {
         <section className="w-full h-full p-0 pt-20 sm:pt-10 sm:ml-60">
           <h1 className="font-bold text-xl ml-4">{user?.username}</h1>
           <div
-  className="flex p-2 overflow-x-auto"
-  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }} // For Firefox and IE/Edge
->
-  <style>
-    {`
+            className="flex p-2 overflow-x-auto"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // For Firefox and IE/Edge
+          >
+            <style>
+              {`
       /* Hide scrollbar for Chrome, Safari, and Opera */
       .hide-scrollbar::-webkit-scrollbar {
         display: none;
       }
     `}
-  </style>
-  {allUsers?.map((singleUser) => {
-    const isOnline = onlineUsers.includes(singleUser?._id); // Check if the user is online
-    return (
-      <div className="text-center min-w-[80px] h-[90px] flex-shrink-0 relative" key={singleUser?._id}>
-        <div className="relative inline-block">
-          <Avatar className="w-14 h-14 m-auto">
-            <AvatarImage src={singleUser?.profilePicture} />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          {/* Green circle for online users */}
-          {isOnline && (
-            <span className="absolute bottom-0 right-0 block h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
-          )}
-        </div>
-        <h1 className="font-semibold text-sm">{singleUser?.username}</h1>
-      </div>
-    );
-  })}
-</div>
-
+            </style>
+            {allUsers?.map((singleUser) => {
+              const isOnline = onlineUsers.includes(singleUser?._id); // Check if the user is online
+              return (
+                <div
+                  className="text-center min-w-[80px] h-[90px] flex-shrink-0 relative"
+                  key={singleUser?._id}
+                >
+                  <div className="relative inline-block">
+                    <Avatar className="w-14 h-14 m-auto">
+                      <AvatarImage src={singleUser?.profilePicture} />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    {/* Green circle for online users */}
+                    {isOnline && (
+                      <span className="absolute bottom-0 right-0 block h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
+                    )}
+                  </div>
+                  <h1 className="font-semibold text-sm">
+                    {singleUser?.username}
+                  </h1>
+                </div>
+              );
+            })}
+          </div>
 
           <div className="overflow-y-auto h-[80vh]">
             <h1 className="ml-4 mt-4 mb-2 font-bold">Messages</h1>
@@ -144,8 +160,14 @@ const ChatPage = () => {
                       </Avatar>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-xl font-mono">{suggestedUser?.username}</span>
-                      <span className={`text-xs ${isOnline ? "text-green-600" : "text-red-600"}`}>
+                      <span className="text-xl font-mono">
+                        {suggestedUser?.username}
+                      </span>
+                      <span
+                        className={`text-xs ${
+                          isOnline ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
                         {isOnline ? "Active" : "offline"}
                       </span>
                     </div>

@@ -27,7 +27,7 @@ const Messages = ({ selectedUser }) => {
     }, [messages]);
 
     return (
-        <div className='flex flex-col p-4 h-full bg-blue-400'>
+        <div className='flex flex-col p-4 h-full bg-white'>
             {/* Show profile section only if there are no messages */}
             {!hasMessages && (
                 <div className='flex justify-center mb-4'>
@@ -53,16 +53,16 @@ const Messages = ({ selectedUser }) => {
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         )}
-                        <div className={`p-2 rounded-[20px] max-w-xs break-words ${msg.senderId === user?._id ? 'bg-gradient-to-t from-violet-900 to-violet-600 text-white text-sm font-sans' : 'bg-white text-black text-sm font-sans'}`}>
+                        <div className={`p-2 rounded-[20px] max-w-xs break-words ${msg.senderId === user?._id ? 'bg-blue-500 text-white text-sm font-mono' : 'bg-gray-200 text-black text-sm font-mono'}`}>
                             {msg.message}
                         </div>
                         {/* Show recipient's avatar for sent messages */}
                         {msg.senderId === user?._id && user?.profilePicture && (
-                            // <Avatar className="h-8 w-8 ml-2">
-                            //     <AvatarImage src={user.profilePicture} alt='profile' />
-                            //     <AvatarFallback>CN</AvatarFallback>
-                            // </Avatar>
-                            <></>
+                            <Avatar className="h-8 w-8 ml-2">
+                                <AvatarImage src={user.profilePicture} alt='profile' />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                            
                         )}
                     </div>
                 ))}
