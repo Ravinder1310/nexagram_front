@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Heart, MessageCircle } from "lucide-react";
-import main_logo from "./images/main_lg.png";
+import main_logo from "./images/main_lgo.png";
 import { useNavigate } from "react-router-dom";
 
 const TopNav = () => {
@@ -18,10 +18,10 @@ const TopNav = () => {
     <div className="fixed sm:hidden w-[100%] z-40">
       <div className="flex justify-between items-center bg-white py-2 shadow-md shadow-gray-300">
         <div className="flex items-center">
-          <img src={main_logo} className="w-[50px]" alt="error" />
+          <img src={main_logo} className="w-[40px]" alt="error" />
           <h1 className="text-2xl" style={{ fontFamily: "'Lobster', cursive" }}>
-      <span className="text-pink-500">Nexa</span>
-      <span className="text-blue-600">gram</span>
+      <span className="text-black">Dazzle</span>
+      <span className="text-orange-400 ml-1">Den</span>
     </h1>
         </div>
         <div className="flex gap-2">

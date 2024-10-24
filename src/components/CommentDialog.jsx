@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Link } from "react-router-dom";
@@ -15,12 +15,18 @@ const CommentDialog = ({ open, setOpen }) => {
   const { selectedPost, posts } = useSelector((store) => store.post);
   const [comment, setComment] = useState([]);
   const dispatch = useDispatch();
+  const inputRef = useRef(null); // Create a ref for the input field
 
   useEffect(() => {
     if (selectedPost) {
       setComment(selectedPost.comments);
     }
-  }, [selectedPost]);
+
+    // Remove automatic focus when the dialog opens
+    if (inputRef.current) {
+      inputRef.current.blur(); // Ensure the input is not focused when dialog opens
+    }
+  }, [selectedPost, open]);
 
   const changeEventHandler = (e) => {
     const inputText = e.target.value;
@@ -37,9 +43,6 @@ const CommentDialog = ({ open, setOpen }) => {
         `${import.meta.env.VITE_API_URL}/api/v1/post/${selectedPost?._id}/comment`,
         { text },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
           withCredentials: true,
         }
       );
@@ -68,13 +71,27 @@ const CommentDialog = ({ open, setOpen }) => {
         onInteractOutside={() => setOpen(false)}
         className="w-[80%] p-0 flex flex-col"
       >
-        <div className=" block sm:flex flex-1">
+        <div className="block sm:flex flex-1">
           <div className="w-full">
-            <img
-              src={selectedPost?.image}
-              alt="post_img"
-              className="w-full h-[300px] object-cover rounded-l-lg"
-            />
+            {selectedPost?.mediaType === "video" ? (
+              <div className="relative">
+                <video
+                  className="rounded-sm w-full aspect-square object-cover"
+                  src={selectedPost?.media}
+                  autoPlay
+                  alt="post_video"
+                  loop
+                  muted={true}
+                  playsInline
+                />
+              </div>
+            ) : (
+              <img
+                className="rounded-sm w-full aspect-square object-cover"
+                src={selectedPost?.media}
+                alt="post_img"
+              />
+            )}
           </div>
           <div className="w-full flex flex-col justify-between">
             <div className="flex items-center justify-between p-4">
@@ -89,7 +106,6 @@ const CommentDialog = ({ open, setOpen }) => {
                   <Link className="font-semibold text-xs">
                     {selectedPost?.author?.username}
                   </Link>
-                  {/* <span className='text-gray-600 text-sm'>Bio here...</span> */}
                 </div>
               </div>
 
@@ -122,6 +138,7 @@ const CommentDialog = ({ open, setOpen }) => {
                   value={text}
                   onChange={changeEventHandler}
                   placeholder="Add a comment..."
+                  ref={inputRef} // Attach the ref to the input
                   className="w-full outline-none border text-sm border-gray-300 p-2 rounded"
                 />
                 <Button

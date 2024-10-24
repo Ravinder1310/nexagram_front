@@ -19,20 +19,20 @@ const BottomNav = () => {
       <div className="flex justify-around items-center py-2">
 
         {/* Home Section */}
-        <div className="flex flex-col items-cente hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/`) }}>
+        <div className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/`) }}>
           <div className=" text-md text-center">
             <Home className="m-auto"/>
           </div>
         </div>
 
         {/* Packages Section */}
-        <div className="flex flex-col items-center hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/plans`) }}>
+        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/plans`) }}>
            <div className="text-md text-center">
             <Wallet className="m-auto"/>
           </div>
         </div>
 
-        <div onClick={() => {setOpen(true)}} className="flex flex-col items-center hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md">
+        <div onClick={() => {setOpen(true)}} className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md">
            <div className="text-md text-center">
             <PlusSquare className="m-auto"/>
             
@@ -40,14 +40,14 @@ const BottomNav = () => {
         </div>
 
         {/* Recharge Section */}
-        <div className="flex flex-col items-center hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/incomes") }}>
+        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/incomes") }}>
         <div className="text-md text-center">
             <TrendingUp className="m-auto"/>
         </div>
         </div>
 
         {/* Profile Section */}
-        <div className="flex flex-col items-center hover:bg-pink-600 hover:text-white hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/profile/${user?._id}`); }}>
+        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/profile/${user?._id}`); }}>
         <div className="text-md text-center">
         <Avatar className='w-6 h-6'>
                     <AvatarImage src={user?.profilePicture} alt="@shadcn" />

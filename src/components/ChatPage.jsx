@@ -64,7 +64,7 @@ const ChatPage = () => {
   return (
     <div className="flex h-screen">
       {showChat && selectedUser ? (
-        <section className="flex-1 flex flex-col h-[600px] pt-14 mb-40 sm:w-[100px] sm:ml-40">
+        <section className="flex-1 flex flex-col h-[670px] z-50 mb-40 sm:w-[100px] sm:ml-40">
           <div className="flex gap-3 items-center px-1 py-[10px] border-b border-gray-300 sticky top-0 bg-blue-500 z-10">
             {/* <button onClick={handleBackClick} className="">
               ◀️
@@ -98,7 +98,7 @@ const ChatPage = () => {
         <section className="w-full h-full p-0 pt-20 sm:pt-10 sm:ml-60">
           <h1 className="font-bold text-xl ml-4">{user?.username}</h1>
           <div className="flex p-2 overflow-x-auto scrollbar-hide">
-            {allUsers.map((singleUser) => {
+            {allUsers?.map((singleUser) => {
               return (
                 <div className="text-center min-w-[80px] h-[90px] flex-shrink-0">
                   <Avatar className="w-14 h-14 m-auto">
@@ -116,8 +116,8 @@ const ChatPage = () => {
           {/* <hr className='mb-4 border-gray-300' /> */}
           <div className="overflow-y-auto h-[80vh]">
             <h1 className="ml-4 mt-4 mb-2 font-bold">Messages</h1>
-            {suggestedUsers.length > 0 ? (
-              suggestedUsers.map((suggestedUser) => {
+            {suggestedUsers?.length > 0 ? (
+              suggestedUsers?.map((suggestedUser) => {
                 const isOnline = onlineUsers.includes(suggestedUser?._id);
                 return (
                   <div

@@ -23,6 +23,7 @@ const Post = ({ post }) => {
   const [views, setViews] = useState(post.views || 0);
   const videoRef = useRef(null);
   const [userInteracted, setUserInteracted] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   // State for video mute functionality
   const [isMuted, setIsMuted] = useState(false);
@@ -185,6 +186,24 @@ const Post = ({ post }) => {
       }
     };
   }, [userInteracted]);
+
+
+  useEffect(() => {
+    const checkFollowing = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/v1/user/isFollowing/${post.author._id}`,
+          { withCredentials: true }
+        );
+        setIsFollowing(res.data.isFollowing);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (user && post.author._id !== user._id) {
+      checkFollowing();
+    }
+  }, [post.author._id, user]);
 
   return (
     <div className="my-12 w-full max-w-sm mx-auto">

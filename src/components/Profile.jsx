@@ -17,6 +17,7 @@ const Profile = () => {
   useGetUserProfile(userId);
   const [activeTab, setActiveTab] = useState('posts');
   const dispatch = useDispatch();
+  const {posts} = useSelector(store=>store.post);
   const navigate = useNavigate()
 
   const { userProfile, user } = useSelector(store => store.auth);
@@ -45,7 +46,14 @@ const Profile = () => {
     }
 }
 
-  const displayedPost = activeTab === 'posts' ? userProfile?.posts : userProfile?.bookmarks;
+  let displayedPost = [];
+  if(activeTab === 'posts'){
+     displayedPost = userProfile?.posts
+  }else if(activeTab === "saved"){
+     displayedPost = userProfile?.bookmarks
+  }else if(activeTab === "reels"){
+     displayedPost = posts?.filter(post => post.mediaType === 'video');
+  }
 
   return (
     <div className='sm:flex w-[100%] sm:justify-center pt-20'>
@@ -103,7 +111,9 @@ const Profile = () => {
             <span className={`py-3 cursor-pointer ${activeTab === 'saved' ? 'font-bold' : ''}`} onClick={() => handleTabChange('saved')}>
               SAVED
             </span>
-            <span className='py-3 cursor-pointer'>REELS</span>
+            <span className={`py-3 cursor-pointer ${activeTab === 'reels' ? 'font-bold' : ''}`} onClick={() => handleTabChange('reels')}>
+              REELS
+              </span>
             <span className='py-3 cursor-pointer'>TAGS</span>
           </div>
           <div className='grid grid-cols-3 gap-1'>
@@ -111,7 +121,30 @@ const Profile = () => {
               displayedPost?.map((post) => {
                 return (
                   <div key={post?._id} className='relative group cursor-pointer'>
-                    <img src={post.image} alt='postimage' className='rounded-sm my-2 w-full aspect-square object-cover' />
+                     {post.mediaType === "video" ? (
+        <div className="relative">
+          <video
+            // ref={videoRef}
+            className="rounded-sm my-2 w-full aspect-square object-cover"
+            src={post.media}
+            alt="post_video"
+            // autoPlay
+            // loop
+            muted={true} // Ensure the video is muted by default
+            // playsInline
+            // onPlay={handleVideoPlay}
+            // onClick={toggleMute}
+            // controls
+          />
+          {/* Mute button */}
+        </div>
+      ) : (
+        <img
+          className="rounded-sm my-2 w-full aspect-square object-cover"
+          src={post.media}
+          alt="post_img"
+        />
+      )}
                     <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
                       <div className='flex items-center text-white space-x-4'>
                         <button className='flex items-center gap-2 hover:text-gray-300'>
