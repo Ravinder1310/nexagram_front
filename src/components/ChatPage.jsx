@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { setMessages } from "@/redux/chatSlice";
 import useGetAllUsers from "@/hooks/useGetAllUsers";
 import sendLogo from "./images/message2.png";
-import backLogo from "./images/back2.png"
+import backLogo from "./images/back2.png";
 
 const ChatPage = () => {
   const [textMessage, setTextMessage] = useState("");
@@ -43,7 +43,7 @@ const ChatPage = () => {
     } catch (error) {
       console.log(error);
     }
-  };    
+  };
 
   useEffect(() => {
     return () => {
@@ -66,10 +66,7 @@ const ChatPage = () => {
       {showChat && selectedUser ? (
         <section className="flex-1 flex flex-col h-[670px] z-50 mb-40 sm:w-[100px] sm:ml-40">
           <div className="flex gap-3 items-center px-1 py-[10px] border-b border-gray-300 sticky top-0 bg-blue-500 z-10">
-            {/* <button onClick={handleBackClick} className="">
-              ◀️
-            </button> */}
-            <img onClick={handleBackClick}  src={backLogo} alt="error" className="w-7 rounded-[50%]"/>
+            <img onClick={handleBackClick} src={backLogo} alt="error" className="w-7 rounded-[50%]" />
             <Link to={`/profile/${selectedUser?._id}`}>
               <h1 className=" text-xl text-white">{selectedUser?.username}</h1>
             </Link>
@@ -82,12 +79,11 @@ const ChatPage = () => {
               value={textMessage}
               onChange={(e) => setTextMessage(e.target.value)}
               type="text"
-              className="flex-1 focus-visible:ring-transparent rounded-[20px] pr-14 bg-white bg-opacity-50 backdrop-blur-md border border-gray-300" // Added semi-transparent white background and backdrop blur
+              className="flex-1 focus-visible:ring-transparent rounded-[20px] pr-14 bg-white bg-opacity-50 backdrop-blur-md border border-gray-300"
               placeholder="Messages..."
             />
-
             <img
-              className="absolute right-4 cursor-pointer w-9 h-9" // Adjust size as needed
+              className="absolute right-4 cursor-pointer w-9 h-9"
               onClick={() => sendMessageHandler(selectedUser?._id)}
               src={sendLogo}
               alt="Send"
@@ -97,23 +93,39 @@ const ChatPage = () => {
       ) : (
         <section className="w-full h-full p-0 pt-20 sm:pt-10 sm:ml-60">
           <h1 className="font-bold text-xl ml-4">{user?.username}</h1>
-          <div className="flex p-2 overflow-x-auto scrollbar-hide">
-            {allUsers?.map((singleUser) => {
-              return (
-                <div className="text-center min-w-[80px] h-[90px] flex-shrink-0">
-                  <Avatar className="w-14 h-14 m-auto">
-                    <AvatarImage src={singleUser?.profilePicture} />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                  <h1 className="font-semibold text-sm">
-                    {singleUser?.username}
-                  </h1>
-                </div>
-              );
-            })}
-          </div>
+          <div
+  className="flex p-2 overflow-x-auto"
+  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }} // For Firefox and IE/Edge
+>
+  <style>
+    {`
+      /* Hide scrollbar for Chrome, Safari, and Opera */
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    `}
+  </style>
+  {allUsers?.map((singleUser) => {
+    const isOnline = onlineUsers.includes(singleUser?._id); // Check if the user is online
+    return (
+      <div className="text-center min-w-[80px] h-[90px] flex-shrink-0 relative" key={singleUser?._id}>
+        <div className="relative inline-block">
+          <Avatar className="w-14 h-14 m-auto">
+            <AvatarImage src={singleUser?.profilePicture} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          {/* Green circle for online users */}
+          {isOnline && (
+            <span className="absolute bottom-0 right-0 block h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
+          )}
+        </div>
+        <h1 className="font-semibold text-sm">{singleUser?.username}</h1>
+      </div>
+    );
+  })}
+</div>
 
-          {/* <hr className='mb-4 border-gray-300' /> */}
+
           <div className="overflow-y-auto h-[80vh]">
             <h1 className="ml-4 mt-4 mb-2 font-bold">Messages</h1>
             {suggestedUsers?.length > 0 ? (
@@ -123,21 +135,18 @@ const ChatPage = () => {
                   <div
                     onClick={() => handleUserClick(suggestedUser)}
                     className="flex gap-3 items-center p-3 hover:bg-gray-50 cursor-pointer"
+                    key={suggestedUser?._id}
                   >
-                    <Avatar className="w-14 h-14">
-                      <AvatarImage src={suggestedUser?.profilePicture} />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
+                    <div className="relative inline-block">
+                      <Avatar className="w-14 h-14">
+                        <AvatarImage src={suggestedUser?.profilePicture} />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
                     <div className="flex flex-col">
-                      <span className="font-medium">
-                        {suggestedUser?.username}
-                      </span>
-                      <span
-                        className={`text-xs font-bold ${
-                          isOnline ? "text-green-600" : "text-red-600"
-                        } `}
-                      >
-                        {isOnline ? "online" : "offline"}
+                      <span className="font-medium">{suggestedUser?.username}</span>
+                      <span className={`text-xs font-bold ${isOnline ? "text-green-600" : "text-red-600"}`}>
+                        {isOnline ? "Active" : "offline"}
                       </span>
                     </div>
                   </div>
