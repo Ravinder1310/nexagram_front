@@ -72,7 +72,7 @@ const Profile = () => {
       <Toaster />
       <div className="flex flex-col gap-6 p-2 px-4 mb-20">
         <div className="flex justify-between items-center gap-4">
-          <div className=" w-20 pr-3">
+          <div className=" w-20 pl-4">
             {/* Use userProfile for the avatar and other profile details */}
             <Avatar
               onClick={() => setDialogOpen(true)}
@@ -82,7 +82,7 @@ const Profile = () => {
                 src={userProfile?.profilePicture} // Use userProfile here instead of user
                 alt="profile_image"
               />
-              <AvatarFallback>CN</AvatarFallback>
+              {/* <AvatarFallback><img src={}/></AvatarFallback> */}
             </Avatar>
           </div>
           <div>

@@ -27,7 +27,7 @@ const Messages = ({ selectedUser }) => {
     }, [messages]);
 
     return (
-        <div className='flex flex-col p-4 h-full bg-blue-500'>
+        <div className='flex flex-col p-4 h-full bg-blue-400'>
             {/* Show profile section only if there are no messages */}
             {!hasMessages && (
                 <div className='flex justify-center mb-4'>
@@ -72,5 +72,6 @@ const Messages = ({ selectedUser }) => {
         </div>
     );
 };
+
 
 export default Messages;

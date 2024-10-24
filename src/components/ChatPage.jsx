@@ -64,7 +64,7 @@ const ChatPage = () => {
   return (
     <div className="flex h-screen">
       {showChat && selectedUser ? (
-        <section className="flex-1 flex flex-col h-[670px] z-50 mb-40 sm:w-[100px] sm:ml-40">
+        <section className="flex-1 flex flex-col h-screen z-50 mb-40 sm:w-[100px] sm:ml-40">
           <div className="flex gap-3 items-center px-1 py-[10px] border-b border-gray-300 sticky top-0 bg-blue-500 z-10">
             <img onClick={handleBackClick} src={backLogo} alt="error" className="w-7 rounded-[50%]" />
             <Link to={`/profile/${selectedUser?._id}`}>
@@ -144,8 +144,8 @@ const ChatPage = () => {
                       </Avatar>
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-medium">{suggestedUser?.username}</span>
-                      <span className={`text-xs font-bold ${isOnline ? "text-green-600" : "text-red-600"}`}>
+                      <span className="text-xl font-mono">{suggestedUser?.username}</span>
+                      <span className={`text-xs ${isOnline ? "text-green-600" : "text-red-600"}`}>
                         {isOnline ? "Active" : "offline"}
                       </span>
                     </div>
