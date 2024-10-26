@@ -12,6 +12,7 @@ import { setMessages } from "@/redux/chatSlice";
 import useGetAllUsers from "@/hooks/useGetAllUsers";
 import sendLogo from "./images/message2.png";
 import backLogo from "./images/back4.png";
+import avatar from "./images/avatar.png";
 import { FaArrowLeft } from "react-icons/fa";
 
 const ChatPage = () => {
@@ -67,17 +68,26 @@ const ChatPage = () => {
       {showChat && selectedUser ? (
         <section className="flex-1 flex flex-col h-screen z-50 mb-40 sm:w-[100px] sm:ml-40">
           <div className="flex gap-3 items-center px-1 py-[10px] border-b border-gray-300 sticky top-0 bg-blue-500 z-10">
-            {/* <img onClick={handleBackClick} src={backLogo} alt="error" className="w-7 rounded-[50%]" /> */}
-            {/* <button
-      
-      className="flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md"
-    > */}
             <div className="rounded-[50%] bg-blue-500 p-1 shadow-xl shadow-">
               <FaArrowLeft onClick={handleBackClick} className="text-white" />
             </div>
-            {/* <span>Back</span>
-    </button> */}
-            <Link to={`/profile/${selectedUser?._id}`}>
+            <Link
+              to={`/profile/${selectedUser?._id}`}
+              className="flex items-center gap-2"
+            >
+              {selectedUser?.profilePicture ? (
+                <img
+                  src={selectedUser?.profilePicture}
+                  className="w-10 h-10 rounded-[50%]"
+                />
+              ) : (
+                <img
+                  src={avatar}
+                  alt="error"
+                  className="w-10 h-10 rounded-[50%]"
+                />
+              )}
+
               <h1 className=" text-xl text-white font-mono">
                 {selectedUser?.username}
               </h1>
@@ -106,7 +116,7 @@ const ChatPage = () => {
         <section className="w-full h-full p-0 pt-20 sm:pt-10 sm:ml-60">
           <h1 className="font-bold text-xl ml-4">{user?.username}</h1>
           <div
-            className="flex p-2 overflow-x-auto"
+            className="flex p-2 gap-2 overflow-x-auto"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }} // For Firefox and IE/Edge
           >
             <style>
@@ -121,13 +131,13 @@ const ChatPage = () => {
               const isOnline = onlineUsers.includes(singleUser?._id); // Check if the user is online
               return (
                 <div
-                  className="text-center min-w-[80px] h-[90px] flex-shrink-0 relative"
+                  className="text-center w-[80px] h-[110px] flex-shrink-0 relative"
                   key={singleUser?._id}
                 >
                   <div className="relative inline-block">
                     <Avatar className="w-14 h-14 m-auto">
                       <AvatarImage src={singleUser?.profilePicture} />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarFallback src={avatar} />
                     </Avatar>
                     {/* Green circle for online users */}
                     {isOnline && (
@@ -156,11 +166,11 @@ const ChatPage = () => {
                     <div className="relative inline-block">
                       <Avatar className="w-14 h-14">
                         <AvatarImage src={suggestedUser?.profilePicture} />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback src={avatar} />
                       </Avatar>
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-xl font-mono">
+                      <span className="text-lg font-mono">
                         {suggestedUser?.username}
                       </span>
                       <span

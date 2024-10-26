@@ -10,8 +10,9 @@ import axios from "axios";
 import { toast } from "sonner";
 import { setPosts, setSelectedPost } from "@/redux/postSlice";
 import { Badge } from "./ui/badge";
+import avatar from "./images/avatar.png"
 
-const Post = ({ post }) => {
+const Post = ({ post, isFollowingUsers }) => {
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
   const { user } = useSelector((store) => store.auth);
@@ -23,7 +24,7 @@ const Post = ({ post }) => {
   const [views, setViews] = useState(post.views || 0);
   const videoRef = useRef(null);
   const [userInteracted, setUserInteracted] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(isFollowingUsers);
 
   // State for video mute functionality
   const [isMuted, setIsMuted] = useState(false);
@@ -131,6 +132,53 @@ const Post = ({ post }) => {
     }
   };
 
+  const followUnfollowHandler = async () => {
+    try {
+      // Making the API call to follow/unfollow the user
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/user/followorunfollow/${
+          post?.author?._id
+        }`,
+        { withCredentials: true }
+      );
+  
+      // If the request was successful
+      if (res.data.success) {
+        toast.success(res.data.message);
+  
+        // Toggle the `isFollowing` state based on the current state
+        setIsFollowing((prevIsFollowing) => !prevIsFollowing);
+  
+        // Update the posts array to reflect the new following state
+        const updatedPostData = posts.map((p) =>
+          p?._id === post?._id
+            ? {
+                ...p,
+                author: {
+                  ...p.author,
+                  // Safely check if followers array exists, if not, default to an empty array
+                  followers: Array.isArray(p?.author?.followers)
+                    ? isFollowing
+                      ? p.author.followers.filter((id) => id !== user?._id) // Unfollow: remove user from followers
+                      : [...p.author.followers, user?._id] // Follow: add user to followers
+                    : isFollowing
+                    ? [] // If no followers exist and it's an unfollow action
+                    : [user?._id], // If no followers exist and it's a follow action
+                },
+              }
+            : p
+        );
+        // Dispatch the updated posts to the Redux store
+        dispatch(setPosts(updatedPostData));
+      }
+    } catch (error) { 
+      console.error("Error in followUnfollowHandler: ", error);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+  
+  
+
   const handleVideoPlay = async () => {
     console.log("Video is playing");
     try {
@@ -158,6 +206,7 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     const videoElement = videoRef.current;
+    console.log("IsFollowingUser", isFollowingUsers);
 
     // Set up the Intersection Observer
     const observer = new IntersectionObserver(
@@ -187,31 +236,13 @@ const Post = ({ post }) => {
     };
   }, [userInteracted]);
 
-
-  useEffect(() => {
-    const checkFollowing = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/v1/user/isFollowing/${post.author._id}`,
-          { withCredentials: true }
-        );
-        setIsFollowing(res.data.isFollowing);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    if (user && post.author._id !== user._id) {
-      checkFollowing();
-    }
-  }, [post.author._id, user]);
-
   return (
     <div className="my-12 w-full max-w-sm mx-auto">
       <div className="flex items-center px-2 justify-between">
         <div className="flex items-center gap-2">
           <Avatar>
             <AvatarImage src={post.author?.profilePicture} alt="post_image" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback src={avatar} />
           </Avatar>
           <div className="flex items-center gap-3">
             <h1>{post.author?.username}</h1>
@@ -222,13 +253,30 @@ const Post = ({ post }) => {
         </div>
         <Dialog>
           <DialogTrigger asChild>
-            <MoreHorizontal className="cursor-pointer" />
+            {
+              isFollowing ? (
+                <MoreHorizontal className="cursor-pointer" />
+              ) : post?.author?._id === user?._id ? (
+                <MoreHorizontal className="cursor-pointer" />
+              ) : null /* No trigger here for "Follow" */
+            }
           </DialogTrigger>
+
+          {!isFollowing && post?.author?._id !== user?._id && (
+            <Button
+              className="text-blue-500 bg-white w-10 hover:bg-white"
+              onClick={followUnfollowHandler}
+            >
+              Follow
+            </Button>
+          )}
+
           <DialogContent className="flex flex-col items-center text-sm text-center">
             {post?.author?._id !== user?._id && (
               <Button
                 variant="ghost"
                 className="cursor-pointer w-fit text-[#ED4956] font-bold"
+                onClick={followUnfollowHandler} // Unfollow action
               >
                 Unfollow
               </Button>
@@ -321,14 +369,13 @@ const Post = ({ post }) => {
       </div>
       <div className="flex justify-between pr-1">
         <span className="font-medium block mb-0 px-2">{postLike} likes</span>
-        {
-          post.mediaType === "video" ? (
-<span className="cursor-pointer text-sm text-gray-400 px-2">
-          {post.views} views
-        </span>
-          ) : (<></>)
-        }
-        
+        {post.mediaType === "video" ? (
+          <span className="cursor-pointer text-sm text-gray-400 px-2">
+            {post.views} views
+          </span>
+        ) : (
+          <></>
+        )}
       </div>
 
       <p className="px-2">

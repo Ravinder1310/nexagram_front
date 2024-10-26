@@ -20,7 +20,7 @@ const AvatarImage = React.forwardRef(({ className, ...props }, ref) => (
 AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
 const AvatarFallback = React.forwardRef(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
+  <AvatarPrimitive.Image
     ref={ref}
     className={cn(
       "flex h-full w-full items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800",
@@ -28,6 +28,6 @@ const AvatarFallback = React.forwardRef(({ className, ...props }, ref) => (
     )}
     {...props} />
 ))
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
+AvatarFallback.displayName = AvatarPrimitive.Image.displayName
 
 export { Avatar, AvatarImage, AvatarFallback }
