@@ -32,7 +32,7 @@ const Messages = ({ selectedUser }) => {
             {/* Show profile section only if there are no messages */}
             {!hasMessages && (
                 <div className='flex justify-center mb-4'>
-                    <div className='flex flex-col items-center justify-center pt-10'>
+                    <div className='flex flex-col items-center justify-center pt-40'>
                         <Avatar className="h-20 w-20">
                             <AvatarImage src={selectedUser?.profilePicture} alt='profile' />
                             <AvatarFallback src={avatar} />

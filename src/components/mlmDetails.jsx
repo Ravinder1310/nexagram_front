@@ -4,6 +4,36 @@ import { toast, Toaster } from "react-hot-toast";
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import investLogo from "./images/invest.png"
+import { motion } from "framer-motion";
+
+
+
+const AnimatedBorderBox = ({ children }) => (
+  <div className="relative p-[3px] rounded-lg overflow-hidden mt-10">
+    {/* Rotating Background */}
+    <motion.div
+      className="absolute inset-0 -z-10"
+      animate={{ rotate: 360 }} // Only the background rotates
+      transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+      style={{
+        background: "conic-gradient(from 0deg, #ffd700, #ffac00, #ff6700, #ffd700)",
+        backgroundSize: "200% 200%", // Smooth transition of colors
+        borderRadius: "inherit", // Matches parent border radius
+      }}
+    />
+
+    {/* Inner Content with Corner Borders */}
+    <div className="relative p-4 bg-white text-black rounded-lg z-10">
+      {children}
+      
+      {/* Corner Borders */}
+      <span className="absolute top-0 left-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
+      <span className="absolute top-0 right-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
+      <span className="absolute bottom-0 left-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
+      <span className="absolute bottom-0 right-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
+    </div>
+  </div>
+);
 
 const MlmDetails = () => {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -38,46 +68,43 @@ const MlmDetails = () => {
   }, []);
 
   return (
-    <div className="pt-20 pb-20">
+    <div className="pt-20 pb-20 px-3">
       <Toaster />
-      <h1 className="text-center mb-6 font-serif text-2xl">Funds & Links</h1>
-      <div className="flex justify-center gap-3 px-4">
-        <div className="shadow-lg shadow-gray-300 bg-gradient-to-t from-blue-500 to-blue-200 rounded-md w-1/2  text-center p-2">
-          <h1 className="font-bold">Rs. 2400</h1>
-          <h2 className="font-semibold">Total Earning</h2>
-        </div>
-        <div className="shadow-lg shadow-gray-300 bg-gradient-to-t from-blue-500 to-blue-200 rounded-md w-1/2 text-center p-2">
-          <h1 className="font-bold">Rs. 2400</h1>
-          <h2 className="font-semibold">Total Withdrawl</h2>
-        </div>
+      <div className="flex flex-wrap gap-y-3 justify-between">
+       <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
+        <p className="font-semibold">$0.00</p>
+        <h1 className="font-semibold text-sm">Total Income</h1>
+       </div>
+       <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
+       <p className="font-semibold">$0.00</p>
+       <h1 className="font-semibold text-sm">Direct Bonus</h1>
+       </div>
+       <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
+       <p className="font-semibold">$0.00</p>
+       <h1 className="font-semibold text-sm">Royality</h1>
+       </div>
+       <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
+       <p className="font-semibold">$0.00</p>
+       <h1 className="font-semibold text-sm">Team Strength</h1>
+       </div>
+       <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
+       <p className="font-semibold">$0.00</p>
+       <h1 className="font-semibold text-sm">Team Business</h1>
+       </div>
+       <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
+       <p className="font-semibold">$0.00</p>
+       <h1 className="font-semibold text-sm">Rewards</h1>
+       </div>
       </div>
-      <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 px-4 mt-10">
-        <button className="w-full h-10 bg-gradient-to-b from-violet-500 to-violet-200 font-bold text-white text-sm rounded-md px-2">
-          Add Fund
-        </button>
-        <button className="w-full h-10  bg-gradient-to-b from-violet-500 to-violet-200 font-bold text-white text-sm rounded-md px-2">
-          Join
-        </button>
-        <button className="w-full h-10  bg-gradient-to-b from-violet-500 to-violet-200 font-bold text-white text-sm rounded-md">
-          Zoom
-        </button>
-        <button className="w-full h-10  bg-gradient-to-b from-violet-500 to-violet-200 font-bold text-white text-sm rounded-md">
-          Activation
-        </button>
-        <button className="w-full h-10  bg-gradient-to-b from-violet-500 to-violet-200 font-bold text-white text-sm rounded-md">
-          Withdrawl
-        </button>
-        <button className="w-full h-10  bg-gradient-to-b from-violet-500 to-violet-200 font-bold text-white text-sm rounded-md">
-          Rewards
-        </button>
-      </div>
-      <div className="mt-8 px-4 text-center">
-        <h1 className="font-bold text-xl">Your Invitation Link</h1>
-        <div className="flex flex-col justify-center items-center mt-2">
-          <div className="w-full border p-2 py-4 rounded-lg border-gray-300 shadow-lg  flex justify-between items-center">
-            <span>{invitationLink}</span>
-            <button
-              className={`ml-1 rounded-full bg-gradient-to-r from-red-400 to-red-600 text-white px-3 py-1 ${
+      <AnimatedBorderBox>
+        <h1 className="font-bold text-xl text-center">Your Invitation Link</h1>
+        <div className=" text-center mt-2 px-2 py-6 rounded-lg shadow-xl shadow-gray-300">
+          <div className="w-[80%] m-auto">
+            <span className="">{invitationLink}</span>
+            
+          </div>
+          <button
+              className={` w-[80%] font-mono text-xl rounded-full bg-gradient-to-r mt-4 from-red-400 to-red-600 text-white px-3 py-1 ${
                 isLinkCopied ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={copyToClipboard}
@@ -85,36 +112,8 @@ const MlmDetails = () => {
             >
               {isLinkCopied ? "Copied!" : "Copy"}
             </button>
-          </div>
         </div>
-      </div>
-      <div className="flex w-[80%] m-auto justify-center gap-4 mt-5">
-        <div className="text-md text-center text-white bg-blue-500 rounded-[6px] p-1">
-          <Facebook className="m-auto" />
-        </div>
-        <div className="text-md text-center text-white bg-blue-400 rounded-[6px] p-1">
-          <Twitter className="m-auto" />
-        </div>
-        <div className="text-md text-center text-white bg-red-500 rounded-md p-1">
-          <Instagram className="m-auto" />
-        </div>
-        <div className="text-md text-center text-white bg-blue-600 rounded-[6px] p-1">
-          <Linkedin className="m-auto" />
-        </div>
-        <div className="text-md text-center bg-green-400 rounded-[6px] p-1">
-          <FaWhatsapp className="w-6 h-6 text-white" />
-        </div>
-      </div>
-      <div className=" shadow-lg w-[90%] m-auto mt-6 p-4">
-          <div className="flex">
-            <img src={investLogo} className="w-[30%]" alt="error"/>
-            <div className="text-center w-[70%]">
-              <h1 className="text-lg font-serif">My Total Investment</h1>
-              <p className="font-bold">Rs. 200</p>
-              <button className=" text-white bg-blue-600 font-bold rounded-[6px] p-1 px-2 mt-2">Plan Details</button>
-            </div>
-          </div>
-      </div>
+        </AnimatedBorderBox>
     </div>
   );
 };
