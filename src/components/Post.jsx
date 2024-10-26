@@ -237,7 +237,7 @@ const Post = ({ post, isFollowingUsers }) => {
   }, [userInteracted]);
 
   return (
-    <div className="my-12 w-full max-w-sm mx-auto">
+    <div className="my-12 w-full">
       <div className="flex items-center px-2 justify-between">
         <div className="flex items-center gap-2">
           <Avatar>
