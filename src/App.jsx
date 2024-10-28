@@ -15,6 +15,10 @@ import { setLikeNotification } from './redux/rtnSlice'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import MlmDetails from './components/mlmDetails'
 import Incomes from './components/incomes'
+import InfluencerPackages from './components/InfluencerPackages'
+import BenefitsPackage from './components/benifitsPackage'
+import InvesterSignup from './components/InvesterSignup/InvesterSignup'
+import InvesterLogin from './components/InvesterLogin/InvesterLogin'
 
 
 const browserRouter = createBrowserRouter([
@@ -46,7 +50,27 @@ const browserRouter = createBrowserRouter([
         path: '/chat',
         element: <ProtectedRoutes><ChatPage /></ProtectedRoutes>
       },
+      {
+        path: '/benifits-package',
+        element: <ProtectedRoutes><BenefitsPackage /></ProtectedRoutes>
+      },
+      {
+        path: '/influencer-packages',
+        element: <ProtectedRoutes><InfluencerPackages /></ProtectedRoutes>
+      },
+
+      
+
     ]
+  },
+  
+  {
+    path: '/invester-registration',
+    element: <InvesterSignup />
+  },
+  {
+    path: '/invester-login',
+    element: <InvesterLogin />
   },
   {
     path: '/login',
