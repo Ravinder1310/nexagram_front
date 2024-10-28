@@ -12,8 +12,8 @@ const Posts = () => {
 
   return (
     <div className='pb-20'>
-      {posts.length > 0 ? (
-        posts.map((post, index) => (
+      {posts?.length > 0 ? (
+        posts?.map((post, index) => (
           <Post 
             key={post._id} 
             post={post} 
