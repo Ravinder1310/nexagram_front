@@ -17,7 +17,8 @@ const EditProfile = () => {
     const [input, setInput] = useState({
         profilePhoto: user?.profilePicture,
         bio: user?.bio,
-        gender: user?.gender
+        gender: user?.gender,
+        username: user?.username,  // Add username to state
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -31,61 +32,70 @@ const EditProfile = () => {
         setInput({ ...input, gender: value });
     }
 
-
     const editProfileHandler = async () => {
-        console.log(input);
         const formData = new FormData();
         formData.append("bio", input.bio);
         formData.append("gender", input.gender);
-        if(input.profilePhoto){
+        formData.append("username", input.username);  // Append the username
+        if (input.profilePhoto) {
             formData.append("profilePhoto", input.profilePhoto);
         }
         try {
             setLoading(true);
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/profile/edit`, formData,{
-                headers:{
-                    'Content-Type':'multipart/form-data'
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/profile/edit`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 },
-                withCredentials:true
+                withCredentials: true
             });
-            if(res.data.success){
+            if (res.data.success) {
                 const updatedUserData = {
                     ...user,
-                    bio:res.data.user?.bio,
-                    profilePicture:res.data.user?.profilePicture,
-                    gender:res.data.user.gender
+                    bio: res.data.user?.bio,
+                    profilePicture: res.data.user?.profilePicture,
+                    gender: res.data.user.gender,
+                    username: res.data.user.username,  // Update username
                 };
                 dispatch(setAuthUser(updatedUserData));
                 navigate(`/profile/${user?._id}`);
                 toast.success(res.data.message);
             }
-
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.messasge);
-        } finally{
+            toast.error(error.response.data.message);
+        } finally {
             setLoading(false);
         }
     }
+
     return (
         <div className='flex w-[100%] mx-auto p-4 pt-14 pb-20'>
             <section className='flex flex-col gap-6 w-full my-8'>
                 <h1 className='font-bold text-xl text-center'>Edit Profile</h1>
                 <div className='bg-gray-100 text-center pb-10'>
-                <div className='flex items-center justify-between  rounded-xl p-4'>
-                    <div className='flex items-center gap-3 text-left'>
-                        <Avatar>
-                            <AvatarImage src={user?.profilePicture} alt="post_image" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <h1 className='font-bold text-sm'>UserName:- {user?.username}</h1>
-                            <span className='text-gray-600'>Bio:- {user?.bio || 'Bio here...'}</span>
+                    <div className='flex items-center justify-between rounded-xl p-4'>
+                        <div className='flex items-center gap-3 text-left'>
+                            <Avatar>
+                                <AvatarImage src={user?.profilePicture} alt="post_image" />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                            <div>
+                                <h1 className='font-bold text-sm'>UserName:- {user?.username}</h1>
+                                <span className='text-gray-600'>Bio:- {user?.bio || 'Bio here...'}</span>
+                            </div>
                         </div>
+                        <input ref={imageRef} onChange={fileChangeHandler} type='file' className='hidden' />
                     </div>
-                    <input ref={imageRef} onChange={fileChangeHandler} type='file' className='hidden' />
+                    <Button onClick={() => imageRef?.current.click()} className='bg-[#0095F6] h-8 hover:bg-[#318bc7]'>Change photo</Button>
                 </div>
-                <Button onClick={() => imageRef?.current.click()} className='bg-[#0095F6] h-8 hover:bg-[#318bc7]'>Change photo</Button>
+                <div>
+                    <h1 className='font-bold text-xl mb-2'>Username</h1> {/* Add Username input */}
+                    <input
+                        type="text"
+                        value={input.username}
+                        onChange={(e) => setInput({ ...input, username: e.target.value })}
+                        className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
                 </div>
                 <div>
                     <h1 className='font-bold text-xl mb-2'>Bio</h1>
@@ -122,4 +132,4 @@ const EditProfile = () => {
     )
 }
 
-export default EditProfile
+export default EditProfile;

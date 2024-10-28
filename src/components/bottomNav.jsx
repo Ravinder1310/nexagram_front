@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { useNavigate } from 'react-router-dom';
 import CreatePost from './CreatePost';
+import avatar from "./images/avatar.png"
 
 const BottomNav = () => {
 
@@ -49,9 +50,9 @@ const BottomNav = () => {
         {/* Profile Section */}
         <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/profile/${user?._id}`); }}>
         <div className="text-md text-center">
-        <Avatar className='w-6 h-6'>
+        <Avatar className='w-8 h-8'>
                     <AvatarImage src={user?.profilePicture} alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback src={avatar} />
                 </Avatar>
           </div>
         </div>
