@@ -15,6 +15,7 @@ import { setLikeNotification } from './redux/rtnSlice'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import MlmDetails from './components/mlmDetails'
 import Incomes from './components/incomes'
+import MobileRecharge from './components/mobileRecharge'
 
 
 const browserRouter = createBrowserRouter([
@@ -45,6 +46,10 @@ const browserRouter = createBrowserRouter([
       {
         path: '/chat',
         element: <ProtectedRoutes><ChatPage /></ProtectedRoutes>
+      },
+      {
+        path: '/mobile-recharge',
+        element: <ProtectedRoutes><MobileRecharge /></ProtectedRoutes>
       },
     ]
   },
