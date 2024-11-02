@@ -47,20 +47,21 @@ function InfluencerPackages() {
       if (response.data.success) {
         toast.success('Package purchased successfully!');
       } else {
-        toast.error('Failed to purchase package.');
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.error('Error purchasing package:', error);
-      toast.error('An error occurred while purchasing the package.');
+      toast.error(error.message);
     }
   };
 
   return (
     <div className="flex flex-col items-center py-20 px-4 bg-white">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">
+      <h1 className="text-3xl mb-8 text-gray-500 text-center font-mono ">
         Choose Your Influencer Package
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                   
+      <div className="grid grid-cols-1 w-[95%] sm:grid-cols-2 md:grid-cols-3 gap-8">
         {packages.map((pkg) => (
           <div
             key={pkg.id}
@@ -70,8 +71,8 @@ function InfluencerPackages() {
               {pkg.name}
             </h2>
             <p className="text-2xl font-bold text-green-500 mb-4">{pkg.price}</p>
-            <p className="text-gray-600 mb-2">Subscription: {pkg.duration}</p>
-            <p className="text-gray-600 mb-2">Earn: {pkg.likes}</p>
+            <p className="text-gray-600 mb-2"><span className='font-bold'>Subscription:</span> {pkg.duration}</p>
+            <p className="text-gray-600 mb-2"><span className='font-bold'>Earn:</span> {pkg.likes}</p>
             <p className="text-gray-600 mb-4">{pkg.sharesComments}</p>
             <button
               onClick={() => handlePurchase(pkg.id)}

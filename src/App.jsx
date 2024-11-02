@@ -21,6 +21,8 @@ import InvesterSignup from './components/InvesterSignup/InvesterSignup'
 import InvesterLogin from './components/InvesterLogin/InvesterLogin'
 import InvesterRecharge from './components/InvesterRecharge/InvesterRecharge'
 import MobileRecharge from './components/mobileRecharge'
+import GenerationIncomes from './components/generationInome'
+import DailyIncomes from './components/dailyIncome'
 
 
 const browserRouter = createBrowserRouter([
@@ -66,13 +68,22 @@ const browserRouter = createBrowserRouter([
         path: '/mobile-recharge',
         element: <ProtectedRoutes><MobileRecharge /></ProtectedRoutes>
       },
+      {
+        path: '/invester-recharge',
+        element: <InvesterRecharge />
+      },
+      {
+        path: '/generation-income',
+        element: <GenerationIncomes />
+      },
+      {
+        path: '/revenue-income',
+        element: <DailyIncomes />
+      },
     ]
   },
 
-  {
-    path: '/invester-recharge',
-    element: <InvesterRecharge />
-  },
+ 
   {
     path: '/invester-registration',
     element: <InvesterSignup />

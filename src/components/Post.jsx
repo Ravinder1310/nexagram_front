@@ -378,10 +378,10 @@ const Post = ({ post, isFollowingUsers }) => {
         )}
       </div>
 
-      <p className="px-2">
+      {/* <p className="px-2">
         <span className="font-medium mr-2">{post.author?.username}</span>
         {post.caption}
-      </p>
+      </p> */}  
       {comment.length > 0 && (
         <span
           onClick={() => {

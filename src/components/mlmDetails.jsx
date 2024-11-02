@@ -124,8 +124,8 @@ const MlmDetails = () => {
         }}
       >
         <div className="flex justify-between gap-1 text-center">
-          <div className="w-[90px] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-2 py-1 font-semibold text-white">
-            <h1>$0.00</h1>
+          <div className="w-[90px] text-left bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-2 py-1 font-semibold text-white">
+            <h1>$ {user?.rechargeWallet}</h1>
             <h1>Total</h1>
           </div>
           <div className="w-[90px] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-2 py-1 font-semibold text-white">

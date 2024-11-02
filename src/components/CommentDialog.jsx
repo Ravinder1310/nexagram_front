@@ -69,7 +69,7 @@ const CommentDialog = ({ open, setOpen }) => {
     <Dialog open={open}>
       <DialogContent
         onInteractOutside={() => setOpen(false)}
-        className="w-[80%] p-0 flex flex-col"
+        className="w-[80%] h-[500px] p-0 flex flex-col"
       >
         <div className="block sm:flex flex-1">
           <div className="w-full">
@@ -94,10 +94,10 @@ const CommentDialog = ({ open, setOpen }) => {
             )}
           </div>
           <div className="w-full flex flex-col justify-between">
-            <div className="flex items-center justify-between p-4">
+            <div className="flex items-center justify-between px-4 py-2">
               <div className="flex gap-3 items-center">
                 <Link>
-                  <Avatar>
+                  <Avatar className='w-8 h-8'>
                     <AvatarImage src={selectedPost?.author?.profilePicture} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
@@ -122,15 +122,17 @@ const CommentDialog = ({ open, setOpen }) => {
               </Dialog>
             </div>
             <hr />
-            <div className="flex-1 overflow-y-auto w-full p-4">
-              {comment.length > 0 ? (
-                comment.map((comment) => (
-                  <Comment key={comment._id} comment={comment} />
-                ))
-              ) : (
-                <p>No comments yet</p>
-              )}
-            </div>
+            <div className=" overflow-y-auto px-4 border-2 h-28"
+             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+  {comment.length > 0 ? (
+    comment.map((comment) => (
+      <Comment key={comment._id} comment={comment} />
+    ))
+  ) : (
+    <p>No comments yet</p>
+  )}
+</div>
             <div className="p-4">
               <div className="flex items-center gap-2">
                 <input
