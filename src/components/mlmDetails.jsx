@@ -40,7 +40,7 @@ const MlmDetails = () => {
   const { user } = useSelector((store) => store.auth);
 
   const generateInvitationLink = () => {
-    const link = `${window.location.origin}/signup?referral=${user.username}`;
+    const link = `${window.location.origin}/invester-registration?referral=${user.referralCode}`;
     setInvitationLink(link);
   };
 

@@ -19,6 +19,7 @@ import InfluencerPackages from './components/InfluencerPackages'
 import BenefitsPackage from './components/benifitsPackage'
 import InvesterSignup from './components/InvesterSignup/InvesterSignup'
 import InvesterLogin from './components/InvesterLogin/InvesterLogin'
+import InvesterRecharge from './components/InvesterRecharge/InvesterRecharge'
 
 
 const browserRouter = createBrowserRouter([
@@ -63,7 +64,11 @@ const browserRouter = createBrowserRouter([
 
     ]
   },
-  
+
+  {
+    path: '/invester-recharge',
+    element: <InvesterRecharge />
+  },
   {
     path: '/invester-registration',
     element: <InvesterSignup />
@@ -80,6 +85,7 @@ const browserRouter = createBrowserRouter([
     path: '/signup',
     element: <Signup />
   },
+
 ])
 
 function App() {

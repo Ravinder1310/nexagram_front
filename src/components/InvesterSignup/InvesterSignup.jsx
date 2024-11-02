@@ -245,7 +245,7 @@ const InvesterSignup = () => {
             />
           </div>
 
-          <h2 className="choose-position">Position</h2>
+          {/* <h2 className="choose-position">Position</h2>
 
           <div className="position-selector">
             <div className="position-options">
@@ -278,7 +278,7 @@ const InvesterSignup = () => {
                 Right
               </div>
             </div>
-          </div>
+          </div> */}
 
         <div className="flex justify-center ">
         <input

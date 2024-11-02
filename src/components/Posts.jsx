@@ -17,7 +17,7 @@ const Posts = () => {
           <Post 
             key={post._id} 
             post={post} 
-            isFollowingUsers={isFollowingUser[index]} 
+            isFollowingUsers={isFollowingUser?.[index]} 
           />
         ))
       ) : (

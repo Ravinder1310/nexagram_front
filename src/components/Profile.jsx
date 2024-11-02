@@ -18,7 +18,7 @@ import { Input } from "./ui/input";
 const Profile = () => {
   const params = useParams();
   const userId = params.id;
-
+console.log("profile====>",userId);
   // Use hook to get user profile by ID
   useGetUserProfile(userId);
 
@@ -161,6 +161,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    console.log("profilr ====>",user)
     const fetchAllPost = async () => {
       try {
         const response = await axios.get(

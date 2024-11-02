@@ -101,6 +101,7 @@ const Signup = () => {
                     )
                 }
                 <span className='text-center'>Already have an account? <Link to="/login" className='text-blue-600'>Login</Link></span>
+                <span className='text-center'>Already have an account? <Link to="/invester-register" className='text-blue-600'>Invester-register</Link></span>
             </form>
         </div>
     )

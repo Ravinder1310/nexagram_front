@@ -137,38 +137,32 @@ const InvesterLogin = () => {
         }
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/invester/login`, { walletAddress });
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/invester/login`, { walletAddress }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            });
             console.log(response)
-            if (response.status === 200 && response.data.success) {
-                dispatch(setAuthUser(response.data.user));
-                toast("Login successful!", {
-                    duration: 4000,
-                    position: 'top-center',
-                    style: { background: 'white', color: 'black' },
-                    icon: '👏',
-                });
+            if (response.data.success){
+                dispatch(setAuthUser(response.data.user))
                 navigate('/');
+                toast.success(res.data.message);
             } else {
                 setError(response.data.message);
-                toast(response.data.message, {
-                    duration: 4000,
-                    position: 'top-center',
-                    style: { background: 'white', color: 'black' },
-                    icon: '🤔',
-                });
             }
         } catch (err) {
-            toast(err.response?.data?.message || 'An error occurred. Please try again.', {
-                duration: 4000,
-                position: 'top-center',
-                style: { background: 'red', color: 'white' },
-                icon: '😢',
-            });
+           
             setError(err.response?.data?.message || 'An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
     };
+
+    useEffect(()=>{
+console.log(user);
+
+    },[user])
 
     return (
 

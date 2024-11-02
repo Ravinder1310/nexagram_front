@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Heart, Wallet , Home, LogOut,  BarChart2, MessageCircle, PlusSquare, Search, TrendingUp } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
@@ -14,6 +14,9 @@ const BottomNav = () => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [notificationOpen, setNotificationOpen] = useState(false);
+    useEffect(()=>{
+      console.log("user=>",user)
+    })
 
   return (
     <div className={`fixed sm:hidden bottom-0 py-1 border-4 border-gray-100 bg-white shadow-xl shadow-gray-300 w-full z-20`}>
