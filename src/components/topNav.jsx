@@ -25,7 +25,7 @@ const TopNav = () => {
     </h1>
         </div>
         <div className="flex gap-2">
-          <div className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md">
+          <div className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md" onClick={() => {navigate("/mobile-recharge")}}>
             <div className=" text-md text-center">
               <Heart className="m-auto" />
             </div>

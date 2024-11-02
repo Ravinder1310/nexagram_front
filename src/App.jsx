@@ -20,6 +20,7 @@ import BenefitsPackage from './components/benifitsPackage'
 import InvesterSignup from './components/InvesterSignup/InvesterSignup'
 import InvesterLogin from './components/InvesterLogin/InvesterLogin'
 import InvesterRecharge from './components/InvesterRecharge/InvesterRecharge'
+import MobileRecharge from './components/mobileRecharge'
 
 
 const browserRouter = createBrowserRouter([
@@ -60,8 +61,11 @@ const browserRouter = createBrowserRouter([
         element: <ProtectedRoutes><InfluencerPackages /></ProtectedRoutes>
       },
 
-      
+      {
 
+        path: '/mobile-recharge',
+        element: <ProtectedRoutes><MobileRecharge /></ProtectedRoutes>
+      },
     ]
   },
 

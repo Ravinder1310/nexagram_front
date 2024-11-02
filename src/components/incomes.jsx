@@ -3,7 +3,7 @@ import React from 'react';
 const IncomeCard = ({ title, amount }) => (
   <div className="bg-gradient-to-b from-gray-800 to-black rounded-lg shadow-md p-4 flex flex-col items-center justify-between h-32 w-full">
     <div className="text-white text-sm">{title}</div>
-    <div className="text-teal-400 text-lg font-bold">Rs. {amount}</div>
+    <div className="text-teal-400 text-lg font-bold">$ {amount}</div>
     <button className="bg-teal-600 text-white py-1 px-3 mt-2 rounded-full text-xs shadow-md">
       Income
     </button>
@@ -12,14 +12,12 @@ const IncomeCard = ({ title, amount }) => (
 
 const Incomes = () => {
   const incomeData = [
-    { title: 'Daily Bot Profit', amount: '2.040' },
-    { title: 'Referral Income', amount: '32.200' },
-    { title: 'Matching Income', amount: '18.700' },
-    { title: 'Booster Income', amount: '0.00' },
-    { title: 'Direct Club Bonus', amount: '20.030' },
-    { title: 'Progress Rank Bonus', amount: '0.00' },
-    { title: 'Monthly CTO Bonus', amount: '0.00' },
-    { title: 'Rewards Income', amount: '0.00' },
+    { title: 'Daily Revenue Profit', amount: '2.040' },
+    { title: 'Booster Income', amount: '32.200' },
+    { title: 'Referral Income', amount: '18.700' },
+    { title: 'Generation Income', amount: '0.00' },
+    { title: 'Royality Income', amount: '20.030' },
+    { title: 'Rewards Profit', amount: '0.00' }
   ];
 
   return (
