@@ -183,64 +183,68 @@ const InvesterSignup = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <div className="w-full">
-              <label className="text-black">User Name</label>
+              {/* <label className="text-black">User Name</label> */}
 
               <input
                 type="text"
                 name="userName"
                 value={userName}
+                placeholder="Enter user name"
                 onChange={(e) => setUserName(e.target.value)}
                 required
               />
             </div>
-            <FontAwesomeIcon className="absolute right-4 top-9" icon={faUser} />
+            <FontAwesomeIcon className="mr-3" icon={faUser} />
           </div>
           <div className="form-group">
             <div className="w-full">
-              <label className="text-black">Email</label>
+              {/* <label className="text-black">Email</label> */}
               <input
                 className="w-full"
                 type="email"
                 name="email"
                 value={email}
+                 placeholder="Enter email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <FontAwesomeIcon
-              className="absolute right-4 top-9"
+              className=""
               icon={faEnvelope}
             />
           </div>
           <div className="form-group">
             <div className="w-full">
-              <label className="text-black">Phone</label>
+              {/* <label className="text-black">Phone</label> */}
               <input
                 className="w-full"
                 type="text"
                 name="phone"
                 value={phone}
+                 placeholder="Enter phone number"
                 onChange={(e) => setPhone(e.target.value)}
                 required
               />
             </div>
             <FontAwesomeIcon
-              className="absolute right-4 top-9"
+              className="mr-3"
               icon={faPhone}
             />
           </div>
           <div className="form-group">
             <div className="w-full">
-              <label className="text-black">Referral Code</label>
+              {/* <label className="text-black">Referral Code</label> */}
               <input
                 type="text"
                 name="referralCode"
                 value={referredBy}
+                 placeholder="Enter referral Code"
                 onChange={(e) => setReferredCode(e.target.value)}
               />
             </div>
             <FontAwesomeIcon
-              className="absolute right-4 top-9"
+              className="mr-3"
               icon={faCodeBranch}
             />
           </div>
@@ -297,7 +301,7 @@ const InvesterSignup = () => {
 
           <p className="mt-3" >
             Already have an account?{" "}
-            <a className="ml-8 text-yellow-500" href="/login">
+            <a className="ml-8 text-yellow-500" href="/invester-login">
               Login
             </a>
           </p>

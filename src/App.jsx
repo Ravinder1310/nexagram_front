@@ -23,6 +23,7 @@ import InvesterRecharge from './components/InvesterRecharge/InvesterRecharge'
 import MobileRecharge from './components/mobileRecharge'
 import GenerationIncomes from './components/generationInome'
 import DailyIncomes from './components/dailyIncome'
+import DirectReferralIncomes from './components/directReferralIncome'
 
 
 const browserRouter = createBrowserRouter([
@@ -76,6 +77,10 @@ const browserRouter = createBrowserRouter([
         path: '/generation-income',
         element: <ProtectedRoutes><GenerationIncomes /></ProtectedRoutes>
 
+      },
+      {
+        path: '/referral-income',
+        element: <DirectReferralIncomes />
       },
       {
         path: '/revenue-income',
@@ -140,9 +145,9 @@ function App() {
   }, [user, dispatch]);
 
   return (
-    <>
+    <div className=''>
       <RouterProvider router={browserRouter} />
-    </>
+    </div>
   )
 }
 
