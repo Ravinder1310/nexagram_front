@@ -70,15 +70,17 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: '/invester-recharge',
-        element: <InvesterRecharge />
+        element: <ProtectedRoutes><InvesterRecharge /></ProtectedRoutes>
       },
       {
         path: '/generation-income',
-        element: <GenerationIncomes />
+        element: <ProtectedRoutes><GenerationIncomes /></ProtectedRoutes>
+
       },
       {
         path: '/revenue-income',
-        element: <DailyIncomes />
+        element: <ProtectedRoutes> <DailyIncomes /></ProtectedRoutes>
+
       },
     ]
   },

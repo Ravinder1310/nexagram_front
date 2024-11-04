@@ -30,7 +30,7 @@ const BottomNav = () => {
         </div>
 
         {/* Packages Section */}
-        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate(`/plans`) }}>
+        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { user.userType ==='Invester' ? navigate(`/plans`) : navigate(`/influencer-packages`)  }}>
            <div className="text-md text-center">
             <Wallet className="m-auto"/>
           </div>
