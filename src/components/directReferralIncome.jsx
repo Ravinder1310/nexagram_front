@@ -2,18 +2,18 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
-const DailyIncomes = () => {
+const DirectReferralIncomes = () => {
 
   const { user } = useSelector((store) => store.auth);
-  const [dailyIncomeHistory, setDailyIncomeHistory] = useState([]);
+  const [directReerralIncomeHistory, setDirectReerralIncomeHistory] = useState([]);
 
-  const getDailyIncomeHistory = async () => {
+  const getDirectReerralIncomeHistory = async () => {
     try {
       let res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/invester/daily-history/${user?._id}`
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/direct-referral-income-history/${user?._id}`
       );
       console.log(res.data.data);
-      setDailyIncomeHistory(res.data.data);
+      setDirectReerralIncomeHistory(res.data.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -21,7 +21,7 @@ const DailyIncomes = () => {
 
 
   useEffect(() => {
-    getDailyIncomeHistory();
+    getDirectReerralIncomeHistory();
   }, []);
 
   return (
@@ -37,22 +37,22 @@ const DailyIncomes = () => {
             </tr>
           </thead>  
           <tbody>
-            {dailyIncomeHistory?.length > 0 ? (
-              dailyIncomeHistory?.map((daily, index) => (
+            {directReerralIncomeHistory?.length > 0 ? (
+              directReerralIncomeHistory?.map((direct, index) => (
                 <tr key={daily?._id}>
                   <td className=" border border-black text-center">{index + 1}</td>
-                  <td className=" border border-black text-center">$ {daily?.balance}</td>
-                  <td className=" border border-black text-center"> $ {parseFloat(daily?.amount).toFixed(2)}</td>
+                  <td className=" border border-black text-center">$ {direct?.balance}</td>
+                  <td className=" border border-black text-center"> $ {parseFloat(direct?.amount).toFixed(2)}</td>
                  
                   <td className=" border border-black text-center">
-                    {new Date(daily?.createdAt).toLocaleDateString()} {new Date(daily?.createdAt).toLocaleTimeString()}
+                    {new Date(direct?.createdAt).toLocaleDateString()} {new Date(direct?.createdAt).toLocaleTimeString()}
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
                 <td colSpan="4" className="py-4 text-center">
-                  No income yet
+                  No direct income yet
                 </td>
               </tr>
             )}
@@ -62,4 +62,4 @@ const DailyIncomes = () => {
   )
 }
 
-export default DailyIncomes
+export default DirectReferralIncomes
