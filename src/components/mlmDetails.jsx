@@ -305,8 +305,8 @@ const MlmDetails = () => {
       <AnimatedBorderBox>
         <h1 className="font-bold text-xl text-center">Your Invitation Link</h1>
         <div className=" text-center px-2 py-2 rounded-lg shadow-xl shadow-gray-300">
-          <div className="w-[80%] m-auto">
-            <span className="font-bold text-sm text-gray-500">
+          <div className="w-[100%] m-auto">
+            <span className="font-bold text-sm text-wrap text-gray-500">
               {invitationLink}
             </span>
           </div>
