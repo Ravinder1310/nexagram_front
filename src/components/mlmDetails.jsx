@@ -37,14 +37,14 @@ const AnimatedBorderBox = ({ children }) => (
     />
 
     {/* Inner Content with Corner Borders */}
-    <div className="relative p-4 bg-white text-black rounded-lg z-10">
+    <div className="relative p-3 bg-white text-black rounded-lg z-10">
       {children}
 
       {/* Corner Borders */}
-      <span className="absolute top-0 left-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
-      <span className="absolute top-0 right-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
-      <span className="absolute bottom-0 left-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
-      <span className="absolute bottom-0 right-0 w-[8px] h-[8px] bg-gradient-to-r from-red-500 to-orange-500"></span>
+      <span className="absolute top-0 left-0 w-[8px] h-[8px] bg-gradient-to-r from-[#0d355b] to-[#0d355b]"></span>
+      <span className="absolute top-0 right-0 w-[8px] h-[8px] bg-gradient-to-r from-[#0d355b] to-[#0d355b]"></span>
+      <span className="absolute bottom-0 left-0 w-[8px] h-[8px] bg-gradient-to-r from-[#0d355b] to-[#0d355b]"></span>
+      <span className="absolute bottom-0 right-0 w-[8px] h-[8px] bg-gradient-to-r from-[#0d355b] to-[#0d355b]"></span>
     </div>
   </div>
 );
@@ -276,42 +276,43 @@ const MlmDetails = () => {
     <div className="pt-20 pb-20 px-3">
       <Toaster />
       <div className="flex flex-wrap gap-y-3 justify-between">
-        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
-          <p className="font-semibold">$ 0.00</p>
-          <h1 className="font-semibold text-sm">Total Income</h1>
-        </div>
-        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/revenue-income")}}>
-          <p className="font-semibold">$ {parseFloat(dailyIncome).toFixed(2)}</p>
+      <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white">
+  <p className="font-semibold text-white">$ 0.00</p>
+  <h1 className="font-semibold text-sm">Total Income</h1>
+</div>
+{/* //#0d355b */}
+        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/revenue-income")}}>
+          <p className="font-semibold text-white">$ {parseFloat(dailyIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Daily Revenue</h1>
         </div>
-        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/referral-income")}}>
-          <p className="font-semibold">$ {parseFloat(referralIncome).toFixed(2)}</p>
+        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/referral-income")}}>
+          <p className="font-semibold text-white">$ {parseFloat(referralIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Referral Income</h1>
         </div>
-        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/royality-income")}}>
-          <p className="font-semibold">$ {parseFloat(royalityIncome).toFixed(2)}</p>
+        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/royality-income")}}>
+          <p className="font-semibold text-white">$ {parseFloat(royalityIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Royality Income</h1>
         </div>
-        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/generation-income")}}>
-          <p className="font-semibold">$ {parseFloat(generationIncome).toFixed(2)}</p>
+        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/generation-income")}}>
+          <p className="font-semibold text-white">$ {parseFloat(generationIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Generation Income</h1>
         </div>
        
-        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/rewards-income")}}>
-          <p className="font-semibold">$ {parseFloat(rewards).toFixed(2)}</p>
+        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/rewards-income")}}>
+          <p className="font-semibold text-white">$ {parseFloat(rewards).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Reward Income</h1>
         </div>
       </div>
       <AnimatedBorderBox>
-        <h1 className="font-bold text-xl text-center">Your Invitation Link</h1>
-        <div className=" text-center px-2 py-2 rounded-lg shadow-xl shadow-gray-300">
+        <h1 className="font-bold text-xl text-center mt-4">Your Invitation Link</h1>
+        <div className="w-[95%] m-auto text-center px-2 py-2">
           <div className="w-[100%] m-auto">
             <span className="font-bold text-sm text-wrap text-gray-500">
               {invitationLink}
             </span>
           </div>
           <button
-            className={` w-[80%] font-mono text-xl rounded-full bg-gradient-to-r mt-4 from-red-400 to-red-600 text-white px-3 py-1 ${
+            className={` w-[80%] font-mono text-xl rounded-full bg-gradient-to-r mt-4 from-blue-400 to-[#0d355b] text-white px-3 py-1 ${
               isLinkCopied ? "opacity-50 cursor-not-allowed" : ""
             }`}
             onClick={copyToClipboard}
@@ -330,109 +331,94 @@ const MlmDetails = () => {
           minHeight: "200px", // Set an appropriate height
         }}
       >
-        <div className="flex justify-between gap-1 text-center">
-          <div className="w-[90px] text-left bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-2 py-1 font-semibold text-white">
+        {/* <div className="flex justify-between gap-1 text-center">
+          <div className="w-[90px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-2 py-1 font-semibold text-white">
             <h1>$ {user?.rechargeWallet}</h1>
             <h1>Total</h1>
           </div>
-          <div className="w-[90px] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-2 py-1 font-semibold text-white">
+          <div className="w-[90px] bg-gradient-to-b from-[#0d355b] to-[#0d355b] rounded-lg px-2 py-1 font-semibold text-white">
             <h1>$0.00</h1>
             <h1>Withdraw</h1>
           </div>
-          <div className="w-[90px] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-2 py-1 font-semibold text-white">
+          <div className="w-[90px] bg-gradient-to-b from-[#0d355b] to-[#0d355b] rounded-lg px-2 py-1 font-semibold text-white">
             <h1>$0.00</h1>
             <h1>Balance</h1>
           </div>
-        </div>
-        <div className="mt-2">
+        </div> */}
+        <h1 className="text-center text-2xl font-serif">Withdraw Your Income</h1>
+        <div className="mt-6 text-center">
           <input
             className="w-[100%] border-2 rounded-md border-gray-200 p-1"
             type="number"
             placeholder="Enter Amount"
           />
-          <button className="bg-gradient-to-r from-red-400 to-red-600 mt-2 p-1 px-2 rounded-md text-sm text-white">
+          <button className="bg-gradient-to-r from-blue-400 to-[#0d355b] mt-6 p-2 px-2 rounded-md text-md text-white">
             Claim Withdrawal ↗
           </button>
         </div>
       </div>
-      <div className="flex flex-wrap justify-between px-1 py-2 border-2 border-gray-200 shadow-md shadow-gray-200 rounded-lg gap-2 font-semibold mt-8">
-        <button className="w-[140px] py-2 rounded-md px-2 bg-gradient-to-r from-red-400 to-red-600 text-sm text-white">
+      {/* <div className="flex flex-wrap justify-between px-1 py-2 border-2 border-gray-200 shadow-md shadow-gray-200 rounded-lg gap-2 font-semibold mt-8">
+        <button className="w-[140px] py-2 rounded-md px-2 bg-gradient-to-r from-blue-400 to-[#0d355b] text-sm text-white">
           Claim Rank Reward
         </button>
-        <button className="w-[140px] py-2 rounded-md px-2 bg-gradient-to-r from-red-400 to-red-600 text-sm text-white">
+        <button className="w-[140px] py-2 rounded-md px-2 bg-gradient-to-r from-blue-400 to-[#0d355b] text-sm text-white">
           Claim Royality
         </button>
-        <button className="w-[140px] py-2 rounded-md px-2 bg-gradient-to-r from-red-400 to-red-600 text-sm text-white">
+        <button className="w-[140px] py-2 rounded-md px-2 bg-gradient-to-r from-blue-400 to-[#0d355b] text-sm text-white">
           Claim Self
         </button>
-      </div>
-      {/* <AnimatedBorderBox>
-        <h1 className="font-bold text-lg text-center text-gray-500">
-          Currrent Package Capping Bar
-        </h1>
-        <div className="flex text-[11px] justify-between font-semibold text-gray-500">
-          <h1>Total : $110.00</h1> 
-          <span>|</span>
-          <h1>Used : $100.00</h1> 
-          <span>|</span>
-          <h1>Balance : $110.00</h1> 
-        </div>
-        <div>
-
-        </div>
-        
-      </AnimatedBorderBox> */}
+      </div> */}
       <AnimatedBorderBox>
         <h1 className="font-bold text-xl text-center text-gray-500">
           Affiliate Summary
         </h1>
-        <div className="grid grid-cols-1 w-full gap-4 mt-4">
-          <div className="bg-gradient-to-b h-16 w-full px-10 from-yellow-600 to-yellow-800 rounded-md py-1 text-white flex items-center gap-4">
-            <div className="text-3xl flex items-center justify-center">👑</div>
+        <div className="grid grid-cols-2 w-full mt-4 gap-3">
+          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
+            {/* <div className="text-2xl flex items-center justify-center">👑</div> */}
             <div>
-              <h1 className="text-lg font-semibold">Sponsor</h1>
+              <h1 className="text-md font-semibold mt-1">Sponsor</h1>
               <h2 className="text-gray-300 text-sm font-semibold">
                 0xcd****26D4
               </h2>
             </div>
           </div>
 
-          <div className="bg-gradient-to-b h-16 w-full px-10 from-yellow-600 to-yellow-800 rounded-md py-1 text-white flex items-center gap-4">
-            <div className="text-3xl flex items-center justify-center">👥</div>
+          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
+            {/* <div className="text-2xl flex items-center justify-center">👥</div> */}
             <div>
-              <h1 className="text-lg font-semibold">Direct Team</h1>
+              <h1 className="text-md font-semibold mt-1">Direct Team</h1>
               <h2 className="text-gray-300 text-sm font-semibold">0</h2>
             </div>
           </div>
 
-          <div className="bg-gradient-to-b h-16 w-full px-10 from-yellow-600 to-yellow-800 rounded-md py-1 text-white flex items-center gap-4">
-            <div className="text-3xl flex items-center justify-center">👥</div>
+          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
+            {/* <div className="text-2xl flex items-center justify-center">👥</div> */}
             <div>
-              <h1 className="text-lg font-semibold">Downline Team</h1>
+              <h1 className="text-md font-semibold mt-2">Downline Team</h1>
               <h2 className="text-gray-300 text-sm font-semibold">0</h2>
             </div>
           </div>
 
-          <div className="bg-gradient-to-b h-16 w-full px-10 from-yellow-600 to-yellow-800 rounded-md py-1 text-white flex items-center gap-4">
-            <div className="text-3xl flex items-center justify-center">💼</div>
+          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
+            {/* <div className="text-3xl flex items-center justify-center">💼</div> */}
             <div>
-              <h1 className="text-lg font-semibold">Direct Business</h1>
+              <h1 className="text-md font-semibold mt-2">Direct Business</h1>
               <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>
             </div>
           </div>
 
-          <div className="bg-gradient-to-b h-16 w-full px-8 from-yellow-600 to-yellow-800 rounded-md py-1 text-white flex items-center gap-4">
-            <div className="text-3xl flex items-center justify-center">💼</div>
+          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
+            {/* <div className="text-3xl flex items-center justify-center">💼</div> */}
             <div>
-              <h1 className="text-lg font-semibold">Downline Business</h1>
+              <h1 className="text-md font-semibold mt-2">Downline Business</h1>
               <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>
             </div>
           </div>
 
-          <div className="bg-gradient-to-b h-16 w-full px-10 from-yellow-600 to-yellow-800 rounded-md py-1 text-white flex items-center gap-4">
-            <div className="text-3xl flex items-center justify-center">🎓</div>
+          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
+            {/* <div className="text-3xl flex items-center justify-center">🎓</div> */}
             <div>
-              <h1 className="text-lg font-semibold">My Investment</h1>
+              <h1 className="text-md font-semibold mt-2">My Investment</h1>
               <h2 className="text-gray-300 text-sm font-semibold">$60.00</h2>
             </div>
           </div>
