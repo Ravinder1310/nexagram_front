@@ -281,24 +281,24 @@ const MlmDetails = () => {
           <h1 className="font-semibold text-sm">Total Income</h1>
         </div>
         <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/revenue-income")}}>
-          <p className="font-semibold">$ {dailyIncome}</p>
+          <p className="font-semibold">$ {parseFloat(dailyIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Daily Revenue</h1>
         </div>
         <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/referral-income")}}>
-          <p className="font-semibold">$ {referralIncome}</p>
+          <p className="font-semibold">$ {parseFloat(referralIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Referral Income</h1>
         </div>
         <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/royality-income")}}>
-          <p className="font-semibold">$ {royalityIncome}</p>
+          <p className="font-semibold">$ {parseFloat(royalityIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Royality Income</h1>
         </div>
         <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/generation-income")}}>
-          <p className="font-semibold">$ {generationIncome}</p>
+          <p className="font-semibold">$ {parseFloat(generationIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Generation Income</h1>
         </div>
        
         <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/rewards-income")}}>
-          <p className="font-semibold">$ {rewards}</p>
+          <p className="font-semibold">$ {parseFloat(rewards).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Reward Income</h1>
         </div>
       </div>
