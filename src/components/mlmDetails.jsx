@@ -15,6 +15,9 @@ import greenDiamond from "./images/ranks/7.png";
 import blueDiamond from "./images/ranks/8.png";
 import blackDiamond from "./images/ranks/9.png";
 import goldDiamond from "./images/ranks/10.png";
+import axios from "axios";
+import RewardIncomes from "./rewardsIncome";
+import { useNavigate } from "react-router-dom";
 
 // import { BadgeCheckIcon } from '@heroicons/react/solid';
 
@@ -51,9 +54,15 @@ const MlmDetails = () => {
   const [invitationLink, setInvitationLink] = useState("");
   const [selectedRank, setSelectedRank] = useState(0);
   const { user } = useSelector((store) => store.auth);
+  const [referralIncome, setReferralIncome] = useState(0);
+  const [dailyIncome, setDailyIncome] = useState(0);
+  const [royalityIncome, setRoyalityIncome] = useState(0);
+  const [generationIncome, setGenerationIncome] = useState(0);
+  const [rewards, setRewards] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+  const navigate = useNavigate();
 
   const rankRequirements = [
     {
@@ -187,37 +196,110 @@ const MlmDetails = () => {
     }, 2000);
   };
 
+
+  const getDirectReerralIncomeHistory = async () => {
+    try {
+      let res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/direct-referral-income-history/${user?._id}`
+      );
+      let totalDaily = 0;
+      for(let i=0;i<res.data.data.length;i++){
+          totalDaily += res.data.data[i].amount
+      }
+      setReferralIncome(totalDaily)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
+  const getRankIncomeHistory = async () => {
+    try {
+      let res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/rank-income-history/${user?._id}`
+      );
+      // console.log(res.data.data);
+      // setRankIncomeHistory(res.data.data);
+      let totalDaily = 0;
+      for(let i=0;i<res.data.data.length;i++){
+          totalDaily += res.data.data[i].amount
+      }
+      setRoyalityIncome(totalDaily)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
+  const getDailyIncomeHistory = async () => {
+    try {
+      let res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/daily-history/${user?._id}`
+      );
+      let totalDaily = 0;
+      for(let i=0;i<res.data.data.length;i++){
+          totalDaily += res.data.data[i].amount
+      }
+      setDailyIncome(totalDaily)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const getRewardIncomeHistory = async () => {
+    try {
+      let res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/reward-income-history/${user?._id}`
+      );
+      // console.log(res.data.data);
+      // setRewardIncomeHistory(res.data.data);
+      let totalDaily = 0;
+      for(let i=0;i<res.data.data.length;i++){
+          totalDaily += res.data.data[i].amount
+      }
+      setRewards(totalDaily)
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     generateInvitationLink();
+    getDirectReerralIncomeHistory();
+    getRankIncomeHistory();
+    getDailyIncomeHistory();
+    getRewardIncomeHistory();
+    // console.log("-------------------",user?.ranksAchieved.TOPAZ);
   }, []);
 
   return (
     <div className="pt-20 pb-20 px-3">
       <Toaster />
       <div className="flex flex-wrap gap-y-3 justify-between">
-        <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
-          <p className="font-semibold">$0.00</p>
+        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
+          <p className="font-semibold">$ 0.00</p>
           <h1 className="font-semibold text-sm">Total Income</h1>
         </div>
-        <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
-          <p className="font-semibold">$0.00</p>
-          <h1 className="font-semibold text-sm">Direct Bonus</h1>
+        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/revenue-income")}}>
+          <p className="font-semibold">$ {dailyIncome}</p>
+          <h1 className="font-semibold text-sm">Daily Revenue</h1>
         </div>
-        <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
-          <p className="font-semibold">$0.00</p>
-          <h1 className="font-semibold text-sm">Royality</h1>
+        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/referral-income")}}>
+          <p className="font-semibold">$ {referralIncome}</p>
+          <h1 className="font-semibold text-sm">Referral Income</h1>
         </div>
-        <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
-          <p className="font-semibold">$0.00</p>
-          <h1 className="font-semibold text-sm">Team Strength</h1>
+        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/royality-income")}}>
+          <p className="font-semibold">$ {royalityIncome}</p>
+          <h1 className="font-semibold text-sm">Royality Income</h1>
         </div>
-        <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
-          <p className="font-semibold">$0.00</p>
-          <h1 className="font-semibold text-sm">Team Business</h1>
+        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/generation-income")}}>
+          <p className="font-semibold">$ {generationIncome}</p>
+          <h1 className="font-semibold text-sm">Generation Income</h1>
         </div>
-        <div className="w-[49%] bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white">
-          <p className="font-semibold">$0.00</p>
-          <h1 className="font-semibold text-sm">Rewards</h1>
+       
+        <div className="w-[49%] text-center bg-gradient-to-b from-orange-600 to-yellow-500 rounded-lg px-4 py-1 text-white" onClick={() => {navigate("/rewards-income")}}>
+          <p className="font-semibold">$ {rewards}</p>
+          <h1 className="font-semibold text-sm">Reward Income</h1>
         </div>
       </div>
       <AnimatedBorderBox>
@@ -376,7 +458,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={sapphire}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.SAPPHIRE ? "" : "grayscale"} `}
               onClick={() => {
                 handleRank(0);
               }}

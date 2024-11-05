@@ -44,7 +44,7 @@ const BottomNav = () => {
         </div>
 
         {/* Recharge Section */}
-        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/incomes") }}>
+        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/invester-recharge") }}>
         <div className="text-md text-center">
             <TrendingUp className="m-auto"/>
         </div>
