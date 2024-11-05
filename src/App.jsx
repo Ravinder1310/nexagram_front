@@ -25,6 +25,8 @@ import GenerationIncomes from './components/generationInome'
 import DailyIncomes from './components/dailyIncome'
 import DirectReferralIncomes from './components/directReferralIncome'
 import MyTeam from './components/MyTeam/MyTeam'
+import RankIncomes from './components/rankIncome'
+import RewardIncomes from './components/rewardsIncome'
 
 
 const browserRouter = createBrowserRouter([
@@ -91,6 +93,15 @@ const browserRouter = createBrowserRouter([
       {
         path: '/my-team',
         element: <ProtectedRoutes> <MyTeam /></ProtectedRoutes>
+      },
+      {
+        path: '/royality-income',
+        element: <ProtectedRoutes> <RankIncomes /></ProtectedRoutes>
+
+      },
+      {
+        path: '/rewards-income',
+        element: <ProtectedRoutes> <RewardIncomes /></ProtectedRoutes>
 
       },
     ]

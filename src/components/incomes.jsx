@@ -25,7 +25,6 @@ const Incomes = () => {
 
   const incomeData = [
     { title: 'Daily Revenue Profit', amount: '2.040', link:"revenue-income" },
-    { title: 'Booster Income', amount: '32.200', link:"booster-income" },
     { title: 'Referral Income', amount: '18.700', link:"referral-income" },
     { title: 'Generation Income', amount: '0.00', link:"generation-income" },
     { title: 'Royality Income', amount: '20.030', link:"royality-income" },

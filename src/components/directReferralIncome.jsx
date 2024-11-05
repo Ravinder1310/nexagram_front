@@ -26,12 +26,13 @@ const DirectReferralIncomes = () => {
 
   return (
     <div className='p-4 pt-20'>
-        <h1 className='text-center text-2xl font-mono'>Daily Revenue Income</h1>
+        <h1 className='text-center text-2xl font-mono'>Direct Referral Income</h1>
         <table className="min-w-full bg-white border mt-10">
           <thead>
             <tr>
               <th className=" border-2 border-black ">Sr No</th>
-              <th className=" border-2 border-black ">Percentage</th>
+              <th className=" border-2 border-black ">From</th>
+              <th className=" border-2 border-black ">Amount Of</th>
               <th className=" border-2 border-black ">Amount</th>
               <th className=" border-2 border-black ">Date</th>
             </tr>
@@ -39,9 +40,10 @@ const DirectReferralIncomes = () => {
           <tbody>
             {directReerralIncomeHistory?.length > 0 ? (
               directReerralIncomeHistory?.map((direct, index) => (
-                <tr key={daily?._id}>
+                <tr key={direct?._id}>
                   <td className=" border border-black text-center">{index + 1}</td>
-                  <td className=" border border-black text-center">$ {direct?.balance}</td>
+                  <td className=" border border-black text-center">{direct?.from}</td>
+                  <td className=" border border-black text-center">$ {direct?.amountOf}</td>
                   <td className=" border border-black text-center"> $ {parseFloat(direct?.amount).toFixed(2)}</td>
                  
                   <td className=" border border-black text-center">
