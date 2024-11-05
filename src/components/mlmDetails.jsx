@@ -494,7 +494,7 @@ const MlmDetails = () => {
         </div>
         {isOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg w-[300px] text-center">
+            <div className="bg-white p-6 rounded-lg w-[94%] text-center">
               <h2 className="text-xl font-bold mb-4">Rank Requirements</h2>
               {/* <p className="text-gray-700 mb-4 text-lg font-serif">
               Here are the requirements or conditions to achieve the Sapphire rank:
