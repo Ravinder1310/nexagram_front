@@ -8,21 +8,8 @@ const contractABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "recharge",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
-				"name": "_usdtToken",
+				"name": "_usdtTokenAddress",
 				"type": "address"
 			}
 		],
@@ -35,7 +22,7 @@ const contractABI = [
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "user",
+				"name": "buyer",
 				"type": "address"
 			},
 			{
@@ -43,16 +30,23 @@ const contractABI = [
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
+			}
+		],
+		"name": "BullPurchased",
+		"type": "event"
+	},
+	{
+		"inputs": [
 			{
-				"indexed": false,
 				"internalType": "uint256",
-				"name": "timestamp",
+				"name": "amount",
 				"type": "uint256"
 			}
 		],
-		"name": "Recharge",
-		"type": "event"
+		"name": "purchaseBull",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -80,11 +74,11 @@ const contractABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
+]
 
 // Addresses
-const contractAddress = '0xD82Cd01385F8402A4BDBFB51CDc6682A6eCb11B4'; // Contract address on BSC Testnet
-const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // USDT address on BSC Testnet
+const contractAddress = '0x8b122cd3B74b06664C1fFAa674D020Cc49092F67'; // Your contract address
+const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // USDT address on BSC
 
 function InvesterRecharge() {
     const [amount, setAmount] = useState(0);
@@ -106,44 +100,44 @@ function InvesterRecharge() {
             // Check for the Web3 provider (MetaMask or Trust Wallet)
             let provider;
             if (window.ethereum) {
-                provider = new ethers.providers.Web3Provider(window.ethereum);
+                provider = new ethers.providers.Web3Provider(window.ethereum, 'any'); // Handle all wallets
+                await window.ethereum.request({ method: 'eth_requestAccounts' }); // Prompt user to connect account
             } else if (window.web3) {
-                provider = new ethers.providers.Web3Provider(window.web3.currentProvider);
+                provider = new ethers.providers.Web3Provider(window.web3.currentProvider, 'any');
             } else {
-                throw new Error("No web3 provider found. Please install MetaMask or Trust Wallet.");
-            }
-
-            await provider.send('eth_requestAccounts', []);
-            const signer = provider.getSigner();
-
-            // Check if on Binance Smart Chain Testnet
-            const { chainId } = await provider.getNetwork();
-            if (chainId !== 97) {
-                toast.error('Please switch to Binance Smart Chain Testnet (BSC Testnet).');
+                toast.error('Please install MetaMask or Trust Wallet to use this feature.');
                 setLoading(false);
                 return;
             }
 
-            // Parse the amount to the correct format
-            const parsedAmount = ethers.utils.parseUnits(amount.toString(), 18);
+            const signer = provider.getSigner();
+            const userAddress = await signer.getAddress();
+            console.log('User Wallet Address:', userAddress);
 
-            // Approve the contract to spend USDT
-            const usdtContract = new ethers.Contract(usdtAddress, [
-                'function approve(address spender, uint256 amount) public returns (bool)'
-            ], signer);
+            // Ensure that the wallet is connected to Binance Smart Chain
+            const { chainId } = await provider.getNetwork();
+            if (chainId !== 56) { // BSC Mainnet has chainId of 56
+                toast.error('Please switch your wallet to Binance Smart Chain (BSC).');
+                setLoading(false);
+                return;
+            }
 
-            const approvalTxn = await usdtContract.approve(contractAddress, parsedAmount);
-            await approvalTxn.wait(); // Wait for the approval transaction to confirm
+            // Interact with USDT contract for approval
+            const usdtContract = new ethers.Contract(
+                usdtAddress,
+                ['function approve(address spender, uint256 amount) public returns (bool)'],
+                signer
+            );
 
-            // Call the recharge function on the contract
-            const rechargeContract = new ethers.Contract(contractAddress, contractABI, signer);
-            const rechargeTxn = await rechargeContract.recharge(parsedAmount);
-            await rechargeTxn.wait(); // Wait for the recharge transaction to confirm
+            const approveAmount = ethers.utils.parseUnits(amount.toString(), 18); // Convert to 18 decimals
+            const approvalTransaction = await usdtContract.approve(contractAddress, approveAmount);
+            await approvalTransaction.wait();
 
-            toast.success('Recharge successful!');
-            setAmount(0);
-            getRechargeHistory();
-
+            // Interact with your Bull Plan contract to purchase Bull
+            const bullContract = new ethers.Contract(contractAddress, contractABI, signer);
+            const purchaseTransaction = await bullContract.purchaseBull(approveAmount);
+             const rest=await purchaseTransaction.wait();
+ console.log("contract response ====================>",rest);
             // Record recharge in the backend
             const { data } = await axios.put(
                 `${import.meta.env.VITE_API_URL}/api/v1/invester/recharge/${user?._id}`,
@@ -241,4 +235,4 @@ function InvesterRecharge() {
     );
 }
 
-export default InvesterRecharge;
+export default InvesterRecharge
