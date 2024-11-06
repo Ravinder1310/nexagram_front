@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+import main_logo from "../images/main_lgo.png";
 
 const InvesterSignup = () => {
   const [userName, setUserName] = useState("");
@@ -169,8 +170,8 @@ const InvesterSignup = () => {
   return (
     <div className="signUp-container">
       <div className="signUp-card">
-        <div className="text-3xl font-bold text-center">
-        Sign Up
+        <div className="text-xl font-bold text-center">
+        <img src={main_logo} className=""/>
         </div>
 
         {/* Wallet Provider Check */}
