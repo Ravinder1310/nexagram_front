@@ -15,6 +15,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import sendLogo from "./images/message2.png";
 import { Input } from "./ui/input";
 
+
 const Profile = () => {
   const params = useParams();
   const userId = params.id;
@@ -383,7 +384,7 @@ const Profile = () => {
             onClick={() => setDialogOpen(false)}
           >
             <div
-              className="bg-white rounded-lg w-[80%] max-w-lg p-4"
+              className="bg-white w-[80%] max-w-lg p-4  rounded-xl bg-transparent backdrop-blur-3xl text-white"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-lg font-bold">
@@ -402,7 +403,7 @@ const Profile = () => {
                         src={user.profilePicture}
                         alt={user.username}
                       />
-                      <AvatarFallback>{user.username.charAt(0)}</AvatarFallback>
+                      <AvatarFallback src={avatar} />
                     </Avatar>
                     <span>{user.username}</span>
                   </div>

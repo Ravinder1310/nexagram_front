@@ -4,15 +4,14 @@ import main_logo from "./images/main_lgo.png";
 import { useNavigate } from "react-router-dom";
 
 const TopNav = () => {
-
   const navigate = useNavigate();
 
-    useEffect(() => {
-        const link = document.createElement('link');
-        link.href = 'https://fonts.googleapis.com/css2?family=Lobster&display=swap';
-        link.rel = 'stylesheet';
-        document.head.appendChild(link);
-      }, []);
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = "https://fonts.googleapis.com/css2?family=Lobster&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
 
   return (
     <div className="fixed sm:hidden w-[100%] z-40">
@@ -20,17 +19,27 @@ const TopNav = () => {
         <div className="flex items-center">
           <img src={main_logo} className="w-[40px]" alt="error" />
           <h1 className="text-2xl" style={{ fontFamily: "'Lobster', cursive" }}>
-      <span className="text-black">Dazzle</span>
-      <span className="text-orange-400 ml-1">Den</span>
-    </h1>
+            <span className="text-black">Dazzle</span>
+            <span className="text-orange-400 ml-1">Den</span>
+          </h1>
         </div>
         <div className="flex gap-2">
-          <div className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md" onClick={() => {navigate("/mobile-recharge")}}>
+          <div
+            className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md"
+            onClick={() => {
+              navigate("/all-recharge");
+            }}
+          >
             <div className=" text-md text-center">
               <Heart className="m-auto" />
             </div>
           </div>
-          <div className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md" onClick={() => {navigate("/chat")}}>
+          <div
+            className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md"
+            onClick={() => {
+              navigate("/chat");
+            }}
+          >
             <div className=" text-md text-center">
               <MessageCircle className="m-auto" />
             </div>

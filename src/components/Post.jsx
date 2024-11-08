@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { setPosts, setSelectedPost } from "@/redux/postSlice";
 import { Badge } from "./ui/badge";
 import avatar from "./images/avatar.png"
+import { useNavigate } from "react-router-dom";
 
 const Post = ({ post, isFollowingUsers }) => {
   const [text, setText] = useState("");
@@ -25,6 +26,7 @@ const Post = ({ post, isFollowingUsers }) => {
   const videoRef = useRef(null);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isFollowing, setIsFollowing] = useState(isFollowingUsers);
+  const navigate = useNavigate()
 
   // State for video mute functionality
   const [isMuted, setIsMuted] = useState(false);
@@ -237,9 +239,9 @@ const Post = ({ post, isFollowingUsers }) => {
   }, [userInteracted]);
 
   return (
-    <div className="my-10 w-full">
+    <div className="my-14 w-full">
       <div className="flex items-center px-2 justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" onClick={() => {navigate(`/profile/${post?.author?._id}`)}}>
           <Avatar>
             <AvatarImage src={post.author?.profilePicture} alt="post_image" />
             <AvatarFallback src={avatar} />
@@ -271,7 +273,7 @@ const Post = ({ post, isFollowingUsers }) => {
             </Button>
           )}
 
-          <DialogContent className="flex flex-col items-center text-sm text-center">
+          <DialogContent className="flex flex-col items-center text-sm text-center w-[70%] rounded-xl bg-transparent backdrop-blur-2xl text-white">
             {post?.author?._id !== user?._id && (
               <Button
                 variant="ghost"
@@ -281,14 +283,14 @@ const Post = ({ post, isFollowingUsers }) => {
                 Unfollow
               </Button>
             )}
-            <Button variant="ghost" className="cursor-pointer w-fit">
+            <Button variant="ghost" className="cursor-pointer w-[150px] border">
               Add to favorites
             </Button>
             {user && user?._id === post?.author._id && (
               <Button
                 onClick={deletePostHandler}
                 variant="ghost"
-                className="cursor-pointer w-fit"
+                className="cursor-pointer w-[150px] border"
               >
                 Delete
               </Button>

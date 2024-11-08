@@ -9,6 +9,7 @@ import Comment from "./Comment";
 import axios from "axios";
 import { toast } from "sonner";
 import { setPosts } from "@/redux/postSlice";
+import avatar from "./images/avatar.png";
 
 const CommentDialog = ({ open, setOpen }) => {
   const [text, setText] = useState("");
@@ -40,7 +41,9 @@ const CommentDialog = ({ open, setOpen }) => {
   const sendMessageHandler = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/v1/post/${selectedPost?._id}/comment`,
+        `${import.meta.env.VITE_API_URL}/api/v1/post/${
+          selectedPost?._id
+        }/comment`,
         { text },
         {
           withCredentials: true,
@@ -69,7 +72,7 @@ const CommentDialog = ({ open, setOpen }) => {
     <Dialog open={open}>
       <DialogContent
         onInteractOutside={() => setOpen(false)}
-        className="w-[80%] h-[500px] p-0 flex flex-col"
+        className="w-[80%] h-[auto] p-4 flex flex-col rounded-xl bg-transparent backdrop-blur-2xl text-white"
       >
         <div className="block sm:flex flex-1">
           <div className="w-full">
@@ -94,12 +97,12 @@ const CommentDialog = ({ open, setOpen }) => {
             )}
           </div>
           <div className="w-full flex flex-col justify-between">
-            <div className="flex items-center justify-between px-4 py-2">
+            <div className="flex items-center justify-between py-2">
               <div className="flex gap-3 items-center">
                 <Link>
-                  <Avatar className='w-8 h-8'>
+                  <Avatar className="w-8 h-8">
                     <AvatarImage src={selectedPost?.author?.profilePicture} />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback src={avatar} />
                   </Avatar>
                 </Link>
                 <div>
@@ -109,7 +112,7 @@ const CommentDialog = ({ open, setOpen }) => {
                 </div>
               </div>
 
-              <Dialog>
+              {/* <Dialog>
                 <DialogTrigger asChild>
                   <MoreHorizontal className="cursor-pointer" />
                 </DialogTrigger>
@@ -119,21 +122,22 @@ const CommentDialog = ({ open, setOpen }) => {
                   </div>
                   <div className="cursor-pointer w-full">Add to favorites</div>
                 </DialogContent>
-              </Dialog>
+              </Dialog> */}
             </div>
-            <hr />
-            <div className=" overflow-y-auto px-4 border-2 h-28"
-             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            <hr className="mb-2 mt-2" />
+            <div
+              className=" overflow-y-auto h-28 text-white"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-  {comment.length > 0 ? (
-    comment.map((comment) => (
-      <Comment key={comment._id} comment={comment} />
-    ))
-  ) : (
-    <p>No comments yet</p>
-  )}
-</div>
-            <div className="p-4">
+              {comment.length > 0 ? (
+                comment.map((comment) => (
+                  <Comment key={comment._id} comment={comment} />
+                ))
+              ) : (
+                <p className="text-white mt-8 font-bold">No comments yet</p>
+              )}
+            </div>
+            <div className="mt-4">
               <div className="flex items-center gap-2">
                 <input
                   type="text"
@@ -141,12 +145,13 @@ const CommentDialog = ({ open, setOpen }) => {
                   onChange={changeEventHandler}
                   placeholder="Add a comment..."
                   ref={inputRef} // Attach the ref to the input
-                  className="w-full outline-none border text-sm border-gray-300 p-2 rounded"
+                  className="w-full outline-none border text-sm border-gray-300 text-black p-2 rounded"
                 />
                 <Button
                   disabled={!text.trim()}
                   onClick={sendMessageHandler}
                   variant="outline"
+                  style={{ color: "white", backgroundColor: "black" }} // Change the text color to blue
                 >
                   Send
                 </Button>

@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPosts } from '@/redux/postSlice';
+import avatar from "./images/avatar.png"
 
 const CreatePost = ({ open, setOpen }) => {
   const imageRef = useRef();
@@ -45,6 +46,9 @@ const CreatePost = ({ open, setOpen }) => {
         if (res.data.success) {
             dispatch(setPosts([res.data.post, ...posts]));
             toast.success(res.data.message);
+            setFile("");
+            setCaption("");
+            setMediaPreview("");
             setOpen(false);
         }
     } catch (error) {
@@ -57,19 +61,22 @@ const CreatePost = ({ open, setOpen }) => {
 
   return (
     <Dialog open={open}>
-      <DialogContent onInteractOutside={() => setOpen(false)}>
+      <DialogContent
+  onInteractOutside={() => setOpen(false)}
+  className="w-[80%] h-auto rounded-lg bg-transparent backdrop-blur-2xl text-white" // Adding backdrop blur
+>
         <DialogHeader className='text-center font-semibold'>Create New Post</DialogHeader>
         <div className='flex gap-3 items-center'>
           <Avatar>
             <AvatarImage src={user?.profilePicture} alt="img" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback src={avatar} />
           </Avatar>
-          <div>
+          <div className=''>
             <h1 className='font-semibold text-xs'>{user?.username}</h1>
-            <span className='text-gray-600 text-xs'>Bio here...</span>
+            <span className='text-white text-xs'>Bio here...</span>
           </div>
         </div>
-        <Textarea value={caption} onChange={(e) => setCaption(e.target.value)} className="focus-visible:ring-transparent border-none" placeholder="Write a caption..." />
+        <Textarea value={caption} onChange={(e) => setCaption(e.target.value)} className="focus-visible:ring-transparent border-none text-black" placeholder="Write a caption..." />
         {
           mediaPreview && (
             <div className='w-full h-64 flex items-center justify-center'>

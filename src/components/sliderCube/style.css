@@ -1,0 +1,38 @@
+.swiper {
+    width: 38%;
+    height: 200px;
+    margin-top: 60px;
+    z-index: 0;
+  }
+  
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    background: white;
+    /* display: flex; */
+    text-align: center;
+    align-items: center;
+  }
+  
+  .swiper-slide .fa-icon {
+    display: block;
+    width: 40%;
+    height: auto;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .swiper {
+        width: 76%;
+        height: 200px;
+        margin-top: 60px;
+    }
+  
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        border-radius: 1%;
+        background: white;
+    }
+  }
+  

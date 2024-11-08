@@ -315,7 +315,7 @@ const MobileRecharge = () => {
                   <div className="mb-6 w-full sm:w-auto sm:mr-4">
                     <div className="flex items-center bg-white shadow-lg h-[70px] rounded-md px-4 py-2 border border-gray-200">
                       {/* Left Icon (Phone) */}
-                      <div className="text-orange-500">
+                      <div className="text-[#0d355b]">
                         <FontAwesomeIcon
                           icon={faPhoneAlt}
                           className="text-xl"
@@ -329,18 +329,18 @@ const MobileRecharge = () => {
                       <input
                         type="text"
                         placeholder="Enter Mobile Number"
-                        className="w-full focus:outline-none text-orange-500 placeholder-orange-500 text-xl"
+                        className="w-full focus:outline-none text-[#0d355b] placeholder-[#0d355b] text-xl"
                         value={number}
                         onChange={handleNumberChange}
                       />
 
                       {/* Right Icon (User) */}
-                      <div className="text-orange-500">
+                      <div className="text-[#0d355b]">
                         <FontAwesomeIcon icon={faUser} className="text-xl" />
                       </div>
                     </div>
                   </div>
-                  <div className="mb-4 w-full sm:w-auto sm:mr-4 h-[70px] text-orange-500 shadow-lg">
+                  <div className="mb-4 w-full sm:w-auto sm:mr-4 h-[70px] text-[#0d355b] shadow-lg">
                     <select
                       name="operator"
                       className="shadow appearance-none border rounded h-[70px] text-xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
@@ -361,7 +361,7 @@ const MobileRecharge = () => {
 
                   {/* Get Plans Button */}
                   <button
-                    className={`bg-orange-500 mt-10 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto mb-6 flex items-center justify-center ${
+                    className={`bg-[#0d355b] mt-10 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full sm:w-auto mb-6 flex items-center justify-center ${
                       loadingPlans ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                     onClick={fetchPlans}
@@ -406,28 +406,28 @@ const MobileRecharge = () => {
               {
                 !selectedPlan && (
                   <div className="bg-white rounded pt-6 pb-8 w-[95%] sm:w-[50%] m-auto">
-                  <div className="flex justify-around border-b-1 mt-10 text-lg font-bold text-orange-600">
+                  <div className="flex justify-around border-b-1 mt-10 text-lg font-bold text-[#0d355b]">
                     <button
                       className={filter === "all" ? "underline" : ""}
                       onClick={() => setFilter("all")}
                     >
                       All
                     </button>
-                    <div className="border border-orange-700"></div>
+                    <div className="border border-[#0d355b]"></div>
                     <button
                       className={filter === "3g4g" ? "underline" : ""}
                       onClick={() => setFilter("3g4g")}
                     >
                       Data Add on
                     </button>
-                    <div className="border border-orange-700"></div>
+                    <div className="border border-[#0d355b]"></div>
                     <button
                       className={filter === "combo" ? "underline" : ""}
                       onClick={() => setFilter("combo")}
                     >
                       Combo
                     </button>
-                    <div className="border border-orange-700"></div>
+                    <div className="border border-[#0d355b]"></div>
                     <button
                       className={filter === "topup" ? "underline" : ""}
                       onClick={() => setFilter("topup")}
@@ -456,7 +456,7 @@ const MobileRecharge = () => {
                         >
                           {/* Price and Validity Section */}
                           <div>
-                            <p className="text-orange-600 font-bold text-xl">
+                            <p className="text-[#0d355b] font-bold text-xl">
                               ₹{plan.mrp}
                             </p>
                           </div>
@@ -487,26 +487,26 @@ const MobileRecharge = () => {
 
             {/* Selected Plan Details */}
             {selectedPlan && (
-              <div className="mt-6 bg-orange-500 font-bold p-6 rounded-lg text-white shadow-lg w-[90%] sm:w-[50%] m-auto">
+              <div className="mt-6 bg-[#0d355b] font-bold p-6 rounded-lg text-white shadow-lg w-[90%] sm:w-[50%] m-auto">
                 <h3 className="text-lg font-bold text-center  mb-4">
                   Selected Plan
                 </h3>
-                <p className="text-center  mb-2">
+                <p className="text-center  mb-2 text-white">
                   Operator: {selectedPlan.operator_name}
                 </p>
-                <p className="text-center  mb-2">
+                <p className="text-center  mb-2 text-white">
                   Amount: ₹{selectedPlan.mrp}
                 </p>
-                <p className="text-center  mb-2">
+                <p className="text-center  mb-2 text-white">
                   Validity: {selectedPlan.validity} days
                 </p>
-                <p className="text-center  mb-2">
+                <p className="text-center  mb-2 text-white">
                   Talktime: {selectedPlan.talktime} minutes
                 </p>
-                <p className="text-center  mb-2">
+                <p className="text-center  mb-2 text-white">
                   Data Benefits: {selectedPlan.data} GB
                 </p>
-                <p className="text-center ">
+                <p className="text-center text-white">
                   Description: {selectedPlan.description}
                 </p>
 
@@ -562,11 +562,11 @@ const MobileRecharge = () => {
           </>
         ) : (
           // Recharge Success Message
-          <div className="flex flex-col items-center justify-center bg-orange-500 text-white p-8 shadow-md mt-[150px] sm:mt-[70px] w-[90%] sm:w-[40%] m-auto rounded-xl">
+          <div className="flex flex-col items-center justify-center bg-[#0d355b] text-white p-8 shadow-md mt-[150px] sm:mt-[70px] w-[90%] sm:w-[40%] m-auto rounded-xl">
             <h3 className="text-2xl font-bold mb-4 text-center">
               Recharge Successful!
             </h3>
-            <p className="text-center  mb-6 font-bold">{rechargeResult}</p>
+            <p className="text-center text-white  mb-6 font-bold">{rechargeResult}</p>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               onClick={resetRecharge}

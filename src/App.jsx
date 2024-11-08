@@ -35,6 +35,7 @@ import UnpaidUsersList from './components/Admin/UnpaidUserslist/UnpaidUserslist'
 import BlockedUsers from './components/Admin/BlockedUsers/BlockedUsers'
 import ActivateUserForm from './components/Admin/ActivateUserForm/ActivateUserForm'
 import DownlineUsers from './components/Admin/DownlineUsers/DownlineUsers'
+import AllRecharges from './components/allRecharges'
 
 const browserRouter = createBrowserRouter([
   {
@@ -111,7 +112,11 @@ const browserRouter = createBrowserRouter([
         element: <ProtectedRoutes> <RewardIncomes /></ProtectedRoutes>
 
       },
+      {
+        path: '/all-recharge',
+        element: <ProtectedRoutes> <AllRecharges /></ProtectedRoutes>
 
+      },
     ]
   },
 

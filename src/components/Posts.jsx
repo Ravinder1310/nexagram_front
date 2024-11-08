@@ -7,11 +7,11 @@ const Posts = () => {
 
 
   // useEffect(() => {
-  //   console.log("userdsfdsfd",isFollowingUser);
+  //   console.log("userdsfdsfd",posts);
   // },[posts])
 
   return (
-    <div className='pb-20'>
+    <div className='pb-20 pt-6'>
       {posts?.length > 0 ? (
         posts?.map((post, index) => (
           <Post 
