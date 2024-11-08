@@ -12,7 +12,7 @@ const Home = () => {
     return (
         <div className='flex'>
             <div className='flex-grow'>
-                <Stories/>
+                {/* <Stories/> */}
                 <Feed />
                 <Outlet />
             </div>
