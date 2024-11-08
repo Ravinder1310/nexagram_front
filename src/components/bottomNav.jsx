@@ -15,7 +15,7 @@ const BottomNav = () => {
     const [open, setOpen] = useState(false);
     const [notificationOpen, setNotificationOpen] = useState(false);
     useEffect(()=>{
-      console.log("user=>",user)
+      // console.log("user=>",user)
     })
 
   return (

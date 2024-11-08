@@ -180,7 +180,7 @@ const Post = ({ post, isFollowingUsers }) => {
   
 
   const handleVideoPlay = async () => {
-    console.log("Video is playing");
+    // console.log("Video is playing");
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/v1/post/${post._id}/view`,
@@ -206,7 +206,7 @@ const Post = ({ post, isFollowingUsers }) => {
 
   useEffect(() => {
     const videoElement = videoRef.current;
-    console.log("IsFollowingUser", isFollowingUsers);
+    // console.log("IsFollowingUser", isFollowingUsers);
 
     // Set up the Intersection Observer
     const observer = new IntersectionObserver(
@@ -237,7 +237,7 @@ const Post = ({ post, isFollowingUsers }) => {
   }, [userInteracted]);
 
   return (
-    <div className="my-12 w-full">
+    <div className="my-10 w-full">
       <div className="flex items-center px-2 justify-between">
         <div className="flex items-center gap-2">
           <Avatar>

@@ -18,7 +18,7 @@ import { Input } from "./ui/input";
 const Profile = () => {
   const params = useParams();
   const userId = params.id;
-console.log("profile====>",userId);
+// console.log("profile====>",userId);
   // Use hook to get user profile by ID
   useGetUserProfile(userId);
 
@@ -161,7 +161,7 @@ console.log("profile====>",userId);
   }
 
   useEffect(() => {
-    console.log("profilr ====>",user)
+    // console.log("profilr ====>",user)
     const fetchAllPost = async () => {
       try {
         const response = await axios.get(
@@ -170,7 +170,7 @@ console.log("profile====>",userId);
           }/${user?._id}`,
           { withCredentials: true }
         );
-        console.log("abc", response.data.isFollowing);
+        // console.log("abc", response.data.isFollowing);
         setIsFollowingrofile(response.data.isFollowing);
         // console.log("tobeFollowed",userProfile);
         // console.log("whoFollowing",user);
@@ -183,7 +183,7 @@ console.log("profile====>",userId);
 
 
   useEffect(() => {
-     console.log("isMessage", isMessaging);
+    //  console.log("isMessage", isMessaging);
      
   },[isMessaging])
 

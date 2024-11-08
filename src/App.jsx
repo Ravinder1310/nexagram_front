@@ -27,6 +27,7 @@ import DirectReferralIncomes from './components/directReferralIncome'
 import MyTeam from './components/MyTeam/MyTeam'
 import RankIncomes from './components/rankIncome'
 import RewardIncomes from './components/rewardsIncome'
+import Spotify from './components/spotify'
 
 
 const browserRouter = createBrowserRouter([
@@ -102,6 +103,11 @@ const browserRouter = createBrowserRouter([
       {
         path: '/rewards-income',
         element: <ProtectedRoutes> <RewardIncomes /></ProtectedRoutes>
+
+      },
+      {
+        path: '/spotify',
+        element: <ProtectedRoutes> <Spotify /></ProtectedRoutes>
 
       },
     ]

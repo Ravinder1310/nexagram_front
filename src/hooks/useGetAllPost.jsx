@@ -12,7 +12,7 @@ const useGetAllPost = () => {
             try {
                 const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/post/all`, { withCredentials: true });
                 if (res.data.success) { 
-                    console.log(res.data.posts);
+                    // console.log(res.data.posts);
                     dispatch(setPosts(res.data.posts));
                     let isFollow = [];
                    for (let post = 0; post < res.data.posts.length; post++) {
@@ -24,7 +24,7 @@ const useGetAllPost = () => {
                         isFollow.push(response.data.isFollowing)
                    }
                     dispatch(setIsFollowingUser(isFollow))
-                    console.log(isFollow);
+                    // console.log(isFollow);
                 }
             } catch (error) {
                 console.log(error);

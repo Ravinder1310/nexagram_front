@@ -45,7 +45,7 @@ function InvesterRecharge() {
       let res = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/v1/invester/recharge-history/${user?._id}`
       );
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setRechargeHistory(res.data.data);
     } catch (error) {
       console.log(error.message);
