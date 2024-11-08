@@ -27,7 +27,14 @@ import DirectReferralIncomes from './components/directReferralIncome'
 import MyTeam from './components/MyTeam/MyTeam'
 import RankIncomes from './components/rankIncome'
 import RewardIncomes from './components/rewardsIncome'
-
+import AdminLogin from './components/Admin/AdminLogin/AdminLogin'
+import AdminDashbord from './components/Admin/AdminDashbord/AdminDashbord'
+import AllUsers from './components/Admin/AllUsers/AllUsers'
+import PaidUsers from './components/Admin/PaidUsers/PaidUsers'
+import UnpaidUsersList from './components/Admin/UnpaidUserslist/UnpaidUserslist'
+import BlockedUsers from './components/Admin/BlockedUsers/BlockedUsers'
+import ActivateUserForm from './components/Admin/ActivateUserForm/ActivateUserForm'
+import DownlineUsers from './components/Admin/DownlineUsers/DownlineUsers'
 
 const browserRouter = createBrowserRouter([
   {
@@ -83,7 +90,7 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: '/referral-income',
-        element: <DirectReferralIncomes />
+        element: <ProtectedRoutes><DirectReferralIncomes /></ProtectedRoutes>
       },
       {
         path: '/revenue-income',
@@ -104,6 +111,7 @@ const browserRouter = createBrowserRouter([
         element: <ProtectedRoutes> <RewardIncomes /></ProtectedRoutes>
 
       },
+
     ]
   },
 
@@ -123,6 +131,39 @@ const browserRouter = createBrowserRouter([
   {
     path: '/signup',
     element: <Signup />
+  },
+  {
+    path: '/admin/login',
+    element: <AdminLogin />
+  },
+  {
+    path: '/admin/dashbord',
+    element: <AdminDashbord />
+  },
+  {
+    path: '/admin/all-users',
+    element: <AllUsers />
+  },
+  {
+    path: '/admin/all-paid-users',
+    element: <PaidUsers />
+  },
+  {
+    path: '/admin/all-unpaid-users',
+    element: <UnpaidUsersList/>
+  },
+  {
+    path: '/admin/blocked-users',
+    element: <BlockedUsers/>
+  },
+  {
+    path: '/admin/activate-user',
+    element: <ActivateUserForm/>
+  },
+  {
+    path: '/admin/user-team',
+    element:<DownlineUsers />
+
   },
 
 ])

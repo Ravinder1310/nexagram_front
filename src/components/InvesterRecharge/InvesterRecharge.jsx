@@ -1,84 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
-
-const contractABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_usdtTokenAddress",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "buyer",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "BullPurchased",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "purchaseBull",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "admin",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "usdtToken",
-		"outputs": [
-			{
-				"internalType": "contract IERC20",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-]
-
-// Addresses
-const contractAddress = '0x8b122cd3B74b06664C1fFAa674D020Cc49092F67'; // Your contract address
-const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'; // USDT address on BSC
 
 function InvesterRecharge() {
     const [amount, setAmount] = useState(0);
@@ -92,71 +15,36 @@ function InvesterRecharge() {
             setMessage('Please enter a valid amount.');
             return;
         }
-
+    
         setLoading(true);
         setMessage('');
-
+    
         try {
-            // Check for the Web3 provider (MetaMask or Trust Wallet)
-            let provider;
-            if (window.ethereum) {
-                provider = new ethers.providers.Web3Provider(window.ethereum, 'any'); // Handle all wallets
-                await window.ethereum.request({ method: 'eth_requestAccounts' }); // Prompt user to connect account
-            } else if (window.web3) {
-                provider = new ethers.providers.Web3Provider(window.web3.currentProvider, 'any');
-            } else {
-                toast.error('Please install MetaMask or Trust Wallet to use this feature.');
-                setLoading(false);
-                return;
-            }
-
-            const signer = provider.getSigner();
-            const userAddress = await signer.getAddress();
-            console.log('User Wallet Address:', userAddress);
-
-            // Ensure that the wallet is connected to Binance Smart Chain
-            const { chainId } = await provider.getNetwork();
-            if (chainId !== 56) { // BSC Mainnet has chainId of 56
-                toast.error('Please switch your wallet to Binance Smart Chain (BSC).');
-                setLoading(false);
-                return;
-            }
-
-            // Interact with USDT contract for approval
-            const usdtContract = new ethers.Contract(
-                usdtAddress,
-                ['function approve(address spender, uint256 amount) public returns (bool)'],
-                signer
+            const res = await axios.put(
+                `${import.meta.env.VITE_API_URL}/api/v1/invester/recharge/${user?._id}`, {
+                    amount
+                }
             );
 
-            const approveAmount = ethers.utils.parseUnits(amount.toString(), 18); // Convert to 18 decimals
-            const approvalTransaction = await usdtContract.approve(contractAddress, approveAmount);
-            await approvalTransaction.wait();
-
-            // Interact with your Bull Plan contract to purchase Bull
-            const bullContract = new ethers.Contract(contractAddress, contractABI, signer);
-            const purchaseTransaction = await bullContract.purchaseBull(approveAmount);
-             const rest=await purchaseTransaction.wait();
- console.log("contract response ====================>",rest);
-            // Record recharge in the backend
-            const { data } = await axios.put(
-                `${import.meta.env.VITE_API_URL}/api/v1/invester/recharge/${user?._id}`,
-                { amount }
-            );
-            if (data.success) {
-                toast.success('Recharge recorded successfully!');
+            // Display the response message in the `message` state and as a toast
+            setMessage(res.data.message);
+            if (res.status === 200) {
+                toast.success(res.data.message);
             } else {
-                toast.error('Failed to record recharge.');
+                toast.error(res.data.message);
             }
 
         } catch (error) {
             console.error('Transaction Error:', error);
-            toast.error('An error occurred while processing your request.');
+
+            // Handle error and display a message to the user
+            setMessage(error.response?.data?.message || 'An error occurred while processing your request.');
+            toast.error(error.response?.data?.message || 'An error occurred while processing your request.');
         } finally {
             setLoading(false);
         }
     };
-
+    
     const getRechargeHistory = async () => {
         try {
             const res = await axios.get(
@@ -235,4 +123,4 @@ function InvesterRecharge() {
     );
 }
 
-export default InvesterRecharge
+export default InvesterRecharge;
