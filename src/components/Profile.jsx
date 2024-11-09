@@ -285,7 +285,7 @@ const Profile = () => {
             <span className="">{userProfile?.bio || "bio here..."}</span>
           </div>
         </section>
-        <div className="flex items-center gap-2 justify-center w-[80%] m-auto">
+        <div className="flex items-center gap-2 justify-between w-[80%] m-auto">
           {isLoggedInUserProfile ? (
             <>
               <Link to="/account/edit">
@@ -293,15 +293,16 @@ const Profile = () => {
                   Edit profile
                 </Button>
               </Link>
-              <Button variant="secondary" className="hover:bg-gray-200 h-8">
-                View archive
-              </Button>
+              
               <Button
                 variant="secondary"
                 className="hover:bg-gray-200 h-8"
                 onClick={logoutHandler}
               >
                 Log out
+              </Button>
+              <Button variant="secondary" className={` hover:bg-gray-200 h-8 flex `}>
+                More
               </Button>
             </>
           ) : isFollowingProfile ? (
