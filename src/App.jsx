@@ -56,11 +56,11 @@ const browserRouter = createBrowserRouter([
         element: <ProtectedRoutes><EditProfile /></ProtectedRoutes>
       },
       {
-        path: '/plans/',
+        path: '/plans',
         element: <ProtectedRoutes> <MlmDetails /></ProtectedRoutes>
       },
       {
-        path: '/incomes/',
+        path: '/incomes',
         element: <ProtectedRoutes> <Incomes /></ProtectedRoutes>
       },
       {
