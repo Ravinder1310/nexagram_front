@@ -384,7 +384,7 @@ const Profile = () => {
             onClick={() => setDialogOpen(false)}
           >
             <div
-              className="bg-white w-[80%] max-w-lg p-4  rounded-xl bg-transparent backdrop-blur-3xl text-white"
+              className=" w-[80%] max-w-lg p-4  rounded-xl bg-transparent backdrop-blur-3xl text-white"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-lg font-bold">
@@ -405,7 +405,7 @@ const Profile = () => {
                       />
                       <AvatarFallback src={avatar} />
                     </Avatar>
-                    <span>{user.username}</span>
+                    <span className="font-serif">{user.username}</span>
                   </div>
                 ))}
               </div>

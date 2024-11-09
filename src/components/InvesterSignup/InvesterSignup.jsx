@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import main_logo from "../images/main_lgo.png";
+import main_logo from "../images/mn.png";
 
 const InvesterSignup = () => {
   const [userName, setUserName] = useState("");
@@ -171,7 +171,7 @@ const InvesterSignup = () => {
     <div className="signUp-container">
       <div className="signUp-card">
         <div className="text-xl font-bold text-center">
-        <img src={main_logo} className=""/>
+        <img src={main_logo} className="m-auto"/>
         </div>
 
         {/* Wallet Provider Check */}
@@ -211,7 +211,7 @@ const InvesterSignup = () => {
               />
             </div>
             <FontAwesomeIcon
-              className=""
+              className="text-white"
               icon={faEnvelope}
             />
           </div>
@@ -300,7 +300,7 @@ const InvesterSignup = () => {
           {formError && <p style={{ color: "red" }}>{formError}</p>}
           {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
 
-          <p className="mt-3" >
+          <p className="mt-3 text-white" >
             Already have an account?{" "}
             <a className="ml-8 text-yellow-500" href="/invester-login">
               Login

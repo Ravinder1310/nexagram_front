@@ -172,7 +172,7 @@ const DepositForm = () => {
           </button>
         </form>
         {/* Transactions Table */}
-        <div className="mt-8 w-[90%] max-w-screen-lg mx-auto bg-gray-300 p-6 rounded-lg text-center shadow-lg">
+        <div className="mt-8 w-[90%] max-w-screen-lg mx-auto bg-gray-300 p-6 rounded-lg pb-20 text-center shadow-lg">
           <h3 className="text-xl md:text-2xl font-semibold mb-4">Transaction History</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full table-auto">

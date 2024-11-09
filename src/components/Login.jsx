@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser } from '@/redux/authSlice';
+import main_logo from "./images/mn.png";
 
 const Login = () => {
     const [input, setInput] = useState({
@@ -57,11 +58,11 @@ const Login = () => {
         }
     },[])
     return (
-        <div className='flex items-center w-screen h-screen justify-center'>
-            <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8'>
+        <div className='flex items-center w-screen h-screen justify-center bg-gray-400'>
+            <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8 bg-[#0d355b] rounded-xl text-white'>
                 <div className='my-4'>
-                    <h1 className='text-center font-bold text-xl'>LOGO</h1>
-                    <p className='text-sm text-center'>Login to see photos & videos from your friends</p>
+                <img src={main_logo} className="h-[110px] m-auto" />
+                    {/* <p className='text-sm text-center text-white'>Login to see photos & videos from your friends</p> */}
                 </div>
                 <div>
                     <span className='font-medium'>Email</span>
@@ -94,8 +95,8 @@ const Login = () => {
                     )
                 }
 
-                <span className='text-center'>Dosent have an account? <Link to="/signup" className='text-blue-600'>Signup</Link></span>
-                <span className='text-center'>Dosent have an account? <Link to="/invester-login" className='text-blue-600'>Invester Login</Link></span>
+                <span className='text-center'>Dosent have an account? <Link to="/signup" className='text-yellow-400'>Signup</Link></span>
+                <span className='text-center'>Dosent have an account? <Link to="/invester-login" className='text-yellow-400'>Invester Login</Link></span>
             </form>
         </div>
     )

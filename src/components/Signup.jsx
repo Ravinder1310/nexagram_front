@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { Link, useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import main_logo from "./images/mn.png";
 
 const Signup = () => {
     const [input, setInput] = useState({
@@ -54,12 +55,10 @@ const Signup = () => {
         }
     },[])
     return (
-        <div className='flex items-center w-screen h-screen justify-center'>
-            <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8'>
-                <div className='my-4'>
-                    <h1 className='text-center font-bold text-xl'>LOGO</h1>
-                    <p className='text-sm text-center'>Signup to see photos & videos from your friends</p>
-                </div>
+        <div className='flex items-center w-screen h-screen justify-center  bg-gray-400'>
+            <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-6 py-4  bg-[#0d355b] rounded-xl text-white'>
+                <img src={main_logo} className="h-[110px] m-auto" />
+                    {/* <p className='text-sm text-center'>Signup to see photos & videos from your friends</p> */}
                 <div>
                     <span className='font-medium'>Username</span>
                     <Input
@@ -67,6 +66,7 @@ const Signup = () => {
                         name="username"
                         value={input.username}
                         onChange={changeEventHandler}
+                        
                         className="focus-visible:ring-transparent my-2"
                     />
                 </div>
@@ -101,7 +101,7 @@ const Signup = () => {
                     )
                 }
                 <span className='text-center'>Already have an account? <Link to="/login" className='text-blue-600'>Login</Link></span>
-                <span className='text-center'>Already have an account? <Link to="/invester-register" className='text-blue-600'>Invester-register</Link></span>
+                <span className='text-center'>Already have an account? <Link to="/invester-registration" className='text-blue-600'>Invester-register</Link></span>
             </form>
         </div>
     )
