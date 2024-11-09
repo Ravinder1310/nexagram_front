@@ -36,6 +36,7 @@ import BlockedUsers from './components/Admin/BlockedUsers/BlockedUsers'
 import ActivateUserForm from './components/Admin/ActivateUserForm/ActivateUserForm'
 import DownlineUsers from './components/Admin/DownlineUsers/DownlineUsers'
 import AllRecharges from './components/allRecharges'
+import AdminProtectedRoute from './components/AdminProtectedRoute'
 
 const browserRouter = createBrowserRouter([
   {
@@ -143,32 +144,31 @@ const browserRouter = createBrowserRouter([
   },
   {
     path: '/admin/dashbord',
-    element: <AdminDashbord />
+    element:<AdminProtectedRoute> <AdminDashbord /> </AdminProtectedRoute>
   },
   {
     path: '/admin/all-users',
-    element: <AllUsers />
+    element:<AdminProtectedRoute> <AllUsers /> </AdminProtectedRoute>
   },
   {
     path: '/admin/all-paid-users',
-    element: <PaidUsers />
+    element:<AdminProtectedRoute> <PaidUsers /> </AdminProtectedRoute>
   },
   {
     path: '/admin/all-unpaid-users',
-    element: <UnpaidUsersList/>
+    element:<AdminProtectedRoute> <UnpaidUsersList/> </AdminProtectedRoute>
   },
   {
     path: '/admin/blocked-users',
-    element: <BlockedUsers/>
+    element:<AdminProtectedRoute> <BlockedUsers/> </AdminProtectedRoute>
   },
   {
     path: '/admin/activate-user',
-    element: <ActivateUserForm/>
+    element:<AdminProtectedRoute> <ActivateUserForm/> </AdminProtectedRoute>
   },
   {
     path: '/admin/user-team',
-    element:<DownlineUsers />
-
+    element:<AdminProtectedRoute> <DownlineUsers /> </AdminProtectedRoute>
   },
 
 ])
