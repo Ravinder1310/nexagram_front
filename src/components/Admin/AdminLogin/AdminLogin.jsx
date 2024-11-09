@@ -37,7 +37,7 @@ const AdminLogin = () => {
             );
             if (res.data.success) {
                 dispatch(setAdmin(res.data.admin));
-                navigate("/");
+                navigate("/admin/dashbord");
                 toast.success(res.data.message);
                 setInput({
                     email: "",
