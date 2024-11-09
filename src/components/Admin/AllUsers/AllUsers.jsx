@@ -7,13 +7,15 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 // import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../../../context/auth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [copiedReferralCode, setCopiedReferralCode] = useState(null);
   const navigate = useNavigate();
   const { allUsers } = useSelector((store) => store.auth);
+  const {user} = useSelector(store=>store.auth);
+  const dispatch = useDispatch();
   const getData = async () => {
     try {
       const result = await axios.get(
@@ -52,22 +54,26 @@ const AllUsers = () => {
     }
   };
 
-  const userAccess = async (e, mobileNumber, password) => {
+  const userAccess = async (e,walletAddress) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, { mobileNumber, password });
-
-      if (res.data.success) {
-        setAuth({
-          ...auth,
-          user: res.data.user,
-          token: res.data.token
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/login`, walletAddress, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        withCredentials: true
+    });
+    if (res.data.success) {
+        dispatch(setAuthUser(res.data.user));
+        console.log("res ==========>",res.data);
+        
+        navigate("/");
+        toast.success(res.data.message);
+        setInput({
+            email: "",
+            password: ""
         });
-        localStorage.setItem("auth", JSON.stringify(res.data));
-        window.open('/', '_blank');
-      } else {
-        toast.error(res.data.message);
-      }
+    }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong. Please try again.");
     }
@@ -108,7 +114,7 @@ const AllUsers = () => {
                  
                   <td className="py-2 px-4 border-b text-blue-600 hover:text-blue-800">
                     <div className="flex hover:cursor-pointer  items-center space-x-2">
-                      <span >
+                      <span>
                         {user.referralCode}
                       </span>
                       <button
