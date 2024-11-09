@@ -2,7 +2,7 @@ import React from 'react'
 
 const GenerationIncomes = () => {
   return (
-    <div className='p-4 pt-20 pb-20'>
+    <div className='p-4 pt-20 pb-28'>
         <h1 className='text-center text-2xl font-mono'>Generation Income</h1>
         <table className="min-w-full bg-white border mt-10">
   <thead>
