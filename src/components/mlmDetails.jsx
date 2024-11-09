@@ -378,7 +378,7 @@ const MlmDetails = () => {
             <div>
               <h1 className="text-md font-semibold mt-1">Sponsor</h1>
               <h2 className="text-gray-300 text-sm font-semibold">
-                0xcd****26D4
+                {user?.referredBy}
               </h2>
             </div>
           </div>
@@ -394,7 +394,7 @@ const MlmDetails = () => {
           <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
             {/* <div className="text-2xl flex items-center justify-center">👥</div> */}
             <div>
-              <h1 className="text-md font-semibold mt-2">Downline Team</h1>
+              <h1 className="text-md font-semibold mt-2">Dazzle Token</h1>
               <h2 className="text-gray-300 text-sm font-semibold">0</h2>
             </div>
           </div>
@@ -419,7 +419,7 @@ const MlmDetails = () => {
             {/* <div className="text-3xl flex items-center justify-center">🎓</div> */}
             <div>
               <h1 className="text-md font-semibold mt-2">My Investment</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$60.00</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>
             </div>
           </div>
         </div>
@@ -455,7 +455,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={ruby}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.RUBY ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(1);
@@ -466,7 +466,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={topaz}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.TOPAZ ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(2);
@@ -477,7 +477,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={emerald}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.EMERALD ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(3);
@@ -488,7 +488,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={platinum}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.PLATINUM ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(4);
@@ -499,7 +499,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={diamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(5);
@@ -510,7 +510,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={greenDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.GREEN_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(6);
@@ -523,7 +523,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={blueDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.BLUE_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(7);
@@ -536,7 +536,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={blackDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.BLACK_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(8);
@@ -549,7 +549,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={goldDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.CROWN_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(9);

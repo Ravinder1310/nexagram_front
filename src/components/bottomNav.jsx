@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Heart, Wallet , Home, LogOut,  BarChart2, MessageCircle, PlusSquare, Search, TrendingUp } from 'lucide-react'
+import { Heart, Wallet, Search  , Home, LogOut,  BarChart2, MessageCircle, PlusSquare, TrendingUp } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { useNavigate } from 'react-router-dom';
@@ -30,9 +30,12 @@ const BottomNav = () => {
         </div>
 
         {/* Packages Section */}
-        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { user.userType ==='Invester' ? navigate(`/plans`) : navigate(`/influencer-packages`)  }}>
+        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { user.userType ==='Invester' ? navigate(`/plans`) : navigate(`/`)  }}>
            <div className="text-md text-center">
-            <Wallet className="m-auto"/>
+            {
+              user?.userType === "Invester" ? (<Wallet className="m-auto"/>) : (<Search className="m-auto"/>)
+            }
+            
           </div>
         </div>
 
@@ -44,7 +47,7 @@ const BottomNav = () => {
         </div>
 
         {/* Recharge Section */}
-        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/invester-recharge") }}>
+        <div className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md" onClick={() => { navigate("/all-recharge") }}>
         <div className="text-md text-center">
             <TrendingUp className="m-auto"/>
         </div>

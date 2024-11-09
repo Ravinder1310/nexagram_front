@@ -37,6 +37,7 @@ import ActivateUserForm from './components/Admin/ActivateUserForm/ActivateUserFo
 import DownlineUsers from './components/Admin/DownlineUsers/DownlineUsers'
 import AllRecharges from './components/allRecharges'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
+import Setting from './components/setting'
 
 const browserRouter = createBrowserRouter([
   {
@@ -116,6 +117,11 @@ const browserRouter = createBrowserRouter([
       {
         path: '/all-recharge',
         element: <ProtectedRoutes> <AllRecharges /></ProtectedRoutes>
+
+      },
+      {
+        path: '/settings',
+        element: <ProtectedRoutes> <Setting /></ProtectedRoutes>
 
       },
     ]

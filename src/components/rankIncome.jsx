@@ -25,7 +25,7 @@ const RankIncomes = () => {
   }, []);
 
   return (
-    <div className='p-4 pt-20'>
+    <div className='p-4 pt-20 pb-28'>
         <h1 className='text-center text-2xl font-mono'>Royality Income</h1>
         <table className="min-w-full bg-white border mt-10">
           <thead>
