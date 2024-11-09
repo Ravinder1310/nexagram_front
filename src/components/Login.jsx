@@ -35,7 +35,7 @@ const Login = () => {
             });
             if (res.data.success) {
                 dispatch(setAuthUser(res.data.user));
-                console.log("res ==========>",res.data);
+                console.log("res ==========>",res.data.user.token);
                 
                 navigate("/");
                 toast.success(res.data.message);

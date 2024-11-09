@@ -180,6 +180,8 @@ const Profile = () => {
       }
     };
     fetchAllPost();
+    console.log('--------',user);
+    
   }, [user]);
 
 
@@ -285,7 +287,7 @@ const Profile = () => {
             <span className="">{userProfile?.bio || "bio here..."}</span>
           </div>
         </section>
-        <div className="flex items-center gap-2 justify-between w-[80%] m-auto">
+        <div className="flex items-center gap-2 justify-between w-[100%] m-auto">
           {isLoggedInUserProfile ? (
             <>
               <Link to="/account/edit">
@@ -301,8 +303,8 @@ const Profile = () => {
               >
                 Log out
               </Button>
-              <Button variant="secondary" className={` hover:bg-gray-200 h-8 flex `}>
-                More
+              <Button variant="secondary" className={` hover:bg-gray-200 h-8 flex `} onClick={() => {navigate('/influencer-packages')}}>
+                Meta Verify
               </Button>
             </>
           ) : isFollowingProfile ? (

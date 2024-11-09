@@ -2,10 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios'; // For API requests
 import { toast } from 'sonner'; // Import toast from sonner
+import { useNavigate } from 'react-router-dom';
 
 function InfluencerPackages() {
   const { user } = useSelector((store) => store.auth);
   const userId = user?._id;
+  const navigate = useNavigate();
 
   const packages = [
     {
@@ -48,6 +50,9 @@ function InfluencerPackages() {
         toast.success('Package purchased successfully!');
       } else {
         toast.error(response.data.message);
+        if(response.data.message === "Insufficient balance in the wallet"){
+          navigate("/invester-recharge")
+        }
       }
     } catch (error) {
       console.error('Error purchasing package:', error);

@@ -394,7 +394,7 @@ const MlmDetails = () => {
           <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
             {/* <div className="text-2xl flex items-center justify-center">👥</div> */}
             <div>
-              <h1 className="text-md font-semibold mt-2">Downline Team</h1>
+              <h1 className="text-md font-semibold mt-2">Dazzle Token</h1>
               <h2 className="text-gray-300 text-sm font-semibold">0</h2>
             </div>
           </div>

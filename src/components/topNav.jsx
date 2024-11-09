@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Heart, MessageCircle } from "lucide-react";
+import { Heart, MessageCircle, Settings } from "lucide-react"; // Importing a settings icon
 import main_logo from "./images/main_lgo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const TopNav = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to get the current path
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -23,19 +24,16 @@ const TopNav = () => {
             <span className="text-orange-400 ml-1">Den</span>
           </h1>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-1">
           <div
-            className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md"
-            onClick={() => {
-              navigate("/all-recharge");
-            }}
+            className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md"
           >
             <div className=" text-md text-center">
               <Heart className="m-auto" />
             </div>
           </div>
           <div
-            className="flex flex-col items-cente hover:cursor-pointer p-2 rounded-md"
+            className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md"
             onClick={() => {
               navigate("/chat");
             }}
@@ -44,6 +42,20 @@ const TopNav = () => {
               <MessageCircle className="m-auto" />
             </div>
           </div>
+          
+          {/* Conditionally render settings icon if "profile" exists in the URL */}
+          {location.pathname.includes("profile") && (
+            <div
+              className="flex flex-col items-center hover:cursor-pointer p-2 rounded-md"
+              onClick={() => {
+                navigate("/settings"); // Navigate to the settings page
+              }}
+            >
+              <div className=" text-md text-center">
+                <Settings className="m-auto" />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
