@@ -455,7 +455,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={ruby}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.RUBY ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(1);
@@ -466,7 +466,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={topaz}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.TOPAZ ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(2);
@@ -477,7 +477,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={emerald}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.EMERALD ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(3);
@@ -488,7 +488,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={platinum}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.PLATINUM ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(4);
@@ -499,7 +499,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={diamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(5);
@@ -510,7 +510,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={greenDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.GREEN_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(6);
@@ -523,7 +523,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={blueDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.BLUE_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(7);
@@ -536,7 +536,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={blackDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.BLACK_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(8);
@@ -549,7 +549,7 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={goldDiamond}
-              className="h-[120px] grayscale"
+              className={`h-[120px] ${user?.ranksAchieved.CROWN_DIAMOND ? "" : "grayscale"} `}
               alt="error"
               onClick={() => {
                 handleRank(9);
