@@ -378,7 +378,7 @@ const MlmDetails = () => {
             <div>
               <h1 className="text-md font-semibold mt-1">Sponsor</h1>
               <h2 className="text-gray-300 text-sm font-semibold">
-                0xcd****26D4
+                {user?.referredBy}
               </h2>
             </div>
           </div>
@@ -419,7 +419,7 @@ const MlmDetails = () => {
             {/* <div className="text-3xl flex items-center justify-center">🎓</div> */}
             <div>
               <h1 className="text-md font-semibold mt-2">My Investment</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$60.00</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>
             </div>
           </div>
         </div>
