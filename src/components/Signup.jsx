@@ -67,7 +67,7 @@ const Signup = () => {
                         value={input.username}
                         onChange={changeEventHandler}
                         
-                        className="focus-visible:ring-transparent my-2"
+                        className="focus-visible:ring-transparent my-2 text-black"
                     />
                 </div>
                 <div>
@@ -77,7 +77,7 @@ const Signup = () => {
                         name="email"
                         value={input.email}
                         onChange={changeEventHandler}
-                        className="focus-visible:ring-transparent my-2"
+                        className="focus-visible:ring-transparent my-2 text-black"
                     />
                 </div>
                 <div>
@@ -87,7 +87,7 @@ const Signup = () => {
                         name="password"
                         value={input.password}
                         onChange={changeEventHandler}
-                        className="focus-visible:ring-transparent my-2"
+                        className="focus-visible:ring-transparent my-2 text-black"
                     />
                 </div>
                 {
