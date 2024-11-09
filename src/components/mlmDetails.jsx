@@ -277,7 +277,7 @@ const MlmDetails = () => {
       <Toaster />
       <div className="flex flex-wrap gap-y-3 justify-between">
       <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white">
-  <p className="font-semibold text-white">$ 0.00</p>
+  <p className="font-semibold text-white">$  {parseFloat(user?.totalEarning || "0.00").toFixed(2)}</p>
   <h1 className="font-semibold text-sm">Total Income</h1>
 </div>
 {/* //#0d355b */}
