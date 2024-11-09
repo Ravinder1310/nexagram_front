@@ -35,10 +35,11 @@ const AdminLogin = () => {
                     withCredentials: true
                 }
             );
+            // console.log("response ==>",res)
             if (res.data.success) {
-                dispatch(setAdmin(res.data.admin));
                 navigate("/admin/dashbord");
-                toast.success(res.data.message);
+                dispatch(setAdmin(res.data.user));
+                toast.success("Welcone Sir");
                 setInput({
                     email: "",
                     password: ""
@@ -54,7 +55,7 @@ const AdminLogin = () => {
 
     useEffect(() => {
         if (admin) {
-            navigate("/");
+            navigate("/admin/dashbord");
         }
     }, [admin, navigate]);
 
