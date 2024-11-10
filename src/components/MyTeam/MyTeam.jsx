@@ -21,7 +21,7 @@ const MyTeam = () => {
     if (!user?._id) return;
     try {
       const result = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/invester/team-members/672879738b49ed071cad7de8/${level}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/team-members/${user?._id}/${level}`,
         {
           headers: {
             'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const MyTeam = () => {
       const allLevelsResult = await Promise.all(
         [1, 2, 3, 4, 5].map((level) =>
           axios.get(
-            `${import.meta.env.VITE_API_URL}/api/v1/invester/team-members/672879738b49ed071cad7de8/${level}`,
+            `${import.meta.env.VITE_API_URL}/api/v1/invester/team-members/${user?._id}/${level}`,
             { withCredentials: true }
           )
         )
