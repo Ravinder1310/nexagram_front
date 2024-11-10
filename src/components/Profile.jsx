@@ -286,9 +286,17 @@ const Profile = () => {
               >
                 Log out
               </Button> */}
-              <Button variant="secondary" className={` hover:bg-gray-200 h-8 flex `} onClick={() => {navigate('/influencer-packages')}}>
+              {
+                user?.userType === "Invester" ? (
+                  <Button variant="secondary" className={` hover:bg-gray-200 h-8 flex `}>
+                Archieved
+              </Button>
+                ) : (
+                  <Button variant="secondary" className={` hover:bg-gray-200 h-8 flex `} onClick={() => {navigate('/influencer-packages')}}>
                 Meta Verify
               </Button>
+                )
+              }
             </>
           ) : isFollowingProfile ? (
             // Optionally show something else here if needed

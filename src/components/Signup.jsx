@@ -43,7 +43,7 @@ const Signup = () => {
             }
         } catch (error) {
             console.log(error);
-            // toast.error(error);
+            toast.error(error.response.data.message);
         } finally {
             setLoading(false);
         }
