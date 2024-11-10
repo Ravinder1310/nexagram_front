@@ -58,6 +58,7 @@ const MlmDetails = () => {
   const [dailyIncome, setDailyIncome] = useState(0);
   const [royalityIncome, setRoyalityIncome] = useState(0);
   const [generationIncome, setGenerationIncome] = useState(0);
+  const [ directTeam, setDirectTeam ] = useState(0);
   const [rewards, setRewards] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
@@ -269,6 +270,9 @@ const MlmDetails = () => {
     getRankIncomeHistory();
     getDailyIncomeHistory();
     getRewardIncomeHistory();
+    console.log(".............",user);
+    
+    // getDirectTeam();
     // console.log("-------------------",user?.ranksAchieved.TOPAZ);
   }, []);
 
@@ -387,7 +391,7 @@ const MlmDetails = () => {
             {/* <div className="text-2xl flex items-center justify-center">👥</div> */}
             <div>
               <h1 className="text-md font-semibold mt-1">Direct Team</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">0</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">{user?.directTeam.length || 0}</h2>
             </div>
           </div>
 
@@ -403,7 +407,7 @@ const MlmDetails = () => {
             {/* <div className="text-3xl flex items-center justify-center">💼</div> */}
             <div>
               <h1 className="text-md font-semibold mt-2">Direct Business</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">$ {parseFloat(user?.directBussiness).toFixed(2)}</h2>
             </div>
           </div>
 
@@ -411,7 +415,7 @@ const MlmDetails = () => {
             {/* <div className="text-3xl flex items-center justify-center">💼</div> */}
             <div>
               <h1 className="text-md font-semibold mt-2">Downline Business</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>  
             </div>
           </div>
 
@@ -419,7 +423,7 @@ const MlmDetails = () => {
             {/* <div className="text-3xl flex items-center justify-center">🎓</div> */}
             <div>
               <h1 className="text-md font-semibold mt-2">My Investment</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">$ {user?.totalInvestment || 0.00}</h2>
             </div>
           </div>
         </div>

@@ -18,13 +18,41 @@ import { FaArrowLeft } from "react-icons/fa";
 const ChatPage = () => {
   const [textMessage, setTextMessage] = useState("");
   const [showChat, setShowChat] = useState(false); // New state to toggle chat view
-  const { user, suggestedUsers, selectedUser } = useSelector(
+  const { user, suggestedUsers, selectedUser, following, followers } = useSelector(
     (store) => store.auth
   );
   const { onlineUsers, messages } = useSelector((store) => store.chat);
   const dispatch = useDispatch();
   useGetAllUsers();
   const { allUsers } = useSelector((store) => store.auth);
+
+  // Fetch user's followers and following
+  const [userFollowers, setUserFollowers] = useState([]);
+  const [userFollowing, setUserFollowing] = useState([]);
+
+  const getUserRelations = async () => {
+    try {
+      const followersRes = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/user/followers/${user?._id}`,
+        { withCredentials: true }
+      );
+      setUserFollowers(followersRes.data);
+
+      const followingRes = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/user/following/${user?._id}`,
+        { withCredentials: true }
+      );
+      setUserFollowing(followingRes.data);
+    } catch (error) {
+      console.error("Error fetching followers or following data", error);
+    }
+  };
+
+  useEffect(() => {
+    if (user?._id) {
+      getUserRelations(); // Fetch the followers and following list for the logged-in user
+    }
+  }, [user]);
 
   const sendMessageHandler = async (receiverId) => {
     try {
@@ -62,6 +90,13 @@ const ChatPage = () => {
     dispatch(setSelectedUser(null));
     setShowChat(false); // Show message list when back button is clicked
   };
+
+  // Filter users to only include followers or following
+  const filteredUsers = allUsers?.filter(
+    (singleUser) =>
+      userFollowers?.some((follower) => follower._id === singleUser._id) ||
+      userFollowing?.some((followingUser) => followingUser._id === singleUser._id)
+  );
 
   return (
     <div className="flex h-screen">
@@ -127,7 +162,7 @@ const ChatPage = () => {
       }
     `}
             </style>
-            {allUsers?.map((singleUser) => {
+            {filteredUsers?.map((singleUser) => {
               const isOnline = onlineUsers.includes(singleUser?._id); // Check if the user is online
               return (
                 <div
@@ -154,8 +189,8 @@ const ChatPage = () => {
 
           <div className="overflow-y-auto h-[80vh]">
             <h1 className="ml-4 mt-4 mb-2 font-bold">Messages</h1>
-            {suggestedUsers?.length > 0 ? (
-              suggestedUsers?.map((suggestedUser) => {
+            {filteredUsers?.length > 0 ? (
+              filteredUsers?.map((suggestedUser) => {
                 const isOnline = onlineUsers.includes(suggestedUser?._id);
                 return (
                   <div
@@ -178,18 +213,14 @@ const ChatPage = () => {
                           isOnline ? "text-green-600" : "text-red-600"
                         }`}
                       >
-                        {isOnline ? "Active" : "offline"}
+                        {isOnline ? "Online" : "Offline"}
                       </span>
                     </div>
                   </div>
                 );
               })
             ) : (
-              <div className="flex flex-col items-center justify-center mx-auto">
-                <MessageCircleCode className="w-32 h-32 my-4" />
-                <h1 className="font-medium">Your messages</h1>
-                <span>Send a message to start a chat.</span>
-              </div>
+              <p>No users to display.</p>
             )}
           </div>
         </section>
