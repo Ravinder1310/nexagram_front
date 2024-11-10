@@ -38,6 +38,7 @@ import DownlineUsers from './components/Admin/DownlineUsers/DownlineUsers'
 import AllRecharges from './components/allRecharges'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 import Setting from './components/setting'
+import UploadGallery from './components/allGallery'
 
 const browserRouter = createBrowserRouter([
   {
@@ -123,6 +124,10 @@ const browserRouter = createBrowserRouter([
         path: '/settings',
         element: <ProtectedRoutes> <Setting /></ProtectedRoutes>
 
+      },
+      {
+        path: '/gallery',
+        element: <ProtectedRoutes> <UploadGallery /></ProtectedRoutes>
       },
     ]
   },

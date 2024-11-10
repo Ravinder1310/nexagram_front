@@ -49,24 +49,7 @@ const Profile = () => {
     setIsMessaging(false); // Show message list when back button is clicked
   };
 
-  const logoutHandler = async () => {
-    try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/user/logout`,
-        { withCredentials: true }
-      );
-      if (res.data.success) {
-        dispatch(setAuthUser(null));
-        dispatch(setSelectedPost(null));
-        dispatch(setPosts([]));
-        navigate("/login");
-        toast.success(res.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response);
-    }
-  };
+
 
 
   const sendMessageHandler = async (receiverId) => {
@@ -287,7 +270,7 @@ const Profile = () => {
             <span className="">{userProfile?.bio || "bio here..."}</span>
           </div>
         </section>
-        <div className="flex items-center gap-2 justify-between w-[100%] m-auto">
+        <div className="flex items-center gap-4 justify-center w-[100%] m-auto">
           {isLoggedInUserProfile ? (
             <>
               <Link to="/account/edit">
@@ -296,13 +279,13 @@ const Profile = () => {
                 </Button>
               </Link>
               
-              <Button
+              {/* <Button
                 variant="secondary"
                 className="hover:bg-gray-200 h-8"
-                onClick={logoutHandler}
+                
               >
                 Log out
-              </Button>
+              </Button> */}
               <Button variant="secondary" className={` hover:bg-gray-200 h-8 flex `} onClick={() => {navigate('/influencer-packages')}}>
                 Meta Verify
               </Button>

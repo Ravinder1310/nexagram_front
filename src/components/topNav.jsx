@@ -18,10 +18,10 @@ const TopNav = () => {
     <div className="fixed sm:hidden w-[100%] z-40">
       <div className="flex justify-between items-center bg-white py-2 shadow-md shadow-gray-300">
         <div className="flex items-center">
-          <img src={main_logo} className="w-[40px]" alt="error" />
-          <h1 className="text-2xl" style={{ fontFamily: "'Lobster', cursive" }}>
-            <span className="text-black">Dazzle</span>
-            <span className="text-orange-400 ml-1">Den</span>
+          {/* <img src={main_logo} className="w-[40px]" alt="error" /> */}
+          <h1 className="text-2xl ml-2" style={{ fontFamily: "'Lobster', cursive" }}>
+            <span className="text-black">DazzleDen</span>
+            {/* <span className="text-orange-400 ml-1"></span> */}
           </h1>
         </div>
         <div className="flex gap-1">
