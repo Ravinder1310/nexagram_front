@@ -36,8 +36,10 @@ const Login = () => {
             if (res.data.success) {
                 dispatch(setAuthUser(res.data.user));
                 console.log("res ==========>",res.data.user.token);
+                setTimeout(() => {
+                    navigate("/");  
+                },3000)
                 
-                navigate("/");
                 toast.success(res.data.message);
                 setInput({
                     email: "",
