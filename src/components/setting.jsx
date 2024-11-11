@@ -179,7 +179,7 @@ const Setting = () => {
         </div>
         {isTeamOpen && (
           <div className="">
-            <div className="flex justify-between items-center py-4 pl-20 pr-2 bg-gray-300 cursor-pointer">
+            {/* <div className="flex justify-between items-center py-4 pl-20 pr-2 bg-gray-300 cursor-pointer">
               <div className="flex items-center gap-4">
                 <FontAwesomeIcon icon={faPaperPlane} className="text-black w-4 h-4" />
                 <p className="text-black font-semibold">My Direct</p>
@@ -188,7 +188,7 @@ const Setting = () => {
                 icon={faChevronRight}
                 className="text-gray-500  w-4 h-3"
               />
-            </div>
+            </div> */}
             <div className="flex justify-between items-center py-4 pl-20 pr-2  cursor-pointer" onClick={() => {navigate("/my-team")}}>
               <div className="flex items-center gap-4">
                 <FontAwesomeIcon icon={faUsers} className="text-black w-5 h-6" />
