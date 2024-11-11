@@ -36,31 +36,31 @@ const MyTeam = () => {
   };
 
   // Function to get all members across all levels
-  const getAllMembers = async () => {
-    if (!user?._id) return;
-    try {
-      const allLevelsResult = await Promise.all(
-        [1, 2, 3, 4, 5].map((level) =>
-          axios.get(
-            `${import.meta.env.VITE_API_URL}/api/v1/invester/team-members/${user?._id}/${level}`,
-            { withCredentials: true }
-          )
-        )
-      );
+  // const getAllMembers = async () => {
+  //   if (!user?._id) return;
+  //   try {
+  //     const allLevelsResult = await Promise.all(
+  //       [1, 2, 3, 4, 5].map((level) =>
+  //         axios.get(
+  //           `${import.meta.env.VITE_API_URL}/api/v1/invester/team-members/${user?._id}/${level}`,
+  //           { withCredentials: true }
+  //         )
+  //       )
+  //     );
 
-      // Combine results from all levels
-      const combinedResults = allLevelsResult.flatMap((result) => result.data);
-      setAllMembers(combinedResults);
-      setTotalMembers(combinedResults.length);
-    } catch (error) {
-      console.error("Error while fetching all team members", error);
-    }
-  };
+  //     // Combine results from all levels
+  //     const combinedResults = allLevelsResult.flatMap((result) => result.data);
+  //     setAllMembers(combinedResults);
+  //     setTotalMembers(combinedResults.length);
+  //   } catch (error) {
+  //     console.error("Error while fetching all team members", error);
+  //   }
+  // };
 
   useEffect(() => {
     if (user) {
       getLevelMembers(inputLevel); // Fetch members for default level
-      getAllMembers();
+      // getAllMembers();
     }
   }, [user, inputLevel]);
 
@@ -90,7 +90,7 @@ const MyTeam = () => {
         </button>
       </div>
       <div className="px-4 flex flex-col justify-center items-center">
-        <h2>Total Members: {totalMembers}</h2>
+        <h2>Total Members: {levelMembers.length}</h2>
         <h2>{filterText}: {filteredTeamMembers.length}</h2>
       </div>
       
