@@ -294,7 +294,7 @@ const MlmDetails = () => {
           <h1 className="font-semibold text-sm">Referral Income</h1>
         </div>
         <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/royality-income")}}>
-          <p className="font-semibold text-white">$ {parseFloat(royalityIncome).toFixed(2)}</p>
+          <p className="font-semibold text-white">$ {parseFloat(user?.royaltyIncome).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Royality Income</h1>
         </div>
         <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/generation-income")}}>
@@ -303,7 +303,7 @@ const MlmDetails = () => {
         </div>
        
         <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/rewards-income")}}>
-          <p className="font-semibold text-white">$ {parseFloat(rewards).toFixed(2)}</p>
+          <p className="font-semibold text-white">$ {parseFloat(user?.rankReward).toFixed(2)}</p>
           <h1 className="font-semibold text-sm">Reward Income</h1>
         </div>
       </div>

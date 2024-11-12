@@ -39,6 +39,7 @@ import AllRecharges from './components/allRecharges'
 import AdminProtectedRoute from './components/AdminProtectedRoute'
 import Setting from './components/setting'
 import UploadGallery from './components/allGallery'
+import TeamDetails from './teamDetails/teamDetails'
 
 const browserRouter = createBrowserRouter([
   {
@@ -128,6 +129,10 @@ const browserRouter = createBrowserRouter([
       {
         path: '/gallery',
         element: <ProtectedRoutes> <UploadGallery /></ProtectedRoutes>
+      },
+      {
+        path: '/team-details',
+        element: <ProtectedRoutes> <TeamDetails /></ProtectedRoutes>
       },
     ]
   },

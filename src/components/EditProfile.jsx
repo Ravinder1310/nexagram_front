@@ -22,6 +22,7 @@ const EditProfile = () => {
         username: user?.username,
     });
     const [previewImage, setPreviewImage] = useState(user?.profilePicture || avatar);
+    
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

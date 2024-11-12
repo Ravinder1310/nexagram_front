@@ -126,7 +126,7 @@ const MyTeam = () => {
                     <th className="w-20 whitespace-nowrap p-2">Sr No.</th>
                     <th className="w-32 whitespace-nowrap p-2">Direct Sponsor</th>
                     <th className="w-32 whitespace-nowrap p-2">Package</th>
-                    <th className="w-32 whitespace-nowrap p-2">Direct Business</th>
+                    {/* <th className="w-32 whitespace-nowrap p-2">Direct Business</th> */}
                     <th className="w-32 whitespace-nowrap p-2">Team Size</th>
                     <th className="w-32 whitespace-nowrap p-2">Team Business</th>
                     <th className="w-32 whitespace-nowrap p-2">Registered At</th>
@@ -141,7 +141,7 @@ const MyTeam = () => {
                       <td className=" p-2">{index + 1}</td>
                       <td className=" p-2">{member.referralCode}</td>
                       <td className=" p-2">$ {member.rechargeWallet}</td>
-                      <td className=" p-2">$ {member.directBussiness}</td>
+                      {/* <td className=" p-2">$ {member.directBussiness}</td> */}
                       <td className=" p-2"> {member.teamSize || 0 }</td>
                       <td className=" p-2">$ {member.teamBusiness || 0}</td>
                       <td className=" p-2">{moment(member.createdAt).format("YYYY-MM-DD")}</td>
