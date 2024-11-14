@@ -14,6 +14,8 @@ const TeamDetails = () => {
   const [powerTeam, setPowerTeam] = useState(0);
   const [weekTeam, setWeekTeam] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [activePower, setActivePower] = useState(0);
+  const [activeWeek, setActiveWeek] = useState(0);
   const { user } = useSelector((store) => store.auth);
 
   const getLegDetails = async () => {
@@ -28,20 +30,32 @@ const TeamDetails = () => {
       let totalWeekBusiness = 0;
       let totalWeekTeam = 0;
       let totalPowerTeam = 0;
+      let totalActivePower = 0;
+      let totalActiveWeek = 0;
+
 
       for(let i=0;i<res.data.powerUserLeg.length;i++){
 
         totalPowerTeam += res.data.powerUserLeg[i].teamSize;
+        if(res.data.powerUserLeg[i].isActive){
+            totalActivePower++;
+        }
+        
       }
+      setActivePower(totalActivePower);
 
       for(let i=0;i<res.data.weakLegUsers.length;i++){
         totalWeekBusiness += res.data.weakLegUsers[i].teamBusiness;
         totalWeekBusiness += res.data.weakLegUsers[i].totalInvestment;
         totalWeekTeam += res.data.weakLegUsers[i].teamSize;
+        if(res.data.weakLegUsers[i].isActive){
+          totalActiveWeek++;
+      }
       }
       setWeekLegBusiness(totalWeekBusiness);
       setWeekTeam(totalWeekTeam + res.data.weakLegUsers.length)
       setPowerTeam(totalPowerTeam)
+      setActiveWeek(totalActiveWeek);
       setPowerLegBusiness(res.data.powerUserLeg[0].teamBusiness + res.data.powerUserLeg[0].totalInvestment)
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -91,9 +105,29 @@ const TeamDetails = () => {
               </h2>
             )
           }
-         
+          {/* {
+            selectedLeg == "week" ? (
+              <>
+                <h2>
+                Active Members : {activeWeek}
+              </h2>
+              <h2>
+              Inactive Members : {weekTeam - activeWeek}
+            </h2>
+            </>
+            ): (
+              <>
+                <h2>
+                Active Members : {activePower}
+              </h2>
+              <h2>
+              Inactive Members : {powerTeam - activeWeek}
+            </h2>
+            </>
+            )
+          } */}
         </div>
-
+        
       {/* Loading Indicator */}
       {loading && (
         <div className="loadingContainer flex justify-center items-center mt-8">

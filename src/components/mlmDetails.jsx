@@ -15,6 +15,7 @@ import greenDiamond from "./images/ranks/7.png";
 import blueDiamond from "./images/ranks/8.png";
 import blackDiamond from "./images/ranks/9.png";
 import goldDiamond from "./images/ranks/10.png";
+import congrats from "./images/congrats.gif";
 import axios from "axios";
 import RewardIncomes from "./investerIncome/rewardsIncome";
 import { useNavigate } from "react-router-dom";
@@ -70,12 +71,13 @@ const MlmDetails = () => {
   const closeModal = () => setIsOpen(false);
   const openModalWithdrawl = () => setIsOpenWithdrawl(true);
   const closeModalWithdrawl = () => setIsOpenWithdrawl(false);
+  const [levelIncomeTotal, setLevelIncomeTotal] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const rankRequirements = [
     {
-      rank: "saphire",
+      rank: "SAPPHIRE",
       logo: sapphire,
       self: 250,
       directTeam: 5,
@@ -85,7 +87,7 @@ const MlmDetails = () => {
       reward: 250,
     },
     {
-      rank: "rubi",
+      rank: "RUBI",
       logo: ruby,
       self: 500,
       directTeam: 7,
@@ -95,7 +97,7 @@ const MlmDetails = () => {
       reward: 750,
     },
     {
-      rank: "topaz",
+      rank: "TOPAZ",
       logo: topaz,
       self: 1000,
       directTeam: 9,
@@ -105,7 +107,7 @@ const MlmDetails = () => {
       reward: 3000,
     },
     {
-      rank: "emerald",
+      rank: "EMERALD",
       logo: emerald,
       self: 1500,
       directTeam: 11,
@@ -115,7 +117,7 @@ const MlmDetails = () => {
       reward: 10000,
     },
     {
-      rank: "platinum",
+      rank: "PLATINUM",
       logo: platinum,
       self: 2000,
       directTeam: 15,
@@ -125,7 +127,7 @@ const MlmDetails = () => {
       reward: 25000,
     },
     {
-      rank: "diamond",
+      rank: "DIAMOND",
       logo: diamond,
       self: 2500,
       directTeam: 17,
@@ -135,7 +137,7 @@ const MlmDetails = () => {
       reward: 7500,
     },
     {
-      rank: "green diamond",
+      rank: "GREEN_DIAMOND",
       logo: greenDiamond,
       self: 3000,
       directTeam: 15,
@@ -145,7 +147,7 @@ const MlmDetails = () => {
       reward: 225000,
     },
     {
-      rank: "blue diamond",
+      rank: "BLUE_DIAMOND",
       logo: blueDiamond,
       self: 3500,
       directTeam: 21,
@@ -155,7 +157,7 @@ const MlmDetails = () => {
       reward: 700000,
     },
     {
-      rank: "black diamond",
+      rank: "BLACK_DIAMOND",
       logo: blackDiamond,
       self: 4000,
       directTeam: 23,
@@ -165,7 +167,7 @@ const MlmDetails = () => {
       reward: 900000,
     },
     {
-      rank: "crown",
+      rank: "CROWN_DIAMOND",
       logo: goldDiamond,
       self: 5000,
       directTeam: 25,
@@ -298,6 +300,24 @@ const MlmDetails = () => {
   // };
 
 
+  const getGenerationIncomeHistory = async () => {
+    try {
+      let res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/generation-income-history/${user?._id}`
+      );
+      // console.log(res.data.data);
+      let totalLevel = 0;
+      for (let i = 0; i < res.data.data.length; i++) {
+        totalLevel += res.data.data[i].amount;
+      }
+      setLevelIncomeTotal(totalLevel);
+      // setGenerationIncomeHistory(res.data.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+
   const incomeWithdrawl = async () => {
     try {
       setWithdrawlLoading(true);
@@ -309,7 +329,7 @@ const MlmDetails = () => {
       );
       if (res.data.success) {
         // toast.success(res.data.message);
-        console.log(res.data.data);
+        // console.log(res.data.data);
         
         setWithdrawlLoading(false);
         setWithdrawlAmount(0);
@@ -329,6 +349,7 @@ const MlmDetails = () => {
     getRankIncomeHistory();
     getDailyIncomeHistory();
     getRewardIncomeHistory();
+    getGenerationIncomeHistory();
     console.log(".............", user);
 
     // getDirectTeam();
@@ -370,7 +391,7 @@ const MlmDetails = () => {
           <p className="font-semibold text-white">
             $ {parseFloat(referralIncome).toFixed(2) || 0.00}
           </p>
-          <h1 className="font-semibold text-sm">Referral Income</h1>
+          <h1 className="font-semibold text-sm">Direct Income</h1>
         </div>
         <div
           className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white"
@@ -390,7 +411,7 @@ const MlmDetails = () => {
           }}
         >
           <p className="font-semibold text-white">
-            $ {parseFloat(generationIncome).toFixed(2) || 0.00}
+            $ {parseFloat(levelIncomeTotal).toFixed(2) || 0.00}
           </p>
           <h1 className="font-semibold text-sm">Generation Income</h1>
         </div>
@@ -398,7 +419,7 @@ const MlmDetails = () => {
         
         <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white">
           <p className="font-semibold text-white">
-            $ {parseFloat(user?.totalEarning).toFixed(2) || 0.00}
+            $ {parseFloat(referralIncome + dailyIncome + levelIncomeTotal + user?.rankReward).toFixed(2) || 0.00}
           </p>
           <h1 className="font-semibold text-sm">Total Income</h1>
         </div>
@@ -717,64 +738,81 @@ const MlmDetails = () => {
         </div>
         {isOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg w-[94%] text-center">
-              <h2 className="text-xl font-bold mb-4">Rank Requirements</h2>
-              {/* <p className="text-gray-700 mb-4 text-lg font-serif">
-              Here are the requirements or conditions to achieve the Sapphire rank:
-            </p> */}
-              <img
-                src={rankRequirements[selectedRank]?.logo}
-                className="w-[100px] m-auto mb-4"
-                alt="error"
-              />
-              {/* Add your requirements or conditions here */}
-              <ul className="list-disc list-inside text-gray-600 text-left">
-                <li className="font-bold">
-                  Self Activation :{" "}
-                  <span className="text-blue-500">
-                    $ {rankRequirements[selectedRank]?.self}
-                  </span>
-                </li>
-                <li className="font-bold">
-                  Direct Team :{" "}
-                  <span className="text-blue-500">
-                    {rankRequirements[selectedRank]?.directTeam}
-                  </span>
-                </li>
-                <li className="font-bold">
-                  Direct Business :{" "}
-                  <span className="text-blue-500">
-                    $ {rankRequirements[selectedRank]?.directBusiness}{" "}
-                  </span>
-                </li>
-                <li className="font-bold">
-                  Team Size :{" "}
-                  <span className="text-blue-500">
-                    {rankRequirements[selectedRank]?.totalTeamSize}
-                  </span>
-                </li>
-                <li className="font-bold">
-                  Team Business :{" "}
-                  <span className="text-blue-500">
-                    $ {rankRequirements[selectedRank]?.teamBusiness}
-                  </span>
-                </li>
-              </ul>
+            {
+              user?.ranksAchieved[rankRequirements[selectedRank].rank] ? (
+              <div className="bg-white p-6 rounded-lg w-[94%] text-center">
+                <img src={congrats}/>
+                <h1>You Achieved the <span className="text-lg font-bold text-[#0d355b]">{rankRequirements[selectedRank].rank}</span> rank!</h1>
+                 <button
+                  className=" mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                  onClick={closeModal}
+                >
+                  Close
+                </button>
+              </div>
 
-              <h1 className="text-center mt-4 font-bold">
-                Reward you get from this:{" "}
-                <span className="text-blue-500">
-                  $ {rankRequirements[selectedRank]?.reward}
-                </span>
-              </h1>
-
-              <button
-                className=" mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={closeModal}
-              >
-                Close
-              </button>
-            </div>
+            ) : (
+                <div className="bg-white p-6 rounded-lg w-[94%] text-center">
+                <h2 className="text-xl font-bold mb-4">Rank Requirements</h2>
+                {/* <p className="text-gray-700 mb-4 text-lg font-serif">
+                Here are the requirements or conditions to achieve the Sapphire rank:
+              </p> */}
+                <img
+                  src={rankRequirements[selectedRank]?.logo}
+                  className="w-[100px] m-auto mb-4"
+                  alt="error"
+                />
+                {/* Add your requirements or conditions here */}
+                <ul className="list-disc list-inside text-gray-600 text-left">
+                  <li className="font-bold">
+                    Self Activation :{" "}
+                    <span className="text-blue-500">
+                      $ {rankRequirements[selectedRank]?.self}
+                    </span>
+                  </li>
+                  <li className="font-bold">
+                    Direct Team :{" "}
+                    <span className="text-blue-500">
+                      {rankRequirements[selectedRank]?.directTeam}
+                    </span>
+                  </li>
+                  <li className="font-bold">
+                    Direct Business :{" "}
+                    <span className="text-blue-500">
+                      $ {rankRequirements[selectedRank]?.directBusiness}{" "}
+                    </span>
+                  </li>
+                  <li className="font-bold">
+                    Team Size :{" "}
+                    <span className="text-blue-500">
+                      {rankRequirements[selectedRank]?.totalTeamSize}
+                    </span>
+                  </li>
+                  <li className="font-bold">
+                    Team Business :{" "}
+                    <span className="text-blue-500">
+                      $ {rankRequirements[selectedRank]?.teamBusiness}
+                    </span>
+                  </li>
+                </ul>
+  
+                <h1 className="text-center mt-4 font-bold">
+                  Reward you get from this:{" "}
+                  <span className="text-blue-500">
+                    $ {rankRequirements[selectedRank]?.reward}
+                  </span>
+                </h1>
+  
+                <button
+                  className=" mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                  onClick={closeModal}
+                >
+                  Close
+                </button>
+              </div>
+              )
+            }
+           
           </div>
         )}
       </AnimatedBorderBox>
