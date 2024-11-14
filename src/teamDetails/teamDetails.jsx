@@ -11,6 +11,8 @@ const TeamDetails = () => {
   const [weekLeg, setWeekLeg] = useState([]);
   const [weekLegBusiness, setWeekLegBusiness] = useState(0);
   const [powerLegBusiness, setPowerLegBusiness] = useState(0);
+  const [powerTeam, setPowerTeam] = useState(0);
+  const [weekTeam, setWeekTeam] = useState(0);
   const [loading, setLoading] = useState(true);
   const { user } = useSelector((store) => store.auth);
 
@@ -24,12 +26,22 @@ const TeamDetails = () => {
       setWeekLeg(res.data.weakLegUsers);
 
       let totalWeekBusiness = 0;
+      let totalWeekTeam = 0;
+      let totalPowerTeam = 0;
+
+      for(let i=0;i<res.data.powerUserLeg.length;i++){
+
+        totalPowerTeam += res.data.powerUserLeg[i].teamSize;
+      }
 
       for(let i=0;i<res.data.weakLegUsers.length;i++){
         totalWeekBusiness += res.data.weakLegUsers[i].teamBusiness;
         totalWeekBusiness += res.data.weakLegUsers[i].totalInvestment;
+        totalWeekTeam += res.data.weakLegUsers[i].teamSize;
       }
       setWeekLegBusiness(totalWeekBusiness);
+      setWeekTeam(totalWeekTeam + res.data.weakLegUsers.length)
+      setPowerTeam(totalPowerTeam)
       setPowerLegBusiness(res.data.powerUserLeg[0].teamBusiness + res.data.powerUserLeg[0].totalInvestment)
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -71,9 +83,13 @@ const TeamDetails = () => {
           {
             selectedLeg == "week" ? (
                 <h2>
-                Total Members : {filteredTeamMembers.length}
+                Total Members : {weekTeam}
               </h2>
-            ): (<></>)
+            ): (
+              <h2>
+                Total Members : {powerTeam + 1}
+              </h2>
+            )
           }
          
         </div>
