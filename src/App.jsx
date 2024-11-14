@@ -21,12 +21,12 @@ import InvesterSignup from './components/InvesterSignup/InvesterSignup'
 import InvesterLogin from './components/InvesterLogin/InvesterLogin'
 import InvesterRecharge from './components/InvesterRecharge/InvesterRecharge'
 import MobileRecharge from './components/mobileRecharge'
-import GenerationIncomes from './components/generationInome'
-import DailyIncomes from './components/dailyIncome'
-import DirectReferralIncomes from './components/directReferralIncome'
+import GenerationIncomes from './components/investerIncome/generationInome'
+import DailyIncomes from './components/investerIncome/dailyIncome'
+import DirectReferralIncomes from './components/investerIncome/directReferralIncome'
 import MyTeam from './components/MyTeam/MyTeam'
-import RankIncomes from './components/rankIncome'
-import RewardIncomes from './components/rewardsIncome'
+import RankIncomes from './components/investerIncome/rankIncome'
+import RewardIncomes from './components/investerIncome/rewardsIncome'
 import AdminLogin from './components/Admin/AdminLogin/AdminLogin'
 import AdminDashbord from './components/Admin/AdminDashbord/AdminDashbord'
 import AllUsers from './components/Admin/AllUsers/AllUsers'
@@ -40,6 +40,9 @@ import AdminProtectedRoute from './components/AdminProtectedRoute'
 import Setting from './components/setting'
 import UploadGallery from './components/allGallery'
 import TeamDetails from './teamDetails/teamDetails'
+import LikeIncome from './components/influencersIncome/LikeIncome'
+import InvesterWithdrawlHistory from './components/investerWithdrawl'
+import AllCryptoTransaction from './components/Admin/cryptoTransaction/cryptoTransaction'
 
 const browserRouter = createBrowserRouter([
   {
@@ -134,6 +137,14 @@ const browserRouter = createBrowserRouter([
         path: '/team-details',
         element: <ProtectedRoutes> <TeamDetails /></ProtectedRoutes>
       },
+      {
+        path: '/like-income',
+        element: <ProtectedRoutes> <LikeIncome /></ProtectedRoutes>
+      },
+      {
+        path: '/invester-withdrawl',
+        element: <ProtectedRoutes> <InvesterWithdrawlHistory /></ProtectedRoutes>
+      },
     ]
   },
 
@@ -185,6 +196,10 @@ const browserRouter = createBrowserRouter([
   {
     path: '/admin/user-team',
     element:<AdminProtectedRoute> <DownlineUsers /> </AdminProtectedRoute>
+  },
+  {
+    path: '/admin/all-withdrawl-requests',
+    element:<AdminProtectedRoute> <AllCryptoTransaction /> </AdminProtectedRoute>
   },
 
 ])

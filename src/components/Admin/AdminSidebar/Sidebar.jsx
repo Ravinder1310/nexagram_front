@@ -117,7 +117,7 @@ const Sidebar = ({toggle}) => {
                     <li className="py-1 cursor-pointer hover:bg-gray-700" onClick={()=>{navigate('/dashboard/admin/add-deduct')}}>Add/Deduct Wallet</li>
                     <li className="py-1 cursor-pointer hover:bg-gray-700" onClick={()=>{navigate('/dashboard/admin/all-requests')}}>Deposite History</li>
                     <li className="py-1 cursor-pointer hover:bg-gray-700" onClick={()=>{navigate('/dashboard/admin/all-withdrawl-requests')}}>Withdrawl Request</li>
-                    <li className="py-1 cursor-pointer hover:bg-gray-700"  onClick={()=>{navigate('/dashboard/admin/crypto-transaction')}}>Crypto Transactions</li>
+                    <li className="py-1 cursor-pointer hover:bg-gray-700"  onClick={()=>{navigate('/admin/all-withdrawl-requests')}}>Crypto Transactions</li>
                   </ul>
                 )}
               </li>

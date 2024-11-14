@@ -181,132 +181,89 @@ const InvesterSignup = () => {
           </p>
         )}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <div className="w-full">
-              {/* <label className="text-black">User Name</label> */}
+<form onSubmit={handleSubmit}>
+  <div className="form-group text-white">
+    <div className="w-full">
+      <input
+        type="text"
+        name="userName"
+        className="w-full text-white" // Ensures white text
+        value={userName}
+        placeholder="Enter user name"
+        onChange={(e) => setUserName(e.target.value)}
+        required
+      />
+    </div>
+    <FontAwesomeIcon className="mr-3" icon={faUser} />
+  </div>
 
-              <input
-                type="text"
-                name="userName"
-                value={userName}
-                placeholder="Enter user name"
-                onChange={(e) => setUserName(e.target.value)}
-                required
-              />
-            </div>
-            <FontAwesomeIcon className="mr-3" icon={faUser} />
-          </div>
-          <div className="form-group">
-            <div className="w-full">
-              {/* <label className="text-black">Email</label> */}
-              <input
-                className="w-full"
-                type="email"
-                name="email"
-                value={email}
-                 placeholder="Enter email"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <FontAwesomeIcon
-              className="text-white"
-              icon={faEnvelope}
-            />
-          </div>
-          <div className="form-group">
-            <div className="w-full">
-              {/* <label className="text-black">Phone</label> */}
-              <input
-                className="w-full"
-                type="text"
-                name="phone"
-                value={phone}
-                 placeholder="Enter phone number"
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
-            </div>
-            <FontAwesomeIcon
-              className="mr-3"
-              icon={faPhone}
-            />
-          </div>
-          <div className="form-group">
-            <div className="w-full">
-              {/* <label className="text-black">Referral Code</label> */}
-              <input
-                type="text"
-                name="referralCode"
-                value={referredBy}
-                 placeholder="Enter referral Code"
-                onChange={(e) => setReferredCode(e.target.value)}
-              />
-            </div>
-            <FontAwesomeIcon
-              className="mr-3"
-              icon={faCodeBranch}
-            />
-          </div>
+  <div className="form-group text-white">
+    <div className="w-full">
+      <input
+        type="email"
+        name="email"
+        value={email}
+        placeholder="Enter email"
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="w-full text-white" // Updated to text-white
+      />
+    </div>
+    <FontAwesomeIcon className="text-white" icon={faEnvelope} />
+  </div>
 
-          {/* <h2 className="choose-position">Position</h2>
+  <div className="form-group">
+    <div className="w-full">
+      <input
+        className="w-full text-white" // Ensures white text
+        type="text"
+        name="phone"
+        value={phone}
+        placeholder="Enter phone number"
+        onChange={(e) => setPhone(e.target.value)}
+        required
+      />
+    </div>
+    <FontAwesomeIcon className="mr-3" icon={faPhone} />
+  </div>
 
-          <div className="position-selector">
-            <div className="position-options">
-              <div
-                className={`position-box text-black ${
-                  selectedPosition === "left" ? "selected" : ""
-                }`}
-                onClick={() =>
-                  selectedPosition !== null ? null : setSelectedPosition("left")
-                }
-                style={{
-                  cursor: selectedPosition === null ? "pointer" : "not-allowed",
-                }}
-              >
-                Left
-              </div>
-              <div
-                className={`position-box text-black ${
-                  selectedPosition === "right" ? "selected" : ""
-                }`}
-                onClick={() =>
-                  selectedPosition !== null
-                    ? null
-                    : setSelectedPosition("right")
-                }
-                style={{
-                  cursor: selectedPosition === null ? "pointer" : "not-allowed",
-                }}
-              >
-                Right
-              </div>
-            </div>
-          </div> */}
+  <div className="form-group">
+    <div className="w-full">
+      <input
+        type="text"
+        name="referralCode"
+        value={referredBy}
+        placeholder="Enter referral Code"
+        onChange={(e) => setReferredCode(e.target.value)}
+        className="text-white" // Ensures white text
+      />
+    </div>
+    <FontAwesomeIcon className="mr-3" icon={faCodeBranch} />
+  </div>
 
-        <div className="flex justify-center ">
-        <input
-            id="btn"
-            className={`bg-blue-500 w-full h-12 rounded-lg text-white ${
-              loading ? "cursor-not-allowed" : ""
-            }`}
-            type="submit"
-            value={loading ? "Loading..." : "Proceed"} // Show loading text
-            disabled={loading} // Disable button while loading
-          />
-        </div>
+  <div className="flex justify-center">
+    <input
+      id="btn"
+      className={`bg-blue-500 w-full h-12 rounded-lg text-white ${
+        loading ? "cursor-not-allowed" : ""
+      }`}
+      type="submit"
+      value={loading ? "Loading..." : "Proceed"}
+      disabled={loading}
+    />
+  </div>
 
-          {formError && <p style={{ color: "red" }}>{formError}</p>}
-          {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+  {formError && <p style={{ color: "red" }}>{formError}</p>}
+  {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
 
-          <p className="mt-3 text-white" >
-            Already have an account?{" "}
-            <a className="ml-8 text-yellow-500" href="/invester-login">
-              Login
-            </a>
-          </p>
-        </form>
+  <p className="mt-3 text-white">
+    Already have an account?{" "}
+    <a className="ml-8 text-yellow-500" href="/invester-login">
+      Login
+    </a>
+  </p>
+</form>
+
       </div>
 
       {/* Popup Modal */}

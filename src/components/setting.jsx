@@ -238,7 +238,7 @@ const Setting = () => {
         </div>
         {isAllIncomesOpen && (
           <div>
-           <div className="flex justify-between items-center py-4  pl-20 pr-2 bg-gray-300 cursor-pointer" onClick={() => {navigate("/generation-income")}}>
+           <div className="flex justify-between items-center py-4  pl-20 pr-2 bg-gray-300 cursor-pointer" onClick={() => {navigate(`${user?.userType === "Invester" ? "/generation-income": "/like-income"}`)}}>
            <div className="flex items-center gap-4">
             {
               user?.userType === "Invester" ? (<FontAwesomeIcon icon={faNetworkWired} className="text-black w-4 h-6" />) : (<FontAwesomeIcon icon={faHeart} className="text-black w-4 h-6" />)
@@ -251,7 +251,7 @@ const Setting = () => {
              className="text-gray-500  w-4 h-3"
            />
          </div>
-          <div className="flex justify-between items-center py-4  pl-20 pr-2  cursor-pointer" onClick={() => {navigate("/referral-income")}}>
+          <div className="flex justify-between items-center py-4  pl-20 pr-2  cursor-pointer" onClick={() => {navigate(`${user?.userType === "Invester" ? "/referral-income": "/settings"}`)}}>
           <div className="flex items-center gap-4">
           {
               user?.userType === "Invester" ? (<FontAwesomeIcon icon={faUserFriends} className="text-black w-4 h-6" />) : (<FontAwesomeIcon icon={faComment} className="text-black w-4 h-6" />)
@@ -263,7 +263,7 @@ const Setting = () => {
             className="text-gray-500  w-4 h-3"
           />
         </div>
-        <div className="flex justify-between items-center py-4  pl-20 pr-2 bg-gray-300  cursor-pointer" onClick={() => {navigate("/revenue-income")}}>
+        <div className="flex justify-between items-center py-4  pl-20 pr-2 bg-gray-300  cursor-pointer" onClick={() => {navigate(`${user?.userType === "Invester" ? "/revenue-income": "/settings"}`)}}>
           <div className="flex items-center gap-4">
           {
               user?.userType === "Invester" ? (<FontAwesomeIcon icon={faDollarSign} className="text-black w-4 h-6" />) : (<FontAwesomeIcon icon={faShare} className="text-black w-4 h-6" />)
@@ -275,7 +275,7 @@ const Setting = () => {
             className="text-gray-500  w-4 h-3"
           />
         </div>
-        <div className="flex justify-between items-center py-4  pl-20 pr-2  cursor-pointer" onClick={() => {navigate("/rewards-income")}}>
+        <div className="flex justify-between items-center py-4  pl-20 pr-2  cursor-pointer" onClick={() => {navigate(`${user?.userType === "Invester" ? "/rewards-income": "/settings"}`)}}>
           <div className="flex items-center gap-4">
           {
               user?.userType === "Invester" ? (<FontAwesomeIcon icon={faTrophy} className="text-black w-4 h-6" />) : (<FontAwesomeIcon icon={faMoneyBillTransfer} className="text-black w-4 h-6" />)
@@ -307,7 +307,7 @@ const Setting = () => {
         {isWithdrawOpen && (
           <div>
            <div className="flex justify-between items-center py-4  pl-20 pr-2 bg-gray-300 cursor-pointer">
-           <div className="flex items-center gap-4">
+           <div className="flex items-center gap-4" onClick={() => {navigate(`${user?.userType === "Invester" ? "/plans": "/settings"}`)}}>
              <FontAwesomeIcon icon={faMoneyBillTransfer} className="text-black w-4 h-6" />
              <p className="text-black font-semibold">Withdraw</p>
            </div>
@@ -317,7 +317,7 @@ const Setting = () => {
            />
          </div>
           <div className="flex justify-between items-center py-4  pl-20 pr-2  cursor-pointer">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4"  onClick={() => {navigate(`${user?.userType === "Invester" ? "/invester-withdrawl": "/settings"}`)}}>
             <FontAwesomeIcon icon={faHistory} className="text-black w-4 h-6" />
             <p className="text-black font-semibold">History</p>
           </div>

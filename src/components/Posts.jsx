@@ -22,7 +22,6 @@ const Posts = () => {
         ))
       ) : (
         <div className='mt-56 font-bold text-4xl text-center'>
-          😥
           <p className="text-center text-gray-500">No posts yet</p>
         </div>
       )}

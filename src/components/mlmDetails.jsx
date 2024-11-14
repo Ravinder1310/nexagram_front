@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast, Toaster } from "react-hot-toast";
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { FaWhatsapp, FaTrophy, FaAward } from "react-icons/fa";
@@ -16,8 +16,10 @@ import blueDiamond from "./images/ranks/8.png";
 import blackDiamond from "./images/ranks/9.png";
 import goldDiamond from "./images/ranks/10.png";
 import axios from "axios";
-import RewardIncomes from "./rewardsIncome";
+import RewardIncomes from "./investerIncome/rewardsIncome";
 import { useNavigate } from "react-router-dom";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { setAuthUser } from "@/redux/authSlice";
 
 // import { BadgeCheckIcon } from '@heroicons/react/solid';
 
@@ -58,12 +60,18 @@ const MlmDetails = () => {
   const [dailyIncome, setDailyIncome] = useState(0);
   const [royalityIncome, setRoyalityIncome] = useState(0);
   const [generationIncome, setGenerationIncome] = useState(0);
-  const [ directTeam, setDirectTeam ] = useState(0);
+  const [directTeam, setDirectTeam] = useState(0);
+  const [withdrawlAmount, setWithdrawlAmount] = useState(0);
   const [rewards, setRewards] = useState(0);
+  const [withdrawlLoading, setWithdrawlLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenWithdrawl, setIsOpenWithdrawl] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+  const openModalWithdrawl = () => setIsOpenWithdrawl(true);
+  const closeModalWithdrawl = () => setIsOpenWithdrawl(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const rankRequirements = [
     {
@@ -197,51 +205,54 @@ const MlmDetails = () => {
     }, 2000);
   };
 
-
   const getDirectReerralIncomeHistory = async () => {
     try {
       let res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/invester/direct-referral-income-history/${user?._id}`
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/v1/invester/direct-referral-income-history/${user?._id}`
       );
       let totalDaily = 0;
-      for(let i=0;i<res.data.data.length;i++){
-          totalDaily += res.data.data[i].amount
+      for (let i = 0; i < res.data.data.length; i++) {
+        totalDaily += res.data.data[i].amount;
       }
-      setReferralIncome(totalDaily)
+      setReferralIncome(totalDaily);
     } catch (error) {
       console.log(error.message);
     }
   };
-
 
   const getRankIncomeHistory = async () => {
     try {
       let res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/invester/rank-income-history/${user?._id}`
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/rank-income-history/${
+          user?._id
+        }`
       );
       // console.log(res.data.data);
       // setRankIncomeHistory(res.data.data);
       let totalDaily = 0;
-      for(let i=0;i<res.data.data.length;i++){
-          totalDaily += res.data.data[i].amount
+      for (let i = 0; i < res.data.data.length; i++) {
+        totalDaily += res.data.data[i].amount;
       }
-      setRoyalityIncome(totalDaily)
+      setRoyalityIncome(totalDaily);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-
   const getDailyIncomeHistory = async () => {
     try {
       let res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/invester/daily-history/${user?._id}`
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/daily-history/${
+          user?._id
+        }`
       );
       let totalDaily = 0;
-      for(let i=0;i<res.data.data.length;i++){
-          totalDaily += res.data.data[i].amount
+      for (let i = 0; i < res.data.data.length; i++) {
+        totalDaily += res.data.data[i].amount;
       }
-      setDailyIncome(totalDaily)
+      setDailyIncome(totalDaily);
     } catch (error) {
       console.log(error.message);
     }
@@ -250,17 +261,65 @@ const MlmDetails = () => {
   const getRewardIncomeHistory = async () => {
     try {
       let res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/v1/invester/reward-income-history/${user?._id}`
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/v1/invester/reward-income-history/${user?._id}`
       );
       // console.log(res.data.data);
       // setRewardIncomeHistory(res.data.data);
       let totalDaily = 0;
-      for(let i=0;i<res.data.data.length;i++){
-          totalDaily += res.data.data[i].amount
+      for (let i = 0; i < res.data.data.length; i++) {
+        totalDaily += res.data.data[i].amount;
       }
-      setRewards(totalDaily)
+      setRewards(totalDaily);
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+
+  // const getWithdrawlHistory = async () => {
+  //   try {
+  //     let res = await axios.get(
+  //       `${
+  //         import.meta.env.VITE_API_URL
+  //       }/api/v1/investerer/withdrawl-history/${user?._id}`
+  //     );
+  //     // console.log(res.data.data);
+  //     setRewardIncomeHistory(res.data.data);
+  //     let totalDaily = 0;
+  //     for (let i = 0; i < res.data.data.length; i++) {
+  //       totalDaily += res.data.data[i].amount;
+  //     }
+  //     setRewards(totalDaily);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+
+
+  const incomeWithdrawl = async () => {
+    try {
+      setWithdrawlLoading(true);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/withdrawl/${
+          user?._id
+        }/${withdrawlAmount}`,
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        // toast.success(res.data.message);
+        console.log(res.data.data);
+        
+        setWithdrawlLoading(false);
+        setWithdrawlAmount(0);
+        setIsOpenWithdrawl(true)
+        dispatch(setAuthUser(res.data.data));
+      }
+    } catch (error) {
+      console.log(error);
+      setWithdrawlLoading(false)
+        toast.error(error.message);
     }
   };
 
@@ -270,8 +329,8 @@ const MlmDetails = () => {
     getRankIncomeHistory();
     getDailyIncomeHistory();
     getRewardIncomeHistory();
-    console.log(".............",user);
-    
+    console.log(".............", user);
+
     // getDirectTeam();
     // console.log("-------------------",user?.ranksAchieved.TOPAZ);
   }, []);
@@ -281,34 +340,73 @@ const MlmDetails = () => {
       <Toaster />
       <div className="flex flex-wrap gap-y-3 justify-between">
       <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white">
-  <p className="font-semibold text-white">$  {parseFloat(user?.totalEarning || "0.00").toFixed(2)}</p>
-  <h1 className="font-semibold text-sm">Total Income</h1>
-</div>
-{/* //#0d355b */}
-        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/revenue-income")}}>
-          <p className="font-semibold text-white">$ {parseFloat(dailyIncome).toFixed(2)}</p>
+            {/* <div className="text-3xl flex items-center justify-center">🎓</div> */}
+            <div>
+            <h2 className=" text-sm font-bold">
+                $ {parseFloat(user?.totalInvestment).toFixed(2) || 0.00 }
+              </h2>
+              <h1 className="text-md font-semibold">My Investment</h1>
+              
+            </div>
+          </div>
+        {/* //#0d355b */}
+        <div
+          className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white"
+          onClick={() => {
+            navigate("/revenue-income");
+          }}
+        >
+          <p className="font-semibold text-white">
+            $ {parseFloat(dailyIncome).toFixed(2) || 0.00}
+          </p>
           <h1 className="font-semibold text-sm">Daily Revenue</h1>
         </div>
-        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/referral-income")}}>
-          <p className="font-semibold text-white">$ {parseFloat(referralIncome).toFixed(2)}</p>
+        <div
+          className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white"
+          onClick={() => {
+            navigate("/referral-income");
+          }}
+        >
+          <p className="font-semibold text-white">
+            $ {parseFloat(referralIncome).toFixed(2) || 0.00}
+          </p>
           <h1 className="font-semibold text-sm">Referral Income</h1>
         </div>
-        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/royality-income")}}>
-          <p className="font-semibold text-white">$ {parseFloat(user?.royaltyIncome).toFixed(2)}</p>
+        <div
+          className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white"
+          onClick={() => {
+            navigate("/royality-income");
+          }}
+        >
+          <p className="font-semibold text-white">
+            $ {parseFloat(user?.royaltyIncome).toFixed(2) || 0.00}
+          </p>
           <h1 className="font-semibold text-sm">Royality Income</h1>
         </div>
-        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/generation-income")}}>
-          <p className="font-semibold text-white">$ {parseFloat(generationIncome).toFixed(2)}</p>
+        <div
+          className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white"
+          onClick={() => {
+            navigate("/generation-income");
+          }}
+        >
+          <p className="font-semibold text-white">
+            $ {parseFloat(generationIncome).toFixed(2) || 0.00}
+          </p>
           <h1 className="font-semibold text-sm">Generation Income</h1>
         </div>
-       
-        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white" onClick={() => {navigate("/rewards-income")}}>
-          <p className="font-semibold text-white">$ {parseFloat(user?.rankReward).toFixed(2)}</p>
-          <h1 className="font-semibold text-sm">Reward Income</h1>
+
+        
+        <div className="w-[49%] h-[70px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-4 py-3 text-white">
+          <p className="font-semibold text-white">
+            $ {parseFloat(user?.totalEarning).toFixed(2) || 0.00}
+          </p>
+          <h1 className="font-semibold text-sm">Total Income</h1>
         </div>
       </div>
       <AnimatedBorderBox>
-        <h1 className="font-bold text-xl text-center mt-4">Your Invitation Link</h1>
+        <h1 className="font-bold text-xl text-center mt-4">
+          Your Invitation Link
+        </h1>
         <div className="w-[95%] m-auto text-center px-2 py-2">
           <div className="w-[100%] m-auto">
             <span className="font-bold text-sm text-wrap text-gray-500">
@@ -332,32 +430,51 @@ const MlmDetails = () => {
           backgroundImage: "url('/images/social.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
+          minHeight: "auto", // Set an appropriate height
+        }}
+      >
+        <h1 className="text-center text-2xl font-serif">Invest to Earn</h1>
+        <div className=" text-center mt-6">
+          <button
+            className="bg-gradient-to-r from-blue-400 to-[#0d355b] p-2 px-2 rounded-md text-md text-white"
+            onClick={() => {
+              navigate("/invester-recharge");
+            }}
+          >
+            Recharge Wallet
+          </button>
+        </div>
+      </div>
+      <div
+        className="mt-8 shadow-lg shadow-gray-300 p-4 py-6 border-2 rounded-lg border-gray-200"
+        style={{
+          backgroundImage: "url('/images/social.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           minHeight: "200px", // Set an appropriate height
         }}
       >
-        {/* <div className="flex justify-between gap-1 text-center">
-          <div className="w-[90px] text-center bg-gradient-to-r from-[#0d355b] to-[#0d355b] rounded-lg px-2 py-1 font-semibold text-white">
-            <h1>$ {user?.rechargeWallet}</h1>
-            <h1>Total</h1>
-          </div>
-          <div className="w-[90px] bg-gradient-to-b from-[#0d355b] to-[#0d355b] rounded-lg px-2 py-1 font-semibold text-white">
-            <h1>$0.00</h1>
-            <h1>Withdraw</h1>
-          </div>
-          <div className="w-[90px] bg-gradient-to-b from-[#0d355b] to-[#0d355b] rounded-lg px-2 py-1 font-semibold text-white">
-            <h1>$0.00</h1>
-            <h1>Balance</h1>
-          </div>
-        </div> */}
-        <h1 className="text-center text-2xl font-serif">Withdraw Your Income</h1>
+        <h1 className="text-center text-2xl font-serif">
+          Withdraw Your Income
+        </h1>
+        <div>
+          <h1 className="text-center mt-2 font-semibold">
+            Balance Wallet : $ {parseFloat(user?.earningWallet).toFixed(2) || 0}
+          </h1>
+        </div>
         <div className="mt-6 text-center">
           <input
-            className="w-[100%] border-2 rounded-md border-gray-200 p-1"
+            className="w-[100%] border-2 rounded-md text-center border-gray-200 p-1"
             type="number"
+            value={withdrawlAmount}
             placeholder="Enter Amount"
+            onChange={(e) => {setWithdrawlAmount(e.target.value)}}
           />
-          <button className="bg-gradient-to-r from-blue-400 to-[#0d355b] mt-6 p-2 px-2 rounded-md text-md text-white">
-            Claim Withdrawal ↗
+          <button className="bg-gradient-to-r from-blue-400 to-[#0d355b] mt-6 p-2 px-2 rounded-md text-md text-white" onClick={incomeWithdrawl}>
+            {
+              withdrawlLoading ? "Processing" : "Claim Withdrawal ↗"
+            }
+            
           </button>
         </div>
       </div>
@@ -391,7 +508,9 @@ const MlmDetails = () => {
             {/* <div className="text-2xl flex items-center justify-center">👥</div> */}
             <div>
               <h1 className="text-md font-semibold mt-1">Direct Team</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">{user?.directTeam.length || 0}</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">
+                {user?.directTeam.length || 0}
+              </h2>
             </div>
           </div>
 
@@ -399,7 +518,9 @@ const MlmDetails = () => {
             {/* <div className="text-2xl flex items-center justify-center">👥</div> */}
             <div>
               <h1 className="text-md font-semibold mt-2">Dazzle Token</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">0</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">
+                {user?.dazzleToken || 0.00}
+              </h2>
             </div>
           </div>
 
@@ -407,25 +528,35 @@ const MlmDetails = () => {
             {/* <div className="text-3xl flex items-center justify-center">💼</div> */}
             <div>
               <h1 className="text-md font-semibold mt-2">Direct Business</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$ {parseFloat(user?.directBussiness).toFixed(2)}</h2>
+              <h2 className="text-gray-300 text-sm font-semibold">
+                $ {parseFloat(user?.directBussiness).toFixed(2) || 0.00}
+              </h2>
             </div>
           </div>
 
           <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
             {/* <div className="text-3xl flex items-center justify-center">💼</div> */}
             <div>
-              <h1 className="text-md font-semibold mt-2">Downline Business</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$0.00</h2>  
+              <h1 className="text-sm font-semibold mt-2">Downline Business</h1>
+              <h2 className="text-gray-300 text-sm font-semibold">
+                $ {parseFloat(user?.teamBusiness).toFixed(2) || 0.00}
+              </h2>
             </div>
           </div>
-
-          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1">
-            {/* <div className="text-3xl flex items-center justify-center">🎓</div> */}
+          <div className="bg-gradient-to-b h-16 text-center w-[100%] from-[#0d355b] to-[#0d355b] rounded-md py-1 text-white gap-1"
+          onClick={() => {
+            navigate("/rewards-income");
+          }}
+          >
+            {/* <div className="text-3xl flex items-center justify-center">💼</div> */}
             <div>
-              <h1 className="text-md font-semibold mt-2">My Investment</h1>
-              <h2 className="text-gray-300 text-sm font-semibold">$ {user?.totalInvestment || 0.00}</h2>
+              <h1 className="text-sm font-semibold mt-2">Reward Income</h1>
+              <h2 className="text-gray-300 text-sm font-semibold">
+              $ {parseFloat(user?.rankReward).toFixed(2) || 0.00}
+              </h2>
             </div>
           </div>
+          
         </div>
       </AnimatedBorderBox>
       <AnimatedBorderBox>
@@ -448,7 +579,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={sapphire}
-              className={`h-[120px] ${user?.ranksAchieved.SAPPHIRE ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.SAPPHIRE ? "" : "grayscale"
+              } `}
               onClick={() => {
                 handleRank(0);
               }}
@@ -459,7 +592,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={ruby}
-              className={`h-[120px] ${user?.ranksAchieved.RUBY ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.RUBY ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(1);
@@ -470,7 +605,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={topaz}
-              className={`h-[120px] ${user?.ranksAchieved.TOPAZ ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.TOPAZ ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(2);
@@ -481,7 +618,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={emerald}
-              className={`h-[120px] ${user?.ranksAchieved.EMERALD ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.EMERALD ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(3);
@@ -492,7 +631,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={platinum}
-              className={`h-[120px] ${user?.ranksAchieved.PLATINUM ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.PLATINUM ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(4);
@@ -503,7 +644,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={diamond}
-              className={`h-[120px] ${user?.ranksAchieved.DIAMOND ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.DIAMOND ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(5);
@@ -514,7 +657,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={greenDiamond}
-              className={`h-[120px] ${user?.ranksAchieved.GREEN_DIAMOND ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.GREEN_DIAMOND ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(6);
@@ -527,7 +672,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={blueDiamond}
-              className={`h-[120px] ${user?.ranksAchieved.BLUE_DIAMOND ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.BLUE_DIAMOND ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(7);
@@ -540,7 +687,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={blackDiamond}
-              className={`h-[120px] ${user?.ranksAchieved.BLACK_DIAMOND ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.BLACK_DIAMOND ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(8);
@@ -553,7 +702,9 @@ const MlmDetails = () => {
           <div className="text-center w-[120px] h-[auto] flex-shrink-0 relative">
             <img
               src={goldDiamond}
-              className={`h-[120px] ${user?.ranksAchieved.CROWN_DIAMOND ? "" : "grayscale"} `}
+              className={`h-[120px] ${
+                user?.ranksAchieved.CROWN_DIAMOND ? "" : "grayscale"
+              } `}
               alt="error"
               onClick={() => {
                 handleRank(9);
@@ -627,6 +778,32 @@ const MlmDetails = () => {
           </div>
         )}
       </AnimatedBorderBox>
+      <Dialog open={isOpenWithdrawl} onOpenChange={closeModalWithdrawl}>
+          {/* <DialogTrigger>
+            <button onClick={onOpen}>Open Dialog</button> 
+          </DialogTrigger> */}
+          <DialogContent className=" rounded-xl bg-transparent backdrop-blur-2xl text-white w-[90%]">
+            <div className="max-w-[100%] rounded-lg shadow-2xl text-white p-6">
+              <button
+                onClick={closeModalWithdrawl}
+                className="absolute top-8 p-2 py-1 right-8 text-lg rounded-lg text-white bg-black font-bold"
+              >
+                &times; {/* Close button */}
+              </button>
+              <div className="text-center">
+                {/* <img
+                  src={comingSoon}
+                  alt="Coming Soon"
+                  className="w-[100%] mx-auto"
+                /> */}
+                <h1 className="text-2xl mt-8 font-bold">
+                Withdrawl Successful !
+                </h1>
+                <h1 className="mt-4 text-lg">The withdrawl amount will be transfer within 24 hours in your wallet.</h1>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
     </div>
   );
 };

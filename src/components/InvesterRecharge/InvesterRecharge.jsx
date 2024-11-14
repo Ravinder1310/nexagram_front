@@ -3,6 +3,8 @@ import { toast, Toaster } from 'react-hot-toast';
 import { createDeposit, getTransactions } from './coinPayments'; // Adjust the path as needed
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import moment from "moment";
+
 
 const DepositForm = () => {
     const location = useLocation();
@@ -64,7 +66,6 @@ const DepositForm = () => {
           fetchTransactions(); // Refresh the transaction list
       } catch (error) {
           console.error('Deposit Error:', error);
-  
           // Check if the error response exists and includes a message
           if (error.response && error.response.data && error.response.data.message) {
               // Show the message sent from the backend
@@ -172,7 +173,7 @@ const DepositForm = () => {
           </button>
         </form>
         {/* Transactions Table */}
-        <div className="mt-8 w-[90%] max-w-screen-lg mx-auto bg-gray-300 p-6 rounded-lg pb-20 text-center shadow-lg">
+        {/* <div className="mt-8 w-[90%] max-w-screen-lg mx-auto bg-gray-300 p-6 rounded-lg pb-20 text-center shadow-lg">
           <h3 className="text-xl md:text-2xl font-semibold mb-4">Transaction History</h3>
           <div className="overflow-x-auto">
             <table className="min-w-full table-auto">
@@ -228,7 +229,77 @@ const DepositForm = () => {
               </tbody>
             </table>
           </div>
+        </div> */}
+        <div className="teamTable mx-auto mt-8 pb-36 text-black w-[95%]">
+        <div className="overflow-x-auto bg-[#0d355b] p-2 rounded-lg">
+          <table className="w-full table-fixed font-medium bg-[#0d355b] p-2 text-white">
+            <thead>
+              <tr className="headTeamTH text-center font-medium text-sm text-white p-2">
+                <th className="w-20 whitespace-nowrap p-2">Sr No.</th>
+                <th className="w-64 whitespace-nowrap p-2">Transaction ID</th>
+                <th className="w-32 whitespace-nowrap p-2">Coin Type</th>
+                <th className="w-32 whitespace-nowrap p-2">Amount</th>
+                <th className="w-32 whitespace-nowrap p-2">Status</th>
+                {/* <th className="w-32 whitespace-nowrap p-2">Direct Business</th> */}
+                <th className="w-32 whitespace-nowrap p-2">Date</th>
+                <th className="w-32 whitespace-nowrap p-2">Action</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {transactions !== 0 ? (
+                transactions?.map((tx, index) => (
+                  <tr
+                    className="thteamInvite border-b text-center border-gray-400 text-white"
+                    key={tx?._id}
+                  >
+                    <td className=" p-2">{index + 1}</td>
+                    <td className=" p-2">{tx?.txn_id}</td>
+                    <td className=" p-2">
+                       {tx?.type}
+                    </td>
+                    <td className=" p-2">
+                      $ {parseFloat(tx?.amount).toFixed(2)}
+                    </td>
+                    <td className=" p-2 text-green-600 font-semibold">
+                       {tx?.status_text}
+                    </td>
+                    
+                    <td className=" p-2">
+                      {moment(tx?.date_time).format("YYYY-MM-DD")}
+                    </td>
+                    <td className=" p-2">
+                    {tx.status_text === 'pay funds' ? (
+                          <button
+                            onClick={() => handlePayFunds(tx)}
+                            className="bg-yellow-500 text-white py-1 px-2 md:py-1 md:px-3 rounded-lg hover:bg-yellow-600 focus:outline-none"
+                          >
+                            Pay Funds
+                          </button>
+                        ) : (
+                          <a 
+                            href={tx.status_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="text-blue-500 hover:underline"
+                          >
+                            View
+                          </a>
+                        )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr className="thteamInvite border-b text-center border-gray-400 text-white">
+                  <td colSpan="7" className="py-4 px-2 text-center">
+                  No transactions found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
+      </div>
       </div> 
     );
 };
