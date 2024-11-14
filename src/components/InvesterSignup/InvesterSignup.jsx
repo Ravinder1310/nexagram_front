@@ -209,7 +209,7 @@ const InvesterSignup = () => {
         className="w-full text-white" // Updated to text-white
       />
     </div>
-    <FontAwesomeIcon className="text-white" icon={faEnvelope} />
+    <FontAwesomeIcon className="mr-3 text-white" icon={faEnvelope} />
   </div>
 
   <div className="form-group">

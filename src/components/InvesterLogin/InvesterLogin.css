@@ -39,14 +39,14 @@
     text-align: center;
 }
 
-.form-group {
+.login-form-group {
     position: relative;
     width: 100%;
     margin: 20px 0;
     border-bottom: 3px solid black;
 }
 
-.form-group .password-toggle {
+.login-form-group .password-toggle {
     position: absolute;
     top: 50%;
     right: 10px;
@@ -56,7 +56,7 @@
     font-size: 1.2em;
 }
 
-.form-group input {
+.login-form-group input {
     width: 100%;
     height: 50px;
     /* border: 2px solid red; */
@@ -71,7 +71,7 @@
     
 }
 
-.form-group label {
+.login-form-group label {
     position: absolute;
     top: 40%;
     left: 10px;
@@ -86,8 +86,8 @@ input:valid ~ label {
     top: -5px;
 } */
 
-.form-group .fa-envelope,
-.form-group .fa-lock {
+.login-form-group .fa-envelope,
+.login-form-group .fa-lock {
     position: absolute;
     top: 50%;
     right: 10px;
@@ -144,16 +144,16 @@ p > a:hover {
         font-size: 1.5em;
     }
 
-    .form-group input {
+    .login-form-group input {
         height: 45px;
         font-size: 1em;
     }
 
-    .form-group label {
+    .login-form-group label {
         font-size: 1em;
     }
 
-    .form-group .password-toggle {
+    .login-form-group .password-toggle {
         font-size: 1.1em;
     }
 
@@ -173,16 +173,16 @@ p > a:hover {
         font-size: 1.2em;
     }
 
-    .form-group input {
+    .login-form-group input {
         height: 40px;
         font-size: 0.9em;
     }
 
-    .form-group label {
+    .login-form-group label {
         font-size: 0.9em;
     }
 
-    .form-group .password-toggle {
+    .login-form-group .password-toggle {
         font-size: 1em;
     }
 

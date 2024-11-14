@@ -175,7 +175,7 @@ console.log(user);
                         </p>
                     )}
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
+                        <div className="login-form-group">
                             <input
                                 type="text"
                                 value={walletAddress || ''}
