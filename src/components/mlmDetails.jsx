@@ -87,7 +87,7 @@ const MlmDetails = () => {
       reward: 250,
     },
     {
-      rank: "RUBI",
+      rank: "RUBY",
       logo: ruby,
       self: 500,
       directTeam: 7,
@@ -744,7 +744,7 @@ const MlmDetails = () => {
                 <img src={congrats}/>
                 <h1>You Achieved the <span className="text-lg font-bold text-[#0d355b]">{rankRequirements[selectedRank].rank}</span> rank!</h1>
                  <button
-                  className=" mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                  className=" mt-4 bg-[#0d355b] text-white px-4 py-2 rounded"
                   onClick={closeModal}
                 >
                   Close
@@ -842,6 +842,24 @@ const MlmDetails = () => {
             </div>
           </DialogContent>
         </Dialog>
+        {/* Confetti Effect */}
+        {/* {showConfetti && (
+          <div className="w-[100%]">
+            <Confetti
+              numberOfPieces={500}
+              recycle={false}
+              gravity={0.3}
+              colors={[
+                "#FF0000",
+                "#00FF00",
+                "#0000FF",
+                "#FFFF00",
+                "#FF00FF",
+                "#00FFFF",
+              ]}
+            />
+          </div>
+        )} */}
     </div>
   );
 };

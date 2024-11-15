@@ -5,7 +5,7 @@ import { faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Layout from '../MainLayout';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser } from '@/redux/authSlice';
 
@@ -146,8 +146,13 @@ const InvesterLogin = () => {
             console.log(response)
             if (response.data.success){
                 dispatch(setAuthUser(response.data.user))
-                navigate('/');
-                toast.success(res.data.message);
+                
+                setTimeout(() => {
+                    navigate("/");  
+                },2000)
+                toast('Login Successfully');
+                // navigate('/');
+                
             } else {
                 setError(response.data.message);
             }
@@ -167,6 +172,7 @@ console.log(user);
     return (
 
             <div className='login-container'>
+                <Toaster/>
                 <div className="login-card">
                     <h2>Login</h2>
                     {!isDAppBrowser && (

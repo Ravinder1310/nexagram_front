@@ -43,6 +43,7 @@ import TeamDetails from './teamDetails/teamDetails'
 import LikeIncome from './components/influencersIncome/LikeIncome'
 import InvesterWithdrawlHistory from './components/investerWithdrawl'
 import AllCryptoTransaction from './components/Admin/cryptoTransaction/cryptoTransaction'
+import FireworksEffect from './components/fireWork'
 
 const browserRouter = createBrowserRouter([
   {
@@ -144,6 +145,10 @@ const browserRouter = createBrowserRouter([
       {
         path: '/invester-withdrawl',
         element: <ProtectedRoutes> <InvesterWithdrawlHistory /></ProtectedRoutes>
+      },
+      {
+        path: '/firework',
+        element: <ProtectedRoutes> <FireworksEffect /></ProtectedRoutes>
       },
     ]
   },
