@@ -146,7 +146,9 @@ const InvesterLogin = () => {
             console.log(response)
             if (response.data.success){
                 dispatch(setAuthUser(response.data.user))
-                navigate('/');
+                // setTimeout(() => {
+                    navigate("/");  
+                // },3000)
                 toast.success(res.data.message);
             } else {
                 setError(response.data.message);

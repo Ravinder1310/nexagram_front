@@ -75,6 +75,23 @@ const MlmDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const get_Invester =async  ()=>{
+    try{
+      const invester = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/invester/get-invester/${user._id}`,  { withCredentials: true })
+      if(invester.data.success){
+        console.log("Invester=====>",invester.data)
+
+        dispatch(setAuthUser(invester.data.user));
+      }
+    }catch(err){
+      console.log("Error get Invester ",err)
+    }
+  }
+
+  useEffect(()=>{
+    get_Invester()
+  },[])
+
   const rankRequirements = [
     {
       rank: "SAPPHIRE",
