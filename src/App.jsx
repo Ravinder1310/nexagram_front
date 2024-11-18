@@ -44,6 +44,7 @@ import LikeIncome from './components/influencersIncome/LikeIncome'
 import InvesterWithdrawlHistory from './components/investerWithdrawl'
 import AllCryptoTransaction from './components/Admin/cryptoTransaction/cryptoTransaction'
 import FireworksEffect from './components/fireWork'
+import UsdtTest from './components/Usdttest/UsdtTest'
 
 const browserRouter = createBrowserRouter([
   {
@@ -163,6 +164,10 @@ const browserRouter = createBrowserRouter([
     element: <InvesterLogin />
   },
   {
+    path: '/usdt-recharge',
+    element: <UsdtTest />
+  },
+  {
     path: '/login',
     element: <Login />
   },
@@ -206,6 +211,7 @@ const browserRouter = createBrowserRouter([
     path: '/admin/all-withdrawl-requests',
     element:<AdminProtectedRoute> <AllCryptoTransaction /> </AdminProtectedRoute>
   },
+  
 
 ])
 
