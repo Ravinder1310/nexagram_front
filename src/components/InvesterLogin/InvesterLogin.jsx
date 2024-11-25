@@ -146,10 +146,13 @@ const InvesterLogin = () => {
             console.log(response)
             if (response.data.success){
                 dispatch(setAuthUser(response.data.user))
+                console.log("user ============>",response.data.user)
                 setTimeout(() => {
                     navigate("/");  
+                    console.log("user ============>",user)
                 },2000)
                 toast('Login Successfully');
+
             } else {
                 setError(response.data.message);
             }

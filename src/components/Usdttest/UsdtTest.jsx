@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 
 function UsdtTest() {
@@ -86,17 +86,18 @@ function UsdtTest() {
       setStatus(`Error: ${error.message}`);
     }
   };
+  useEffect(()=>{handleConnectWallet()})
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold mb-4">USDT Transfer to Deployer Wallet</h1>
+    <div className="flex flex-col shadow-lg shadow-gray-300 items-center justify-center py-6 border-2 rounded-md border-gray-300 bg-white">
+      <h1 className="text-2xl font-bold mb-4">Invest To Earn</h1>
 
-      <button
-        onClick={handleConnectWallet}
+      <div
+        
         className="mb-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
       >
         {account ? `Connected: ${account.substring(0, 6)}...${account.slice(-4)}` : 'Connect Wallet'}
-      </button>
+      </div>
 
       <input
         type="number"
@@ -108,9 +109,9 @@ function UsdtTest() {
 
       <button
         onClick={handleTransfer}
-        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+        className="bg-gradient-to-r from-blue-400 to-[#0d355b]  hover:bg-green-400 text-white py-2 px-4 rounded"
       >
-        Transfer USDT
+        Deposite Now
       </button>
 
       {status && <p className="mt-4 text-sm text-gray-700">{status}</p>}

@@ -91,7 +91,9 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: '/invester-recharge',
-        element: <ProtectedRoutes><InvesterRecharge /></ProtectedRoutes>
+        element: <ProtectedRoutes><UsdtTest /></ProtectedRoutes>
+        //coin payment gateway for recharge ====> element: <ProtectedRoutes><InvesterRecharge /></ProtectedRoutes>
+        
       },
       {
         path: '/generation-income',
