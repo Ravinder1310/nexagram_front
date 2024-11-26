@@ -1,10 +1,13 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
+import { useSelector } from "react-redux";
 
 function UsdtTest() {
   const [amount, setAmount] = useState('');
   const [account, setAccount] = useState('');
   const [status, setStatus] = useState('');
+  const { user } = useSelector((store) => store.auth);
   const contractAddress = '0xF8d4e350f037057bf2dc751c6d352F6b2Fb15215';
   const usdtAddress = '0x55d398326f99059fF775485246999027B3197955';
 
@@ -56,10 +59,10 @@ function UsdtTest() {
         return;
       }
 
-      if (!amount || parseFloat(amount) <= 0) {
-        setStatus('Please enter a valid amount');
-        return;
-      }
+      // if (!amount || parseFloat(amount) < 25) {
+      //   setStatus('Amount should be greater than $25');
+      //   return;
+      // }
 
       const web3 = new Web3(window.ethereum);
       const usdtContract = new web3.eth.Contract(usdtAbi, usdtAddress);
@@ -81,12 +84,19 @@ function UsdtTest() {
       const contract = new web3.eth.Contract(contractAbi, contractAddress);
       await contract.methods.sendUSDTToDeployer(amountInWei).send({ from: account });
 
-      setStatus('Transfer successful!');
+      // setStatus('Transfer successful!');
+      try{
+        console.log("callet inside try ")
+        const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/invester/recharge/${user._id}`,{amount})
+        setStatus(res.data.message)
+      }catch(err){
+        setStatus("Some thing went wrong")
+      }
     } catch (error) {
       setStatus(`Error: ${error.message}`);
     }
   };
-  useEffect(()=>{handleConnectWallet()})
+  useEffect(()=>{handleConnectWallet()},[])
 
   return (
     <div className="flex flex-col shadow-lg shadow-gray-300 items-center justify-center py-6 border-2 rounded-md border-gray-300 bg-white">
