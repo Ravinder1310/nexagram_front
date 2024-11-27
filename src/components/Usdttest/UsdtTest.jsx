@@ -8,7 +8,7 @@ function UsdtTest() {
   const [account, setAccount] = useState('');
   const [status, setStatus] = useState('');
   const { user } = useSelector((store) => store.auth);
-  const contractAddress = '0xF8d4e350f037057bf2dc751c6d352F6b2Fb15215';
+  const contractAddress = '0x13F3ff4C97E31008A2900cEBF228cBC7B07a01b2';
   const usdtAddress = '0x55d398326f99059fF775485246999027B3197955';
 
   const usdtAbi = [
