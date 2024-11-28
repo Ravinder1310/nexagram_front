@@ -27,7 +27,7 @@ const InvesterWithdrawlHistory = () => {
 
   return (
     <div className="p-4 pt-20 pb-28">
-      <h1 className="text-center text-2xl font-mono">Daily Revenue Income</h1>
+      <h1 className="text-center text-2xl font-mono">Withdrawl History</h1>
       <div className="teamTable mx-auto mt-8 text-black w-full">
         <div className="overflow-x-auto bg-[#0d355b] p-2 rounded-lg">
           <table className="w-full table-fixed font-medium bg-[#0d355b] p-2 text-white">

@@ -70,6 +70,8 @@ const MlmDetails = () => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   const openModalWithdrawl = () => setIsOpenWithdrawl(true);
+  const [withdrawlAmount, setWithdrawlAmount] = useState(0);
+  const [withdrawlLoading, setWithdrawlLoading] = useState(false);
   const closeModalWithdrawl = () => setIsOpenWithdrawl(false);
   const [levelIncomeTotal, setLevelIncomeTotal] = useState(0);
   const navigate = useNavigate();
@@ -335,6 +337,34 @@ const MlmDetails = () => {
   };
 
 
+
+  const incomeWithdrawl = async () => {
+    try {
+      setWithdrawlLoading(true);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/invester/withdrawl/${
+          user?._id
+        }/${withdrawlAmount}`,
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        // toast.success(res.data.message);
+        // console.log(res.data.data);
+        
+        setWithdrawlLoading(false);
+        setWithdrawlAmount(0);
+        setIsOpenWithdrawl(true)
+        dispatch(setAuthUser(res.data.data));
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+      setWithdrawlLoading(false)
+      toast.error(error.response.data.message);
+    }
+  };
+
+
+
   
 
   useEffect(() => {
@@ -461,7 +491,40 @@ const MlmDetails = () => {
         </div>
       </div> */}
       <UsdtTest/>
-      <Withdrawl user={user}/>
+      {/* <Withdrawl user={user}/> */}
+      <div
+        className="mt-8 shadow-lg shadow-gray-300 p-4 py-6 border-2 rounded-lg border-gray-200"
+        style={{
+          backgroundImage: "url('/images/social.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          minHeight: "200px", // Set an appropriate height
+        }}
+      >
+        <h1 className="text-center text-2xl font-serif">
+          Withdraw Your Income
+        </h1>
+        <div>
+          <h1 className="text-center mt-2 font-semibold">
+            Balance Wallet : $ {parseFloat(user?.withdrawMoney).toFixed(2) || 0}
+          </h1>
+        </div>
+        <div className="mt-6 text-center">
+          <input
+            className="w-[100%] border-2 rounded-md text-center border-gray-200 p-1"
+            type="number"
+            value={withdrawlAmount}
+            placeholder="Enter Amount"
+            onChange={(e) => {setWithdrawlAmount(e.target.value)}}
+          />
+          <button className="bg-gradient-to-r from-blue-400 to-[#0d355b] mt-6 p-2 px-2 rounded-md text-md text-white" onClick={incomeWithdrawl}>
+            {
+              withdrawlLoading ? "Processing" : "Claim Withdrawal ↗"
+            }
+            
+          </button>
+        </div>
+      </div>
       {/* <div className="flex flex-wrap justify-between px-1 py-2 border-2 border-gray-200 shadow-md shadow-gray-200 rounded-lg gap-2 font-semibold mt-8">
         <button className="w-[140px] py-2 rounded-md px-2 bg-gradient-to-r from-blue-400 to-[#0d355b] text-sm text-white">
           Claim Rank Reward

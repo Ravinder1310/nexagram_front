@@ -10,7 +10,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { setPosts, setSelectedPost } from "@/redux/postSlice";
 import { Badge } from "./ui/badge";
-import avatar from "./images/avatar.png"
+import avatar from "./images/avatar.png";
 import { useNavigate } from "react-router-dom";
 
 const Post = ({ post, isFollowingUsers }) => {
@@ -26,7 +26,7 @@ const Post = ({ post, isFollowingUsers }) => {
   const videoRef = useRef(null);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isFollowing, setIsFollowing] = useState(isFollowingUsers);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // State for video mute functionality
   const [isMuted, setIsMuted] = useState(false);
@@ -143,14 +143,14 @@ const Post = ({ post, isFollowingUsers }) => {
         }`,
         { withCredentials: true }
       );
-  
+
       // If the request was successful
       if (res.data.success) {
         toast.success(res.data.message);
-  
+
         // Toggle the `isFollowing` state based on the current state
         setIsFollowing((prevIsFollowing) => !prevIsFollowing);
-  
+
         // Update the posts array to reflect the new following state
         const updatedPostData = posts.map((p) =>
           p?._id === post?._id
@@ -173,13 +173,11 @@ const Post = ({ post, isFollowingUsers }) => {
         // Dispatch the updated posts to the Redux store
         dispatch(setPosts(updatedPostData));
       }
-    } catch (error) { 
+    } catch (error) {
       console.error("Error in followUnfollowHandler: ", error);
       toast.error("Something went wrong. Please try again.");
     }
   };
-  
-  
 
   const handleVideoPlay = async () => {
     // console.log("Video is playing");
@@ -208,6 +206,8 @@ const Post = ({ post, isFollowingUsers }) => {
 
   useEffect(() => {
     const videoElement = videoRef.current;
+    // console.log('post',post);
+    
     // console.log("IsFollowingUser", isFollowingUsers);
 
     // Set up the Intersection Observer
@@ -241,15 +241,20 @@ const Post = ({ post, isFollowingUsers }) => {
   return (
     <div className="my-14 w-full">
       <div className="flex items-center px-2 justify-between">
-        <div className="flex items-center gap-2" onClick={() => {navigate(`/profile/${post?.author?._id}`)}}>
+        <div
+          className="flex items-center gap-2"
+          onClick={() => {
+            navigate(`/profile/${post?.author?._id}`);
+          }}
+        >
           <Avatar>
             <AvatarImage src={post.author?.profilePicture} alt="post_image" />
             <AvatarFallback src={avatar} />
           </Avatar>
           <div className="flex items-center gap-3">
-            <h1>{post.author?.username}</h1>
+            <h1 className="font-semibold text-blue-800">{post.author?.username}</h1>
             {user?._id === post.author._id && (
-              <Badge variant="secondary">Author</Badge>
+              <Badge variant="secondary" className="p-2 py-1 font-semibold text-xs bg-blue-700 text-white">Author</Badge>
             )}
           </div>
         </div>
@@ -304,16 +309,14 @@ const Post = ({ post, isFollowingUsers }) => {
         <div className="relative">
           <video
             ref={videoRef}
-            className="rounded-sm my-2 w-full aspect-square object-cover"
+            className="rounded-sm w-full aspect-square object-cover mt-2 "
             src={post.media}
             alt="post_video"
-            // autoPlay
             loop
             muted={isMuted} // Ensure the video is muted by default
             playsInline
             onPlay={handleVideoPlay}
             onClick={toggleMute}
-            // controls
           />
           {/* Mute button */}
           <button
@@ -323,23 +326,25 @@ const Post = ({ post, isFollowingUsers }) => {
             {isMuted ? (
               <span role="img" aria-label="Mute">
                 🔇
-              </span> // Mute icon
+              </span>
             ) : (
               <span role="img" aria-label="Unmute">
                 🔊
-              </span> // Unmute icon
+              </span>
             )}
           </button>
         </div>
       ) : (
         <img
-          className="rounded-sm my-2 w-full aspect-square object-cover"
-          src={post.media}
-          alt="post_img"
-        />
+        className="rounded-sm w-screen h-80 object-fill mt-3"
+        src={post.media}
+        alt="post_img"
+      />
+      
+
       )}
 
-      <div className="flex items-center justify-between my-2 px-2">
+      <div className="flex items-center justify-between px-2 my-2">
         <div className="flex items-center gap-3">
           {liked ? (
             <FaHeart
@@ -383,7 +388,7 @@ const Post = ({ post, isFollowingUsers }) => {
       {/* <p className="px-2">
         <span className="font-medium mr-2">{post.author?.username}</span>
         {post.caption}
-      </p> */}  
+      </p> */}
       {comment.length > 0 && (
         <span
           onClick={() => {

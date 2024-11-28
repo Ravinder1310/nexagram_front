@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "./ui/button";
 import { clearLikeNotifications } from "@/redux/rtnSlice";
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import avatar from "./images/avatar.png";
 
 const TopNav = () => {
@@ -18,31 +18,35 @@ const TopNav = () => {
   );
   const [notificationOpen, setNotificationOpen] = useState(false);
 
-const notificationHandler = () => {
-  setNotificationOpen(!notificationOpen);
-            // Only clear notifications when closing the notification popover
-            if (notificationOpen) {
-                dispatch(clearLikeNotifications());
-            }
-}
+  const notificationHandler = () => {
+    setNotificationOpen(!notificationOpen);
+    // Only clear notifications when closing the notification popover
+    if (notificationOpen) {
+      dispatch(clearLikeNotifications());
+    }
+  };
 
   useEffect(() => {
     const link = document.createElement("link");
     link.href = "https://fonts.googleapis.com/css2?family=Lobster&display=swap";
     link.rel = "stylesheet";
     document.head.appendChild(link);
+    console.log('klkkkkk',likeNotification);
   }, []);
 
   return (
     <div className="fixed sm:hidden w-[100%] z-40">
-      <div className="flex justify-between items-center bg-white py-2 shadow-md shadow-gray-300">
+      <div className="flex justify-between items-center bg-blue-400 py-2 shadow-md shadow-gray-300 text-white">
         <div className="flex items-center">
           {/* <img src={main_logo} className="w-[40px]" alt="error" /> */}
           <h1
             className="text-2xl ml-2"
             style={{ fontFamily: "'Lobster', cursive" }}
           >
-            <span className="text-black">DazzleDen</span>
+            <span className="bg-white bg-clip-text text-transparent animate-fade">
+              DazzleDen
+            </span>
+
             {/* <span className="text-orange-400 ml-1"></span> */}
           </h1>
         </div>
@@ -65,9 +69,12 @@ const notificationHandler = () => {
 
           <Popover open={notificationOpen} onOpenChange={setNotificationOpen}>
             <PopoverTrigger asChild>
+              {/* {
+                likeNotification.length === 0 ? () : ()
+              } */}
               <Button
                 size="icon"
-                className={`rounded-full h-5 w-5 bg-red-600 hover:bg-red-600 absolute ${
+                className={`rounded-full h-5 w-5 ${likeNotification.length === 0 ? "bg-transparent text-transparent" : "bg-red-600 hover:bg-red-600"}  absolute ${
                   location.pathname.includes("profile")
                     ? " bottom-8 right-20"
                     : " bottom-8 right-10"
@@ -76,7 +83,7 @@ const notificationHandler = () => {
                 {likeNotification.length}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className='mt-10 rounded-xl bg-transparent backdrop-blur-2xl text-blue-500'>
+            <PopoverContent className="mt-10 rounded-xl bg-transparent backdrop-blur-2xl text-blue-500">
               <div className="">
                 {likeNotification.length === 0 ? (
                   <p>No new notifications</p>

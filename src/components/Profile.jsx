@@ -14,6 +14,8 @@ import Messages from "./Messages";
 import { FaArrowLeft } from "react-icons/fa";
 import sendLogo from "./images/message2.png";
 import { Input } from "./ui/input";
+import { LogOut } from "lucide-react";
+
 
 
 const Profile = () => {
@@ -173,6 +175,30 @@ const Profile = () => {
      
   },[isMessaging])
 
+
+
+  const logoutHandler = async () => {
+
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/user/logout`,
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        dispatch(setAuthUser(null));
+        dispatch(setSelectedPost(null));
+        dispatch(setPosts([]));
+        navigate("/login");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response);
+    }
+  };
+
+
+
   return (
     <div className="sm:flex w-[100%] sm:justify-center pt-20">
 
@@ -297,6 +323,13 @@ const Profile = () => {
               </Button>
                 )
               }
+              <Button
+                  variant="secondary"
+                  className={` hover:bg-gray-200 w-[50px] h-8 flex items-center `}
+                  onClick={logoutHandler}
+                >
+                  <LogOut className="" />
+                </Button>
             </>
           ) : isFollowingProfile ? (
             // Optionally show something else here if needed
