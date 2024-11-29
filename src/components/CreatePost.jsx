@@ -35,8 +35,10 @@ const CreatePost = ({ open, setOpen }) => {
     formData.append("caption", caption);
     if (file) formData.append("media", file); // Correctly appending the file as 'media'
     
+    
     try {
         setLoading(true);
+
         const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/post/addpost`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -44,6 +46,8 @@ const CreatePost = ({ open, setOpen }) => {
             withCredentials: true,
         });
         if (res.data.success) {
+    // console.log('---->',  res.data.post)
+          
             dispatch(setPosts([res.data.post, ...posts]));
             toast.success(res.data.message);
             setFile("");

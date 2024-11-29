@@ -206,7 +206,7 @@ const Post = ({ post, isFollowingUsers }) => {
 
   useEffect(() => {
     const videoElement = videoRef.current;
-    // console.log('post',post);
+    console.log('post==============>',post);
     
     // console.log("IsFollowingUser", isFollowingUsers);
 
@@ -336,7 +336,7 @@ const Post = ({ post, isFollowingUsers }) => {
         </div>
       ) : (
         <img
-        className="rounded-sm w-screen h-80 object-fill mt-3"
+        className="rounded-sm w-screen h-auto object-fill mt-3"
         src={post.media}
         alt="post_img"
       />
@@ -385,10 +385,10 @@ const Post = ({ post, isFollowingUsers }) => {
         )}
       </div>
 
-      {/* <p className="px-2">
-        <span className="font-medium mr-2">{post.author?.username}</span>
+      <p className="px-2 text-left">
+        <span className="font-semibold mr-2">{post.author?.username}</span>
         {post.caption}
-      </p> */}
+      </p>
       {comment.length > 0 && (
         <span
           onClick={() => {
